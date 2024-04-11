@@ -1,0 +1,6 @@
+.DS_Store
+DEVSENSE
+backend/composer.json
+backend/composer.lock
+frontend/app/ordering-kiosk/.env
+database/data

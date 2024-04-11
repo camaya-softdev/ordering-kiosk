@@ -1,0 +1,36 @@
+version: '3.3'
+
+networks:
+  kiosk-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+
+services:
+  mysql_db:
+    container_name: kiosk-mysql-db-cluster
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: web-app
+    ports:
+      - 3006:3306
+    restart: unless-stopped
+    volumes:
+      - ./data/mysql:/var/lib/mysql       
+    networks:
+      kiosk-network:
+        ipv4_address: 172.22.0.12
+
+  phpmyadmin:
+    container_name: kiosk-phpmyadmin
+    image: phpmyadmin:latest
+    ports:
+      - 9001:80
+    environment:
+      - PMA_ARBITRARY=1
+    restart: unless-stopped
+    networks:
+      kiosk-network:
+        ipv4_address: 172.22.0.13
