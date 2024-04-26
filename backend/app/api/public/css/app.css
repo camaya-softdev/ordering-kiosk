@@ -66,3 +66,24 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+   /* CSS for nav link */
+.sidebar-footer .nav-link.active {
+    background-color: #F2F4F7 !important; /* Change background color */
+  }
+
+  /* CSS for tab content */
+  .tab-pane.active {
+    background-color: #F2F4F7; /* Change background color */
+  }
+
+.add-resto {
+    background-color: #FF8C00 !important;
+    color: white;
+    font-weight: bold;
+}
+
+.add-resto:hover {
+    background-color: #a15a04;
+    color: white;
+}

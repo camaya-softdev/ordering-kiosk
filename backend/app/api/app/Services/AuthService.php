@@ -24,10 +24,10 @@ class AuthService
                 'status' => $userData['status'],
             ]);
 
-            // Log::create([
-            //     'user_id' => Auth::id(),
-            //     'action' => 'User registered: ' . $user->username,
-            // ]);
+            Log::create([
+                'user_id' => Auth::id(),
+                'action' => 'User registered: ' . $user->username,
+            ]);
 
             DB::commit();
 
