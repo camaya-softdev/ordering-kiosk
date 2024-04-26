@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\OutletController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Route::group(['prefix' => 'auth'], function () {
+
+// });
+
+
+Route::post('login', [AuthController::class, 'login']);
+
+
+Route::group(['middleware' => 'auth:sanctum'], function() {
+   //Create new Outlet
+   Route::post('outlets', [OutletController::class, 'store']);
+   //Update Outlet
+   Route::put('outlets/{outlet}', [OutletController::class, 'update']);
+   //Delete Outlet
+   Route::delete('outlets/{outlet}', [OutletController::class, 'destroy']);
 });
+
+Route::post('register', [AuthController::class, 'register']);
+  Route::get('logout', [AuthController::class, 'logout']);
+  Route::get('user', [AuthController::class, 'user']);
+
+  //Outlets
+  Route::get('outlets', [OutletController::class, 'index']);
+
+  Route::get('/outlet_category/{outlet_id}', [OutletController::class, 'OutletCategory']);
+  Route::apiResource('categories', CategoryController::class);
+  Route::get('/category_products/{category_id}', [CategoryController::class, 'CategoryProducts']);
+  Route::apiResource('products', ProductController::class);

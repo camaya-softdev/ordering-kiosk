@@ -52,6 +52,15 @@ return [
     */
 
     'channels' => [
+        'database' => [
+            'driver' => 'database',
+            'table' => 'logs',
+            'connection' => null,
+            'queue' => true,
+            'queue_connection' => null,
+            'model' => App\Models\Log::class,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
