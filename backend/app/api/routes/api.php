@@ -31,15 +31,13 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
-   //Create new Outlet
    Route::post('outlets', [OutletController::class, 'store']);
-   //Update Outlet
    Route::put('outlets/{outlet}', [OutletController::class, 'update']);
-   //Delete Outlet
    Route::delete('outlets/{outlet}', [OutletController::class, 'destroy']);
+   Route::post('register', [AuthController::class, 'register']);
 });
 
-Route::post('register', [AuthController::class, 'register']);
+
   Route::get('logout', [AuthController::class, 'logout']);
   Route::get('user', [AuthController::class, 'user']);
 
