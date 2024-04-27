@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class OutletController extends Controller
 {
@@ -26,7 +27,11 @@ class OutletController extends Controller
         $loginData = session('loginData');
         if ($loginData) {
 
-            $outlets = Outlet::all();
+            $outlets = Outlet::leftJoin('users', 'outlets.id', '=', 'users.assign_to_outlet')
+            ->select('outlets.*', DB::raw('COUNT(users.id) as user_count'))
+            ->groupBy('outlets.id')
+            ->get();
+
 
             return view('outlet', ['outlets' => $outlets, 'loginData' => $loginData]);
 
@@ -91,6 +96,7 @@ class OutletController extends Controller
         $this->outletService->updateOutlet($outlet, [
             'name' => $request->input('name'),
             'status' => $request->input('status'),
+            'updated_at' => now()->setTimezone('Asia/Manila'),
             'image' => $imageUrl,
         ]);
 
