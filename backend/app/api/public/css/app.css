@@ -80,10 +80,37 @@
 .add-resto {
     background-color: #FF8C00 !important;
     color: white;
-    font-weight: bold;
+    border-radius: 10px;
+    width: 100%;
 }
 
 .add-resto:hover {
     background-color: #a15a04;
     color: white;
 }
+
+.search-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  #searchInput {
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+
+
+  }
+  .search-icon {
+    position: absolute;
+    left: 5px; /* Adjust as needed depending on the icon size and padding */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa; /* Adjust the color of the icon */
+  }
+
+
