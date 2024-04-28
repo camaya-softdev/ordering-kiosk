@@ -1,48 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import "./index.css"
-import './App.css'
-import { DatePicker } from 'antd';
+import React, { useState } from "react";
+import "./index.css";
+import "./App.css";
+import Foodoutlet from "./Pages/Foodoutlet/index";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showOrderButton, setShowOrderButton] = useState(true); // State to manage visibility of Order button
+
+  // Function to toggle visibility of Order button
+  const toggleOrderButton = () => {
+    setShowOrderButton(!showOrderButton);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-        onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <h1>
-      Hello world!
-    </h1>
-  
-    <DatePicker placeholder="select date" />
-
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* Render the button or Foodoutlet component based on showOrderButton */}
+      {showOrderButton ? (
+        <div className="main-container">
+          <div className="img" />
+          <div className="img-2">
+            <div className="img-3" />
+            <div className="pic" />
+            <div className="section">
+              <span className="text" onClick={toggleOrderButton}>
+                Start Order
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Foodoutlet onGoBack={toggleOrderButton} /> // Pass the callback function
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
