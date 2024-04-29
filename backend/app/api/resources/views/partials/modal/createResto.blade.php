@@ -92,7 +92,7 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content" style=" width: 430px; border-radius: 12px;">
+      <div class="modal-content" style=" border-radius: 12px;">
 
         <div class="modal-body">
           <!-- Form inside the modal -->
@@ -119,23 +119,22 @@
 
               <h5>Add Restaurant</h5><br>
 
-            <label for="image">Display Image:</label>
-            <div class="form-group resto-upload">
-                <div class="row">
-                    <div class="col">
-                        <label for="image">Upload Image (Max Size: 2MB):</label>
-                        <input class="btn btn-secondary" type="file" class="form-control-file" id="image" name="image" onchange="previewImage(this)">
-                        <small id="fileSizeError" class="text-danger" style="display:none;">File size exceeds the limit (Max Size: 2MB)</small>
-                    </div>
-                    <div class="col">
-                        <div id="imagePreview" style="display:none;">
-                            <img id="preview" src="#" alt="Image Preview" height="100">
+              <label for="image">Display Image:</label>
+              <div class="form-group resto-upload">
+                  <div class="row">
+                      <div class="col">
+                          <label for="image">Upload Image (Max Size: 2MB):</label>
+                          <input class="btn btn-secondary" type="file" class="form-control-file" id="image" name="image" onchange="checkFileSizeAndType(this)" accept=".jpeg,.jpg,.png">
+                          <small id="fileSizeError" class="text-danger" style="display:none;">File size exceeds the limit (Max Size: 2MB)</small>
+                          <small id="fileTypeError" class="text-danger" style="display:none;">Only JPEG and PNG files are allowed</small>
+                      </div>
+                      <div class="col">
+                          <div id="imagePreview" style="display:none;">
+                              <img id="preview" src="#" alt="Image Preview" height="100">
                           </div>
-                    </div>
-                </div>
-
-
-            </div>
+                      </div>
+                  </div>
+              </div>
 
 
 
@@ -157,33 +156,32 @@
                 <label>Status:</label><br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="btn btn-block btn-custom-unselected" id="status_active_label">
+                        <label class="btn btn-block btn-custom-unselected" id="create_status_active_label">
                             <div class="row">
                                 <div class="col">
                                     Active
                                 </div>
                                 <div class="col">
-                                    <input type="radio" name="status" id="status_active" value="1" autocomplete="off">
+                                    <input type="radio" name="create_status" id="create_status_active" value="1" autocomplete="off">
                                 </div>
-
                             </div>
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <label class="btn btn-block btn-custom-unselected" id="status_inactive_label">
+                        <label class="btn btn-block btn-custom-unselected" id="create_status_inactive_label">
                             <div class="row">
                                 <div class="col">
                                     Inactive
                                 </div>
                                 <div class="col">
-                                    <input type="radio" name="status" id="status_inactive" value="0" autocomplete="off">
+                                    <input type="radio" name="create_status" id="create_status_inactive" value="0" autocomplete="off">
                                 </div>
-
                             </div>
                         </label>
                     </div>
                 </div>
             </div>
+
 
 
             <div class="form-group">
@@ -204,61 +202,96 @@
 
 
 <script>
-    // Get the radio buttons
-var statusActive = document.getElementById("status_active");
-var statusInactive = document.getElementById("status_inactive");
+var createStatusActive = document.getElementById("create_status_active");
+var createStatusInactive = document.getElementById("create_status_inactive");
+var updateStatusActive = document.getElementById("update_status_active");
+var updateStatusInactive = document.getElementById("update_status_inactive");
 
-// Add event listeners
-statusActive.addEventListener("change", function() {
-    if (statusActive.checked) {
-        document.getElementById("status_active_label").classList.remove("btn-custom-unselected");
-        document.getElementById("status_active_label").classList.add("btn-custom-selected");
-        document.getElementById("status_inactive_label").classList.remove("btn-custom-selected");
-        document.getElementById("status_inactive_label").classList.add("btn-custom-unselected");
+// Add event listeners for create form
+createStatusActive.addEventListener("change", function() {
+    if (createStatusActive.checked) {
+        document.getElementById("create_status_active_label").classList.remove("btn-custom-unselected");
+        document.getElementById("create_status_active_label").classList.add("btn-custom-selected");
+        document.getElementById("create_status_inactive_label").classList.remove("btn-custom-selected");
+        document.getElementById("create_status_inactive_label").classList.add("btn-custom-unselected");
     }
 });
 
-statusInactive.addEventListener("change", function() {
-    if (statusInactive.checked) {
-        document.getElementById("status_inactive_label").classList.remove("btn-custom-unselected");
-        document.getElementById("status_inactive_label").classList.add("btn-custom-selected");
-        document.getElementById("status_active_label").classList.remove("btn-custom-selected");
-        document.getElementById("status_active_label").classList.add("btn-custom-unselected");
+createStatusInactive.addEventListener("change", function() {
+    if (createStatusInactive.checked) {
+        document.getElementById("create_status_inactive_label").classList.remove("btn-custom-unselected");
+        document.getElementById("create_status_inactive_label").classList.add("btn-custom-selected");
+        document.getElementById("create_status_active_label").classList.remove("btn-custom-selected");
+        document.getElementById("create_status_active_label").classList.add("btn-custom-unselected");
     }
 });
 
-function checkFileSize(input) {
+// Add event listeners for update form
+updateStatusActive.addEventListener("change", function() {
+    if (updateStatusActive.checked) {
+        document.getElementById("update_status_active_label").classList.remove("btn-custom-unselected");
+        document.getElementById("update_status_active_label").classList.add("btn-custom-selected");
+        document.getElementById("update_status_inactive_label").classList.remove("btn-custom-selected");
+        document.getElementById("update_status_inactive_label").classList.add("btn-custom-unselected");
+    }
+});
+
+updateStatusInactive.addEventListener("change", function() {
+    if (updateStatusInactive.checked) {
+        document.getElementById("update_status_inactive_label").classList.remove("btn-custom-unselected");
+        document.getElementById("update_status_inactive_label").classList.add("btn-custom-selected");
+        document.getElementById("update_status_active_label").classList.remove("btn-custom-selected");
+        document.getElementById("update_status_active_label").classList.add("btn-custom-unselected");
+    }
+});
+
+
+    function checkFileSizeAndType(input) {
         const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+        const validTypes = ['image/jpeg', 'image/png'];
+        const fileSizeError = document.getElementById("fileSizeError");
+        const fileTypeError = document.getElementById("fileTypeError");
+
         if (input.files && input.files[0]) {
             const fileSize = input.files[0].size;
-            const fileSizeError = document.getElementById("fileSizeError");
+            const fileType = input.files[0].type;
+
             if (fileSize > maxSize) {
                 fileSizeError.style.display = "block";
+                fileTypeError.style.display = "none";
+                input.value = ""; // Clear the file input
+            } else if (!validTypes.includes(fileType)) {
+                fileSizeError.style.display = "none";
+                fileTypeError.style.display = "block";
                 input.value = ""; // Clear the file input
             } else {
                 fileSizeError.style.display = "none";
+                fileTypeError.style.display = "none";
+                previewImage(input); // Call the previewImage function
             }
         }
     }
 
 
-    function previewImage(input) {
-    var preview = document.getElementById('preview');
-    var imagePreview = document.getElementById('imagePreview');
-    var fileSizeError = document.getElementById('fileSizeError');
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+    function previewImage(input)
+    {
+        var preview = document.getElementById('preview');
+        var imagePreview = document.getElementById('imagePreview');
+        var fileSizeError = document.getElementById('fileSizeError');
 
-        reader.onload = function (e) {
-            preview.src = e.target.result;
-            imagePreview.style.display = 'block'; // Show preview and buttons
-            fileSizeError.style.display = 'none'; // Hide file size error if any
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                imagePreview.style.display = 'block'; // Show preview and buttons
+                fileSizeError.style.display = 'none'; // Hide file size error if any
+            }
+
+            reader.readAsDataURL(input.files[0]);
         }
-
-        reader.readAsDataURL(input.files[0]);
     }
-}
 
 </script>
 

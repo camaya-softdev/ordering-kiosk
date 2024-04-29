@@ -145,7 +145,7 @@ countStatus();
         var tableRows = document.getElementById('example2').getElementsByTagName('tr');
 
         for (var i = 1; i < tableRows.length; i++) {
-            var rowData = tableRows[i].getElementsByTagName('td')[2].innerText; // Assuming status is in the third column
+            var rowData = tableRows[i].getElementsByTagName('td')[3].innerText; // Assuming status is in the third column
 
             if ((status === 'Active' && rowData === 'Active') ||
                 (status === 'Inactive' && rowData === 'Inactive')) {

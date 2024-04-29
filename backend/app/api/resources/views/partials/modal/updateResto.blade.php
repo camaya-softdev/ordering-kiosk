@@ -1,97 +1,6 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<style>
-    .btn-custom-selected {
-        background-color: #FEF2DE;
-        border-color: #EF6C02;
-        color: #EF6C02;
-        padding: 10px;
-        font-weight: lighter !important;
-    }
-
-    .btn-custom-unselected {
-        background-color: #ffffff;
-        border-color: #D0D5DD;
-        color: black;
-        padding: 10px;
-        font-weight: lighter !important;
-    }
-
-    /* Hide the default radio button */
-    input[type="radio"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 0;
-    height: 0;
-    position: relative;
-    }
-
-    input[type="radio"]::before {
-    content: "\f111";
-    font-family: "Font Awesome 5 Free";
-    color: #D0D5DD;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    }
-
-    input[type="radio"]:checked::before {
-    content: "\f058";
-    font-family: "Font Awesome 5 Free";
-    background-color: #FF8C00;
-    width: 20px;
-    height: 20px;
-    border: solid 2px #FF8C00;
-    color: white;
-    }
-
-    .resto-upload {
-        border-radius: 8px;
-        border: 1px solid #FF9700;
-        padding: 5%;
-        }
-
-    #exampleModal label {
-    font-weight: lighter !important;
-    }
-
-
-    .add-resto-style {
-        display: flex;
-        border-radius: 28px;
-        border: 8px solid var(--Primary-50, #FEF2DE);
-        background: var(--Primary-100, #FFE0B2);
-        width: 48px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .create-btn {
-        background-color: #FF8C00;
-        border-radius: 8px;
-        color: white;
-        border: 1px solid #FF9700;
-    }
-    .create-btn:hover {
-        background-color: #FFCB80;
-        color: white;
-    }
-    .cancel-btn {
-        background-color: #FFFFFF;
-        border-radius: 8px;
-        color: #FF8C00;
-        border: 1px solid #FF9700;
-    }
-    .cancel-btn:hover {
-        background-color: #FF8C00;
-        color: white;
-    }
-
-</style>
-
 <div class="modal fade" id="updateOutletModal{{$outlet->id}}" tabindex="-1" role="dialog" aria-labelledby="updateOutletModalLabel{{$outlet->id}}" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" >
 
         <form method="POST" action="{{ route('outlet.update', $outlet->id) }}" enctype="multipart/form-data">
             @csrf
@@ -117,21 +26,24 @@
 
               <h5>Update Restaurant</h5><br>
 
-              <label for="image">Display Image:</label>
-              <div class="form-group resto-upload">
-                  <div class="row">
-                      <div class="col">
-                          <label for="image">Upload Image (Max Size: 2MB):</label>
-                          <input class="btn btn-secondary" type="file" class="form-control-file" id="image" name="image" onchange="previewImage(this)">
-                          <small id="fileSizeError" class="text-danger" style="display:none;">File size exceeds the limit (Max Size: 2MB)</small>
-                      </div>
-                      <div class="col">
-                          <div id="imagePreview" style="display:none;">
-                              <img id="preview" src="#" alt="Image Preview" height="100">
-                            </div>
-                      </div>
-                  </div>
-              </div>
+              <label for="updateImage">Update Image:</label>
+            <div class="form-group resto-upload">
+                <div class="row">
+                    <div class="col">
+                        <label for="updateImage">Upload Image (Max Size: 2MB):</label>
+                        <input class="btn btn-secondary" type="file" class="form-control-file" id="updateImage" name="updateImage" onchange="checkFileSizeAndTypeTwo(this)" accept=".jpeg,.jpg,.png">
+                        <small id="updateFileSizeError" class="text-danger" style="display:none;">File size exceeds the limit (Max Size: 2MB)</small>
+                        <small id="updateFileTypeError" class="text-danger" style="display:none;">Only JPEG and PNG files are allowed</small>
+                    </div>
+                    <div class="col">
+                        <div id="updateImagePreview" style="display:none;">
+                            <img id="updatePreview" src="#" alt="Image Preview" height="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -151,33 +63,32 @@
                 <label>Status:</label><br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="btn btn-block btn-custom-unselected" id="status_active_label">
+                        <label class="btn btn-block btn-custom-unselected" id="update_status_active_label">
                             <div class="row">
                                 <div class="col">
                                     Active
                                 </div>
                                 <div class="col">
-                                    <input type="radio" name="status" id="status_active" value="1" autocomplete="off">
+                                    <input type="radio" name="update_status" id="update_status_active" value="1" autocomplete="off">
                                 </div>
-
                             </div>
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <label class="btn btn-block btn-custom-unselected" id="status_inactive_label">
+                        <label class="btn btn-block btn-custom-unselected" id="update_status_inactive_label">
                             <div class="row">
                                 <div class="col">
                                     Inactive
                                 </div>
                                 <div class="col">
-                                    <input type="radio" name="status" id="status_inactive" value="0" autocomplete="off">
+                                    <input type="radio" name="update_status" id="update_status_inactive" value="0" autocomplete="off">
                                 </div>
-
                             </div>
                         </label>
                     </div>
                 </div>
             </div>
+
 
             <div class="form-group">
                 <div class="row">
@@ -197,8 +108,50 @@
     </div>
 </div>
 
+<script>
+    function checkFileSizeAndTypeTwo(input) {
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+    const validTypes = ['image/jpeg', 'image/png'];
+    const fileSizeError = document.getElementById("updateFileSizeError");
+    const fileTypeError = document.getElementById("updateFileTypeError");
 
+    if (input.files && input.files[0]) {
+        const fileSize = input.files[0].size;
+        const fileType = input.files[0].type;
 
+        if (fileSize > maxSize) {
+            fileSizeError.style.display = "block";
+            fileTypeError.style.display = "none";
+            input.value = ""; // Clear the file input
+        } else if (!validTypes.includes(fileType)) {
+            fileSizeError.style.display = "none";
+            fileTypeError.style.display = "block";
+            input.value = ""; // Clear the file input
+        } else {
+            fileSizeError.style.display = "none";
+            fileTypeError.style.display = "none";
+            previewImageTwo(input); // Call the previewImage function
+        }
+    }
+}
+
+function previewImageTwo(input) {
+    var preview = document.getElementById('updatePreview');
+    var imagePreview = document.getElementById('updateImagePreview');
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            imagePreview.style.display = 'block'; // Show preview and buttons
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+</script>
 
 
 
