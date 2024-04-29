@@ -16,6 +16,7 @@ class OutletResource extends JsonResource
             'name' => $this->name,
             'image' => $this->image,
             'status' => $this->status,
+            'outlet_classification' => $this->outlet_classification,
             'updated_at' => [
                 'month' => $updated_at->format('F'), // Full textual representation of a month
                 'day' => $updated_at->format('d'), // Day of the month, 2 digits with leading zeros

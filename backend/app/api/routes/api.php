@@ -28,13 +28,13 @@ use App\Http\Controllers\Admin\ProductController;
 
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
    Route::post('outlets', [OutletController::class, 'store']);
    Route::put('outlets/{outlet}', [OutletController::class, 'update']);
    Route::delete('outlets/{outlet}', [OutletController::class, 'destroy']);
-   Route::post('register', [AuthController::class, 'register']);
 });
 
 

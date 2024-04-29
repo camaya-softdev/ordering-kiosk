@@ -12,6 +12,7 @@ class CreateOutletsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable();
+            $table->string('outlet_classification');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

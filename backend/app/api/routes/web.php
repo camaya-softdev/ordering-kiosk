@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Views\LoginController;
 use App\Http\Controllers\Views\OutletController;
+use App\Http\Controllers\Views\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +30,10 @@ Route::get('/admin', [OutletController::class, 'index'])->name('outlet');
 Route::post('/outlet', [OutletController::class, 'store'])->name('outlet.store');
 Route::put('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@update')->name('outlet.update');
 Route::delete('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@destroy')->name('outlet.destroy');
+
+
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::put('/users/{id}/update', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}/delete', [UserController::class, 'destroy'])->name('user.destroy');
+
 

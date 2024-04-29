@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
 use App\Models\Outlet;
-use App\Models\Category;
+use App\Models\User;
 use App\Services\OutletService;
-use App\Http\Resources\OutletResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -32,8 +30,9 @@ class OutletController extends Controller
             ->groupBy('outlets.id')
             ->get();
 
+            $users = User::with('outlet')->get();
 
-            return view('outlet', ['outlets' => $outlets, 'loginData' => $loginData]);
+            return view('outlet', ['users' => $users,'outlets' => $outlets, 'loginData' => $loginData]);
 
         } else {
             return redirect()->route('login')->with('error', 'Invalid username or password');
@@ -52,6 +51,7 @@ class OutletController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'status' => 'required',
+            'outlet_classification' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
 
@@ -66,6 +66,7 @@ class OutletController extends Controller
         $outlet = $this->outletService->createOutlet([
             'name' => $request->input('name'),
             'status' => $request->input('status'),
+            'outlet_classification' => $request->input('outlet_classification'),
             'image' => $imageUrl,
         ]);
 
@@ -96,6 +97,7 @@ class OutletController extends Controller
         $this->outletService->updateOutlet($outlet, [
             'name' => $request->input('name'),
             'status' => $request->input('status'),
+            'outlet_classification' => $request->input('outlet_classification'),
             'updated_at' => now()->setTimezone('Asia/Manila'),
             'image' => $imageUrl,
         ]);

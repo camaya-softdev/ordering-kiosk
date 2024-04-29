@@ -38,13 +38,14 @@ class OutletController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'outlet_classification' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $outlet = $this->outletService->createOutlet($request->only('name','status'));
+        $outlet = $this->outletService->createOutlet($request->only('name','status','outlet_classification'));
 
         return response()->json(['outlet' => new OutletResource($outlet), 'message' => 'Outlet created successfully'], 201);
     }
@@ -54,13 +55,15 @@ class OutletController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'status' => 'nullable',
+            'outlet_classification' => 'string|max:255',
+
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $outlet = $this->outletService->updateOutlet($outlet, $request->only(['name', 'status']));
+        $outlet = $this->outletService->updateOutlet($outlet, $request->only(['name', 'status','outlet_classification']));
 
         return response()->json(['outlet' => new OutletResource($outlet), 'message' => 'Outlet updated successfully'], 200);
     }

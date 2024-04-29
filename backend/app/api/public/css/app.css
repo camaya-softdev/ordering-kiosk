@@ -77,14 +77,14 @@
     background-color: #F2F4F7; /* Change background color */
   }
 
-.add-resto {
+.add-resto, .add-user{
     background-color: #FF8C00 !important;
     color: white;
     border-radius: 10px;
-    width: 100%;
+    width: 80%;
 }
 
-.add-resto:hover {
+.add-resto:hover, .add-user:hover {
     background-color: #a15a04;
     color: white;
 }
@@ -102,8 +102,16 @@
     border: none;
     border-radius: 8px;
     width: 100%;
+  }
 
-
+  #searchUser {
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
   }
   .search-icon {
     position: absolute;
@@ -112,5 +120,4 @@
     transform: translateY(-50%);
     color: #aaa; /* Adjust the color of the icon */
   }
-
 
