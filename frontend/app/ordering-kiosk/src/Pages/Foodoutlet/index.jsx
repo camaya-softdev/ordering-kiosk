@@ -2,7 +2,10 @@ import style from './FoodOutlet.module.css';
 import { previousStep } from '../../store/order/orderSlice';
 import { useDispatch } from 'react-redux';
 import CamayaLogo from '../../assets/camaya-logo.svg';
+import CamayaLogoGray from '../../assets/camaya-logo-gray.svg';
 import FooterLayout from '../../layout/FooterLayout';
+import OutletList  from '../../components/FoodOutlets/OutletList';
+import useFetchOutlets from '../../hooks/useFetchOutlets';
 
 function FoodOutlet () {
     // const orderStep = useSelector(state => state.order.orderStep);
@@ -19,14 +22,14 @@ function FoodOutlet () {
     // };
 
     return(
-        <div>
+        <div className={style.wrapper}>
             <div className={style.header}>
                 <img src={CamayaLogo} className={style.camayaLogo}/>
                 <span className={style.title}>Choose a food outlet</span>
             </div>
 
             <div className={style.outlets}>
-                
+                <OutletList/>
             </div>
 
             <FooterLayout >
@@ -40,6 +43,7 @@ function FoodOutlet () {
                 </div>
             </FooterLayout>
             
+            <img src={CamayaLogoGray} className={style.camayaLogoGray}/>
         </div>
     );
 }
