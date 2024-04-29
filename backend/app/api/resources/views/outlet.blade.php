@@ -83,7 +83,7 @@
 
                                     <div class="tab-content" id="vert-tabs-tabContent">
                                         <div class="tab-pane text-left fade show active" id="vert-tabs-account" role="tabpanel" aria-labelledby="vert-tabs-account-tab">
-                                            <h1>Users</h1>
+                                            @include('partials.users')
                                         </div>
 
                                         <div class="tab-pane fade" id="vert-tabs-restaurant" role="tabpanel" aria-labelledby="vert-tabs-restaurant-tab">
@@ -102,6 +102,8 @@
 
 
     @include('partials.modal.createResto')
+    @include('partials.modal.createUser')
+
 
 
 

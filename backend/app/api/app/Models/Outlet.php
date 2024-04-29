@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Outlet extends Model
 {
-    protected $fillable = ['name', 'image','status'];
+    protected $fillable = ['name', 'image','status','outlet_classification'];
 
     public function categories()
     {

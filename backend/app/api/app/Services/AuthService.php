@@ -87,4 +87,49 @@ class AuthService
             ], 500);
         }
     }
+
+    public function update($userId, array $userData)
+    {
+        $user = User::findOrFail($userId);
+
+        DB::beginTransaction();
+
+        try {
+            $user->update($userData);
+
+            Log::create([
+                'user_id' => Auth::id(),
+                'action' => 'User updated: ' . $user->username,
+            ]);
+
+            DB::commit();
+
+            return new UserResource($user);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public function delete($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        DB::beginTransaction();
+
+        try {
+            $user->delete();
+
+            Log::create([
+                'user_id' => Auth::id(),
+                'action' => 'User deleted: ' . $user->username,
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
 }

@@ -4,7 +4,7 @@
     border-radius: 6px;
 }
 
-.active-counter-resto, .inactive-counter-resto {
+.active-counter-user, .inactive-counter-user {
     margin-left: 10px;
     background: #F2F4F7;
     border-radius: 50%; /* Set border-radius to 50% to make it a circle */
@@ -26,8 +26,8 @@ th {
 <div class="row">
     <div class="col-6">
         <div class="filter-buttons">
-            <button id="filterActiveResto" class="btn btn-light">Active <span class="active-counter-resto">2</span></button>
-            <button id="filterInactiveResto" class="btn btn-light">Inactive <span class="inactive-counter-resto">2</span></button>
+            <button id="filterActiveUser" class="btn btn-light">Active <span class="active-counter-user">2</span></button>
+            <button id="filterInactiveUser" class="btn btn-light">Inactive <span class="inactive-counter-user">2</span></button>
         </div>
     </div>
 
@@ -36,54 +36,68 @@ th {
         <div class="col">
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchInput" placeholder="Search Restaurant">
+                <input type="text" id="searchUser" placeholder="Search Restaurant">
             </div>
         </div>
         <div class="col">
-            <button type="button" class="add-resto btn text-white" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="add-user btn text-white" data-toggle="modal" data-target="#userModal">
                 <i class="fas fa-plus plus-icon"></i>
-                Add Restaurant
+                Add Users
             </button>
         </div>
     </div>
    </div>
 </div>
 
-<table id="example2" class="table table-bordered table-hover custom-table">
+<table id="userTable" class="table table-bordered table-hover custom-table">
 <thead>
     <tr>
-        <th>Image & Name</th>
-        <th>Assigned User</th>
-        <th>Classification</th>
+        <th>Name & Username</th>
+        <th>Restaurant</th>
         <th>Status</th>
-        <th>Last Updated</th>
+        <th>Date Created</th>
         <th>Action</th>
     </tr>
 </thead>
 
 <tbody>
-@foreach ($outlets as $outlet)
+@foreach ($users as $user)
 <tr>
-    <td><img src="{{ asset($outlet->image) }}" alt="Outlet Image" height="50px"> {{ $outlet->name }}</td>
-    <td>{{ $outlet->user_count }}</td>
-    <td>{{ $outlet->outlet_classification }}</td>
-    <td class="{{ $outlet->status == 1 ? 'text-success' : 'text-danger' }}">
-        {{ $outlet->status == 1 ? 'Active' : 'Inactive' }}
+    <td>
+        <div class="row">
+            <div>
+                <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle" style="height:40px">
+            </div>
+            <div>
+        {{ $user->first_name }} {{ $user->last_name }} <br> {{ $user->username }}
+
+            </div>
+        </div>
     </td>
-    <td>{{ $outlet->updated_at->format('F j, Y, g:i A') }}</td>
+    <td>
+        @if ($user->outlet)
+            <img src="{{ asset($user->outlet->image ) }}" alt="Outlet Image" height="50px">
+        @else
+            No Outlet Assigned
+        @endif
+    </td>
+    <td class="{{ $user->status == 1 ? 'text-success' : 'text-danger' }}">
+        {{ $user->status == 1 ? 'Active' : 'Inactive' }}
+    </td>
+    <td>{{ $user->created_at->format('F j, Y, g:i A') }}</td>
     <td>
     <div class="row">
         <!-- Delete button with modal trigger -->
             <div class="col-auto">
-                <button type="button" class="btn btn-link p-0 text-danger" data-toggle="modal" data-target="#confirmationModal{{$outlet->id}}">
+                <button type="button" class="btn btn-link p-0 text-danger" data-toggle="modal" data-target="#confirmationModal{{$user->id}}">
                     <i class="fa-regular fa-trash-can"></i>
                 </button>
                 {{-- call delete resto --}}
-                @include('partials.modal.deleteResto')
+                @include('partials.modal.deleteUser')
             </div>
             <!-- Update button with modal trigger -->
             <div class="col-auto">
-                <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#updateOutletModal{{$outlet->id}}">
+                <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#updateUserModal{{$user->id}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <g clip-path="url(#clip0_451_6816)">
                             <path d="M14.1667 2.49993C14.3856 2.28106 14.6454 2.10744 14.9314 1.98899C15.2173 1.87054 15.5238 1.80957 15.8334 1.80957C16.1429 1.80957 16.4494 1.87054 16.7353 1.98899C17.0213 2.10744 17.2812 2.28106 17.5 2.49993C17.7189 2.7188 17.8925 2.97863 18.011 3.2646C18.1294 3.55057 18.1904 3.85706 18.1904 4.16659C18.1904 4.47612 18.1294 4.78262 18.011 5.06859C17.8925 5.35455 17.7189 5.61439 17.5 5.83326L6.25002 17.0833L1.66669 18.3333L2.91669 13.7499L14.1667 2.49993Z" stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -95,8 +109,10 @@ th {
                         </defs>
                     </svg>
                 </button>
-                  {{-- call update resto--}}
-                @include('partials.modal.updateResto')
+
+                @include('partials.modal.updateUser')
+
+
             </div>
     </div>
     </td>
@@ -113,7 +129,7 @@ th {
 
     // Function to count "Active" and "Inactive" entries
     function countStatus() {
-        var tableRows = document.getElementById('example2').getElementsByTagName('tr');
+        var tableRows = document.getElementById('userTable').getElementsByTagName('tr');
 
         for (var i = 1; i < tableRows.length; i++) {
             var statusCell = tableRows[i].getElementsByTagName('td')[2]; // Assuming status is in the third column
@@ -131,21 +147,21 @@ th {
     }
 
 // Call countStatus function to initialize counters
-countStatus();
+    countStatus();
 
     function updateCounters() {
-        document.querySelector('.active-counter-resto').textContent = activeCount;
-        document.querySelector('.inactive-counter-resto').textContent = inactiveCount;
+        document.querySelector('.active-counter-user').textContent = activeCount;
+        document.querySelector('.inactive-counter-user').textContent = inactiveCount;
     }
 
 
   // Filter by status
-    function filterTable(status)
+    function filterTableUser(status)
     {
-        var tableRows = document.getElementById('example2').getElementsByTagName('tr');
+        var tableRows = document.getElementById('userTable').getElementsByTagName('tr');
 
         for (var i = 1; i < tableRows.length; i++) {
-            var rowData = tableRows[i].getElementsByTagName('td')[2].innerText; // Assuming status is in the third column
+            var rowData = tableRows[i].getElementsByTagName('td')[2].innerText;
 
             if ((status === 'Active' && rowData === 'Active') ||
                 (status === 'Inactive' && rowData === 'Inactive')) {
@@ -157,77 +173,77 @@ countStatus();
     }
 
     // Event listeners for filter buttons
-    document.getElementById('filterActiveResto').addEventListener('click', function() {
-        var isActiveFilter = this.classList.contains('active-filter');
+    document.getElementById('filterActiveUser').addEventListener('click', function() {
+        var isActiveFilter = this.classList.contains('active-filter-user');
         if (isActiveFilter) {
             // Clear filter
-            clearFilter();
+            clearFilterUser();
         } else {
-            filterTable('Active');
+            filterTableUser('Active');
             // Add active class to indicate filter is applied
-            this.classList.add('active-filter');
+            this.classList.add('active-filter-user');
             // Remove active class from the other button
-            document.getElementById('filterInactiveResto').classList.remove('active-filter');
+            document.getElementById('filterInactiveUser').classList.remove('active-filter-user');
         }
         // Toggle button classes
-        toggleButtonClasses();
+        toggleButtonUserClasses();
     });
 
-    document.getElementById('filterInactiveResto').addEventListener('click', function() {
-        var isInactiveFilter = this.classList.contains('active-filter');
+    document.getElementById('filterInactiveUser').addEventListener('click', function() {
+        var isInactiveFilter = this.classList.contains('active-filter-user');
         if (isInactiveFilter) {
             // Clear filter
-            clearFilter();
+            clearFilterUser();
         } else {
-            filterTable('Inactive');
+            filterTableUser('Inactive');
             // Add active class to indicate filter is applied
-            this.classList.add('active-filter');
+            this.classList.add('active-filter-user');
             // Remove active class from the other button
-            document.getElementById('filterActiveResto').classList.remove('active-filter');
+            document.getElementById('filterActiveUser').classList.remove('active-filter-user');
         }
         // Toggle button classes
-        toggleButtonClasses();
+        toggleButtonUserClasses();
     });
 
     // Function to clear filter
-    function clearFilter() {
-        var tableRows = document.getElementById('example2').getElementsByTagName('tr');
+    function clearFilterUser() {
+        var tableRows = document.getElementById('userTable').getElementsByTagName('tr');
         for (var i = 1; i < tableRows.length; i++) {
             tableRows[i].style.display = '';
         }
         // Remove active class from both filter buttons
-        document.getElementById('filterActiveResto').classList.remove('active-filter');
-        document.getElementById('filterInactiveResto').classList.remove('active-filter');
+        document.getElementById('filterActiveUser').classList.remove('active-filter-user');
+        document.getElementById('filterInactiveUser').classList.remove('active-filter-user');
         // Toggle button classes
-        toggleButtonClasses();
+        toggleButtonUserClasses();
     }
 
-    // Function to toggle button classes
-    function toggleButtonClasses() {
-        var filterActiveRestoButton = document.getElementById('filterActiveResto');
-        var filterInactiveRestoButton = document.getElementById('filterInactiveResto');
+    // // Function to toggle button classes
+    function toggleButtonUserClasses() {
+        var filterActiveButton = document.getElementById('filterActiveUser');
+        var filterInactiveButton = document.getElementById('filterInactiveUser');
 
-        if (filterActiveRestoButton.classList.contains('active-filter')) {
-            filterActiveRestoButton.classList.remove('btn-light');
-            filterActiveRestoButton.classList.add('btn-secondary');
+        if (filterActiveButton.classList.contains('active-filter-user')) {
+            filterActiveButton.classList.remove('btn-light');
+            filterActiveButton.classList.add('btn-secondary');
         } else {
-            filterActiveRestoButton.classList.remove('btn-secondary');
-            filterActiveRestoButton.classList.add('btn-light');
+            filterActiveButton.classList.remove('btn-secondary');
+            filterActiveButton.classList.add('btn-light');
         }
 
-        if (filterInactiveRestoButton.classList.contains('active-filter')) {
-            filterInactiveReetoButton.classList.remove('btn-light');
-            filterInactiveReetoButton.classList.add('btn-secondary');
+        if (filterInactiveButton.classList.contains('active-filter-user')) {
+            filterInactiveButton.classList.remove('btn-light');
+            filterInactiveButton.classList.add('btn-secondary');
         } else {
-            filterInactiveRestoButton.classList.remove('btn-secondary');
-            filterInactiveRestoButton.classList.add('btn-light');
+            filterInactiveButton.classList.remove('btn-secondary');
+            filterInactiveButton.classList.add('btn-light');
         }
     }
 
     // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function() {
+    document.getElementById('searchUser').addEventListener('input', function() {
         var searchQuery = this.value.toLowerCase();
-        var tableRows = document.getElementById('example2').getElementsByTagName('tr');
+        var tableRows = document.getElementById('userTable').getElementsByTagName('tr');
 
         for (var i = 1; i < tableRows.length; i++) {
             var rowData = tableRows[i].innerText.toLowerCase();

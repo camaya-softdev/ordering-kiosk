@@ -18,6 +18,7 @@ class OutletService
             $outlet = Outlet::create([
                 'name' => $data['name'],
                 'image' => $data['image'],
+                'outlet_classification' => $data['outlet_classification'],
                 'status' => $data['status'],
             ]);
 
