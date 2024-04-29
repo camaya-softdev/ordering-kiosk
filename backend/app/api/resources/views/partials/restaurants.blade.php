@@ -108,21 +108,21 @@ th {
 </table>
 
 <script>
-    var activeCount = 0;
-    var inactiveCount = 0;
+    var activeCountResto = 0;
+    var inactiveCountResto = 0;
 
     // Function to count "Active" and "Inactive" entries
     function countStatus() {
         var tableRows = document.getElementById('example2').getElementsByTagName('tr');
 
         for (var i = 1; i < tableRows.length; i++) {
-            var statusCell = tableRows[i].getElementsByTagName('td')[2]; // Assuming status is in the third column
+            var statusCell = tableRows[i].getElementsByTagName('td')[3]; // Assuming status is in the third column
             var status = statusCell.textContent.trim();
 
             if (status === 'Active') {
-                activeCount++;
+                activeCountResto++;
             } else if (status === 'Inactive') {
-                inactiveCount++;
+                inactiveCountResto++;
             }
         }
 
@@ -134,8 +134,8 @@ th {
 countStatus();
 
     function updateCounters() {
-        document.querySelector('.active-counter-resto').textContent = activeCount;
-        document.querySelector('.inactive-counter-resto').textContent = inactiveCount;
+        document.querySelector('.active-counter-resto').textContent = activeCountResto;
+        document.querySelector('.inactive-counter-resto').textContent = inactiveCountResto;
     }
 
 
@@ -216,8 +216,8 @@ countStatus();
         }
 
         if (filterInactiveRestoButton.classList.contains('active-filter')) {
-            filterInactiveReetoButton.classList.remove('btn-light');
-            filterInactiveReetoButton.classList.add('btn-secondary');
+            filterInactiveRestoButton.classList.remove('btn-light');
+            filterInactiveRestoButton.classList.add('btn-secondary');
         } else {
             filterInactiveRestoButton.classList.remove('btn-secondary');
             filterInactiveRestoButton.classList.add('btn-light');
