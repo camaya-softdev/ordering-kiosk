@@ -128,7 +128,7 @@ th {
     var inactiveCount = 0;
 
     // Function to count "Active" and "Inactive" entries
-    function countStatus() {
+    function countStatusUser() {
         var tableRows = document.getElementById('userTable').getElementsByTagName('tr');
 
         for (var i = 1; i < tableRows.length; i++) {
@@ -146,8 +146,8 @@ th {
         updateCounters();
     }
 
-// Call countStatus function to initialize counters
-    countStatus();
+// Call countStatusUser function to initialize counters
+    countStatusUser();
 
     function updateCounters() {
         document.querySelector('.active-counter-user').textContent = activeCount;

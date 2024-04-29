@@ -46,47 +46,47 @@
     color: white;
     }
 
-.resto-upload {
-    border-radius: 8px;
-    border: 1px solid #FF9700;
-    padding: 5%;
+    .resto-upload {
+        border-radius: 8px;
+        border: 1px solid #FF9700;
+        padding: 5%;
+        }
+
+    #exampleModal label {
+    font-weight: lighter !important;
     }
 
-#exampleModal label {
- font-weight: lighter !important;
-}
 
+    .add-resto-style {
+        display: flex;
+        border-radius: 28px;
+        border: 8px solid var(--Primary-50, #FEF2DE);
+        background: var(--Primary-100, #FFE0B2);
+        width: 48px;
+        justify-content: center;
+        align-items: center;
+    }
 
-.add-resto-style {
-    display: flex;
-    border-radius: 28px;
-    border: 8px solid var(--Primary-50, #FEF2DE);
-    background: var(--Primary-100, #FFE0B2);
-    width: 48px;
-    justify-content: center;
-    align-items: center;
-}
-
-.create-btn {
-    background-color: #FF8C00;
-    border-radius: 8px;
-    color: white;
-    border: 1px solid #FF9700;
-  }
-  .create-btn:hover {
-    background-color: #FFCB80;
-    color: white;
-  }
-  .cancel-btn {
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    color: #FF8C00;
-    border: 1px solid #FF9700;
-  }
-  .cancel-btn:hover {
-    background-color: #FF8C00;
-    color: white;
-  }
+    .create-btn {
+        background-color: #FF8C00;
+        border-radius: 8px;
+        color: white;
+        border: 1px solid #FF9700;
+    }
+    .create-btn:hover {
+        background-color: #FFCB80;
+        color: white;
+    }
+    .cancel-btn {
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        color: #FF8C00;
+        border: 1px solid #FF9700;
+    }
+    .cancel-btn:hover {
+        background-color: #FF8C00;
+        color: white;
+    }
 
 </style>
 
