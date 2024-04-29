@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     networks:
       database_kiosk-network:
-        ipv4_address: 172.22.0.5
+        ipv4_address: 172.30.0.5
         
   web-server:
     container_name: kiosk-nginx-server
@@ -39,4 +39,4 @@ services:
     restart: unless-stopped
     networks:
       database_kiosk-network:
-        ipv4_address: 172.22.0.6 
+        ipv4_address: 172.30.0.6 

@@ -1,10 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { nextStep, previousStep } from '../../store/order/orderSlice';
-import Foodoutlet from "../Foodoutlet";
+import { useDispatch } from 'react-redux';
+import { nextStep } from '../../store/order/orderSlice';
 import style from "./StartPage.module.css";
+import pic from "../../assets/orderpage.jpg";
+import FooterLayout from '../../layout/FooterLayout';
+import CamayaLogo from '../../assets/camaya-logo.svg';
 
 function StartPage (){
-    const orderStep = useSelector(state => state.order.orderStep);
     const dispatch = useDispatch();
 
     // Function to move to the next step of the order process
@@ -12,30 +13,18 @@ function StartPage (){
         dispatch(nextStep());
     };
 
-    // Function to move to the previous step of the order process
-    const goToPreviousStep = () => {
-        dispatch(previousStep());
-    };
-
     return(
         <div>
-            {/* Render the button or Foodoutlet component based on orderStarted */}
-            {orderStep === 0 ? (
-                <div className={style.mainContainer}>
-                    <div className={style.img} />
-                    <div className={style.img2}>
-                        <div className={style.img3} />
-                        <div className={style.pic} />
-                        <div className={style.section}>
-                        <span className={style.text} onClick={goToNextStep}>
-                            Start Order
-                        </span>
-                        </div>
-                    </div>
+            <img src={pic} />
+            <FooterLayout className={style.footer}>
+                <img src={CamayaLogo}/>
+                <div 
+                    className={style.startButton}
+                    onClick={goToNextStep}
+                >
+                    <span className={style.title}>Start order</span>
                 </div>
-            ) : (
-                <Foodoutlet onGoBack={goToPreviousStep} /> // Pass the callback function
-            )}
+            </FooterLayout>
         </div>
     );
 }

@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     networks:
       database_kiosk-network:
-        ipv4_address: 172.22.0.14
+        ipv4_address: 172.30.0.14
 
 
   web-server:
@@ -37,4 +37,4 @@ services:
       - frontend-dev
     networks:
       database_kiosk-network:
-            ipv4_address: 172.22.0.15
+            ipv4_address: 172.30.0.15
