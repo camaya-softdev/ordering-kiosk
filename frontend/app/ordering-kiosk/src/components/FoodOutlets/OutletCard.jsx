@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { setSelectedOutletId, nextStep } from '../../store/order/orderSlice';
 
 function OutletCard({outlet}){
 
@@ -22,8 +24,19 @@ function OutletCard({outlet}){
             objectFit: "cover",
         }
     }
+
+    const dispatch = useDispatch();
+
+    const handleSelect = () => {
+        dispatch(setSelectedOutletId(outlet.id));
+        dispatch(nextStep());
+    }
+
     return(
-        <div style={style.card}>
+        <div 
+            style={style.card}
+            onClick={handleSelect}
+        >
             <img src={`${import.meta.env.VITE_API}/${outlet.image}`} alt={outlet.name} style={style.image}/>
         </div>
     );
