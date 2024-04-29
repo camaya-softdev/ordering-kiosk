@@ -50,7 +50,7 @@ class OutletController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'status' => 'required',
+            'create_status' => 'required',
             'outlet_classification' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
@@ -65,7 +65,7 @@ class OutletController extends Controller
 
         $outlet = $this->outletService->createOutlet([
             'name' => $request->input('name'),
-            'status' => $request->input('status'),
+            'status' => $request->input('create_status'),
             'outlet_classification' => $request->input('outlet_classification'),
             'image' => $imageUrl,
         ]);
@@ -78,8 +78,8 @@ class OutletController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'status' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+            'update_status' => 'required',
+            'updateImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
 
         if ($validator->fails()) {
@@ -87,8 +87,8 @@ class OutletController extends Controller
         }
 
         // Handle image upload if provided
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
+        if ($request->hasFile('updateImage')) {
+            $imagePath = $request->file('updateImage')->store('public/images');
             $imageUrl = Storage::url($imagePath);
         } else {
             $imageUrl = $outlet->image; // Keep the existing image if no new image provided
@@ -96,7 +96,7 @@ class OutletController extends Controller
 
         $this->outletService->updateOutlet($outlet, [
             'name' => $request->input('name'),
-            'status' => $request->input('status'),
+            'status' => $request->input('update_status'),
             'outlet_classification' => $request->input('outlet_classification'),
             'updated_at' => now()->setTimezone('Asia/Manila'),
             'image' => $imageUrl,
