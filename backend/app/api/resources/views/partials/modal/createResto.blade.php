@@ -146,9 +146,9 @@
 
             <div class="form-group">
                 <label for="outlet_classification">Classification:</label>
-                <select class="form-control" id="outlet_classification" name="outlet_classification">
-                    <option value="Restaurant">Restaurant</option>
-                    <option value="Coffee">Coffee</option>
+                <select class="form-control" name="outlet_classification">
+                    <option value="Restaurant" id="restuarant_classification">Restaurant</option>
+                    <option value="Coffee" id="coffee_classification">Coffee</option>
                 </select>
             </div>
 
@@ -202,48 +202,30 @@
 
 
 <script>
-var createStatusActive = document.getElementById("create_status_active");
-var createStatusInactive = document.getElementById("create_status_inactive");
-var updateStatusActive = document.getElementById("update_status_active");
-var updateStatusInactive = document.getElementById("update_status_inactive");
+    var createStatusActive = document.getElementById("create_status_active");
+    var createStatusInactive = document.getElementById("create_status_inactive");
+    // var updateStatusActive = document.getElementById("update_status_active");
+    // var updateStatusInactive = document.getElementById("update_status_inactive");
 
-// Add event listeners for create form
-createStatusActive.addEventListener("change", function() {
-    if (createStatusActive.checked) {
-        document.getElementById("create_status_active_label").classList.remove("btn-custom-unselected");
-        document.getElementById("create_status_active_label").classList.add("btn-custom-selected");
-        document.getElementById("create_status_inactive_label").classList.remove("btn-custom-selected");
-        document.getElementById("create_status_inactive_label").classList.add("btn-custom-unselected");
-    }
-});
+    // Add event listeners for create form
+    createStatusActive.addEventListener("change", function() {
+        if (createStatusActive.checked) {
+            document.getElementById("create_status_active_label").classList.remove("btn-custom-unselected");
+            document.getElementById("create_status_active_label").classList.add("btn-custom-selected");
+            document.getElementById("create_status_inactive_label").classList.remove("btn-custom-selected");
+            document.getElementById("create_status_inactive_label").classList.add("btn-custom-unselected");
+        }
+    });
 
-createStatusInactive.addEventListener("change", function() {
-    if (createStatusInactive.checked) {
-        document.getElementById("create_status_inactive_label").classList.remove("btn-custom-unselected");
-        document.getElementById("create_status_inactive_label").classList.add("btn-custom-selected");
-        document.getElementById("create_status_active_label").classList.remove("btn-custom-selected");
-        document.getElementById("create_status_active_label").classList.add("btn-custom-unselected");
-    }
-});
+    createStatusInactive.addEventListener("change", function() {
+        if (createStatusInactive.checked) {
+            document.getElementById("create_status_inactive_label").classList.remove("btn-custom-unselected");
+            document.getElementById("create_status_inactive_label").classList.add("btn-custom-selected");
+            document.getElementById("create_status_active_label").classList.remove("btn-custom-selected");
+            document.getElementById("create_status_active_label").classList.add("btn-custom-unselected");
+        }
+    });
 
-// Add event listeners for update form
-updateStatusActive.addEventListener("change", function() {
-    if (updateStatusActive.checked) {
-        document.getElementById("update_status_active_label").classList.remove("btn-custom-unselected");
-        document.getElementById("update_status_active_label").classList.add("btn-custom-selected");
-        document.getElementById("update_status_inactive_label").classList.remove("btn-custom-selected");
-        document.getElementById("update_status_inactive_label").classList.add("btn-custom-unselected");
-    }
-});
-
-updateStatusInactive.addEventListener("change", function() {
-    if (updateStatusInactive.checked) {
-        document.getElementById("update_status_inactive_label").classList.remove("btn-custom-unselected");
-        document.getElementById("update_status_inactive_label").classList.add("btn-custom-selected");
-        document.getElementById("update_status_active_label").classList.remove("btn-custom-selected");
-        document.getElementById("update_status_active_label").classList.add("btn-custom-unselected");
-    }
-});
 
 
     function checkFileSizeAndType(input) {

@@ -63,25 +63,29 @@
                 <label>Status:</label><br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="btn btn-block btn-custom-unselected" id="update_status_active_label">
+                        <label class="btn btn-block btn-custom-unselected update-status-active-label">
                             <div class="row">
                                 <div class="col">
                                     Active
                                 </div>
                                 <div class="col">
-                                    <input type="radio" name="update_status" id="update_status_active" value="1" autocomplete="off">
+
+                                    <input type="radio" name="update_status" id="update_status_active_{{$outlet->id}}" value="1" autocomplete="off">
+
                                 </div>
                             </div>
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <label class="btn btn-block btn-custom-unselected" id="update_status_inactive_label">
+                        <label class="btn btn-block btn-custom-unselected update-status-inactive-label">
                             <div class="row">
                                 <div class="col">
                                     Inactive
                                 </div>
                                 <div class="col">
-                                    <input type="radio" name="update_status" id="update_status_inactive" value="0" autocomplete="off">
+
+                                    <input type="radio" name="update_status" id="update_status_inactive_{{$outlet->id}}" value="0" autocomplete="off">
+
                                 </div>
                             </div>
                         </label>
@@ -108,7 +112,55 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+$(document).ready(function() {
+
+    function setInitialStatus() {
+            const status = "{{ $outlet->status }}";
+            if (status === '1') {
+                $('#update_status_active_{{$outlet->id}}').prop('checked', true);
+            } else {
+                $('#update_status_inactive_{{$outlet->id}}').prop('checked', true);
+            }
+        }
+
+        // Call the function when the modal is shown
+        $('#updateOutletModal{{$outlet->id}}').on('shown.bs.modal', function () {
+            setInitialStatus();
+        });
+
+        // Rest of your existing script
+        $('.update-status-active-label').click(function() {
+            // Add selected class to the clicked Active element
+            $(this).addClass('btn-custom-selected');
+            // Remove selected class from Inactive element
+            $('.update-status-inactive-label').removeClass('btn-custom-selected');
+            // Add unselected class to Inactive element
+            $('.update-status-inactive-label').addClass('btn-custom-unselected');
+            // Remove unselected class from Active element
+            $(this).removeClass('btn-custom-unselected');
+        });
+
+        $('.update-status-inactive-label').click(function() {
+            // Add selected class to the clicked Inactive element
+            $(this).addClass('btn-custom-selected');
+            // Remove selected class from Active element
+            $('.update-status-active-label').removeClass('btn-custom-selected');
+            // Add unselected class to Active element
+            $('.update-status-active-label').addClass('btn-custom-unselected');
+            // Remove unselected class from Inactive element
+            $(this).removeClass('btn-custom-unselected');
+        });
+    });
+
+
+
+
+
+
+
     function checkFileSizeAndTypeTwo(input) {
     const maxSize = 2 * 1024 * 1024; // 2MB in bytes
     const validTypes = ['image/jpeg', 'image/png'];

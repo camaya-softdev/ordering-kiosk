@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Views\LoginController;
 use App\Http\Controllers\Views\OutletController;
 use App\Http\Controllers\Views\UserController;
+use App\Http\Controllers\Views\LocationController;
+
 
 
 /*
@@ -26,7 +28,9 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/admin', [OutletController::class, 'index'])->name('outlet');
+Route::get('/account', [OutletController::class, 'index'])->name('outlet');
+Route::get('/location', [LocationController::class, 'index'])->name('location');
+
 Route::post('/outlet', [OutletController::class, 'store'])->name('outlet.store');
 Route::put('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@update')->name('outlet.update');
 Route::delete('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@destroy')->name('outlet.destroy');

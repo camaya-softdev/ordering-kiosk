@@ -49,6 +49,7 @@ th {
    </div>
 </div>
 
+
 <table id="example2" class="table table-bordered table-hover custom-table">
 <thead>
     <tr>
