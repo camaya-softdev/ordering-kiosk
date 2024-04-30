@@ -48,11 +48,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'username' => 'required',
-            'assign_to_outlet' => 'required',
-            'status' => 'required'
+            'update_first_name' => 'nullable|string|max:255',
+            'update_last_name' => 'nullable|string|max:255',
+            'update_username' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -60,7 +58,7 @@ class UserController extends Controller
         }
 
         // Call AuthService to update the user
-        $userData = $request->only('first_name', 'last_name', 'username', 'assign_to_outlet', 'status');
+        $userData = $request->all();
         $userResource = $this->authService->update($id, $userData);
 
         // Redirect with success message or handle as needed
