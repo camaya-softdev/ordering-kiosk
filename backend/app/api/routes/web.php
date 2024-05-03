@@ -5,6 +5,8 @@ use App\Http\Controllers\Views\LoginController;
 use App\Http\Controllers\Views\OutletController;
 use App\Http\Controllers\Views\UserController;
 use App\Http\Controllers\Views\LocationController;
+use App\Http\Controllers\Views\LocationNumberController;
+
 
 
 
@@ -39,5 +41,18 @@ Route::delete('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::put('/users/{id}/update', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}/delete', [UserController::class, 'destroy'])->name('user.destroy');
+
+Route::post('/location', [LocationController::class, 'store'])->name('location.store');
+Route::put('/location/{id}/update', [LocationController::class, 'update'])->name('location.update');
+Route::delete('/location/{id}/delete', [LocationController::class, 'destroy'])->name('location.destroy');
+
+Route::post('/location-number', [LocationNumberController::class, 'store'])->name('locationNumber.store');
+Route::put('/location-number/{id}/update', [LocationNumberController::class, 'update'])->name('locationNumber.update');
+Route::delete('/location-number/{id}/delete', [LocationNumberController::class, 'destroy'])->name('locationNumber.destroy');
+
+
+
+
+
 
 

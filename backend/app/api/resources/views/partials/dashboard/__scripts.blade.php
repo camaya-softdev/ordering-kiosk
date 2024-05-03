@@ -59,6 +59,26 @@
         "autoWidth": false,
         "responsive": true,
       });
+
+      $('#locationTable').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+
+      $('#locationNumberTable').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
     });
 
     $("#listingData_filter").addClass("hidden"); // hidden search input
@@ -71,6 +91,16 @@
     $("#searchUser").on("input", function (e) {
     e.preventDefault();
     $('#userTable').DataTable().search($(this).val()).draw();
+    });
+
+    $("#searchLocation").on("input", function (e) {
+    e.preventDefault();
+    $('#locationTable').DataTable().search($(this).val()).draw();
+    });
+
+    $("#searchLocationNumber").on("input", function (e) {
+    e.preventDefault();
+    $('#locationNumberTable').DataTable().search($(this).val()).draw();
     });
 
   </script>
