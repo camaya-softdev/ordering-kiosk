@@ -94,11 +94,11 @@
 
                                     <div class="tab-content" id="vert-tabs-tabContent">
                                         <div class="tab-pane text-left fade show active" id="vert-tabs-account" role="tabpanel" aria-labelledby="vert-tabs-account-tab">
-                                            {{-- @include('partials.users') --}}
+                                            @include('partials.locations')
                                         </div>
 
                                         <div class="tab-pane fade" id="vert-tabs-restaurant" role="tabpanel" aria-labelledby="vert-tabs-restaurant-tab">
-                                            {{-- @include('partials.restaurants') --}}
+                                            @include('partials.locationNumbers')
                                         </div>
                                     </div>
 
@@ -111,9 +111,9 @@
     </div>
 
 
-{{--
-    @include('partials.modal.createResto')
-    @include('partials.modal.createUser') --}}
+
+    @include('partials.modal.createLocation')
+    @include('partials.modal.createLocationNumber')
 
 
 
