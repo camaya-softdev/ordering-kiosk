@@ -1,3 +1,2 @@
 composer install
-
 exec "$@"
