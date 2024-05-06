@@ -1,4 +1,4 @@
-import style from './FoodOutlet.module.css';
+import style from './Foodoutlet.module.css';
 import { previousStep } from '../../store/order/orderSlice';
 import { useDispatch } from 'react-redux';
 import CamayaLogo from '../../assets/camaya-logo.svg';
