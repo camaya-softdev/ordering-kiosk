@@ -8,8 +8,8 @@ services:
   frontend-dev:
     container_name: ordering-kiosk
     build:
-      context: ./
-      dockerfile: ./app/Dockerfile
+      context: ./app
+      dockerfile: Dockerfile
     volumes:
       - ./app/ordering-kiosk:/app
     ports:
@@ -18,7 +18,6 @@ services:
     networks:
       database_kiosk-network:
         ipv4_address: 172.30.0.14
-
 
   web-server:
     container_name: webserver-ordering-kiosk
@@ -37,4 +36,4 @@ services:
       - frontend-dev
     networks:
       database_kiosk-network:
-            ipv4_address: 172.30.0.15
+        ipv4_address: 172.30.0.15
