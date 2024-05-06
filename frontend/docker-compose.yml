@@ -8,8 +8,8 @@ services:
   frontend-dev:
     container_name: ordering-kiosk
     build:
-      context: ./app
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./app/Dockerfile
     volumes:
       - ./app/ordering-kiosk:/app
     ports:
