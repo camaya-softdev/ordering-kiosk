@@ -1,5 +1,3 @@
-Try mo to sa dockerfile ng ordering kiosk
-
 FROM node:18.15.0
 
 WORKDIR /app
