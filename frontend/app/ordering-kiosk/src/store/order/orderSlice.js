@@ -6,13 +6,6 @@ const orderSlice = createSlice({
   initialState: { 
     orderStep: 0,
     selectedOutletId: null,
-    isModalOpen: false,
-    modalData: {
-      secId: null,
-      prodId: null,
-      prodName: '',
-      prodPrice: '',
-    },
   },
   reducers: {
     nextStep: state => {
@@ -29,12 +22,6 @@ const orderSlice = createSlice({
     setSelectedOutletId: (state, action) => {
       state.selectedOutletId = action.payload;
     },
-    setModalState: (state, action) => {
-      state.isModalOpen = action.payload;
-    },
-    setModalData: (state, action) => {
-      state.modalData = action.payload;
-    },
   },
 });
 
@@ -43,8 +30,6 @@ export const {
   previousStep, 
   resetOrder, 
   setSelectedOutletId,
-  setModalState,
-  setModalData,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

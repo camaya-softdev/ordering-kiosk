@@ -5,6 +5,7 @@ import CamayaLogo from "../../assets/camaya-logo.svg";
 import CamayaLogoGray from "../../assets/camaya-logo-gray.svg";
 import FooterLayout from "../../layout/FooterLayout";
 import OutletList from "../../components/FoodOutlets/OutletList";
+import Button from "../../components/Common/Button";
 
 function FoodOutlet() {
   // const orderStep = useSelector(state => state.order.orderStep);
@@ -32,8 +33,10 @@ function FoodOutlet() {
 
       <FooterLayout>
         <div className={style.footer}>
-          <div className={style.backBtn} onClick={goToPreviousStep}>
-            Go back
+          <div className={style.backBtn}>
+            <Button onClick={goToPreviousStep}>
+              Go back
+            </Button>
           </div>
         </div>
       </FooterLayout>
