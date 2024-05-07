@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CategoryResource;
 use App\Services\CategoryService;
 use App\Http\Resources\ProductResource;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -21,11 +22,26 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = Category::with('products')
-                    ->when($request->has('outlet_id'), function($query) use ($request) {
-                        return $query->where('outlet_id', $request->outlet_id);
-                    })
-                    ->get();
+        $categories = Category::when($request->has('outlet_id'), function($query) use ($request) {
+            return $query->where('outlet_id', $request->outlet_id);
+        })
+        ->get();
+
+        if($request->include_new_added){
+            $isThereNewProducts = Product::where('created_at', '>=', now()->subDays(7))
+                                ->when($request->has('outlet_id'), function($query) use ($request) {
+                                    return $query->whereHas('category', function($query) use ($request) {
+                                        $query->where('outlet_id', $request->outlet_id);
+                                    });
+                                })
+                                ->exists();
+
+            if($isThereNewProducts){
+                $newCategory = new Category;
+                $newCategory->name = "Newly Added";
+                $categories = $categories->concat([$newCategory]);
+            }
+        }
 
         return CategoryResource::collection($categories);
     }
