@@ -19,9 +19,14 @@ class CategoryController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::with('products')->get();
+        $categories = Category::with('products')
+                    ->when($request->has('outlet_id'), function($query) use ($request) {
+                        return $query->where('outlet_id', $request->outlet_id);
+                    })
+                    ->get();
+
         return CategoryResource::collection($categories);
     }
 
