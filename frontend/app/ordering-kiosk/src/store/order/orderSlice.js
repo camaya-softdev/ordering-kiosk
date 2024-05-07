@@ -5,7 +5,8 @@ const orderSlice = createSlice({
   name: 'order',
   initialState: { 
     orderStep: 0,
-    selectedOutletId: null,
+    selectedOutlet: null,
+    selectedCategory: null,
   },
   reducers: {
     nextStep: state => {
@@ -18,9 +19,13 @@ const orderSlice = createSlice({
     },
     resetOrder: state => {
       state.orderStep = 0;
+      state.selectedOutlet = null;
     },
-    setSelectedOutletId: (state, action) => {
-      state.selectedOutletId = action.payload;
+    setSelectedOutlet: (state, action) => {
+      state.selectedOutlet = action.payload;
+    },
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
     },
   },
 });
@@ -29,7 +34,8 @@ export const {
   nextStep, 
   previousStep, 
   resetOrder, 
-  setSelectedOutletId,
+  setSelectedOutlet,
+  setSelectedCategory
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

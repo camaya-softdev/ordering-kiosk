@@ -15,10 +15,6 @@ function FoodOutlet() {
   const goToPreviousStep = () => {
     dispatch(previousStep());
   };
-  // Function to move to the next step of the order process
-  // const goToNextStep = () => {
-  //     dispatch(nextStep());
-  // };
 
   return (
     <div className={style.wrapper}>

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setSelectedOutletId, nextStep } from "../../store/order/orderSlice";
+import { setSelectedOutlet, nextStep } from "../../store/order/orderSlice";
 
 function OutletCard({ outlet }) {
   const style = {
@@ -27,7 +27,7 @@ function OutletCard({ outlet }) {
   const dispatch = useDispatch();
 
   const handleSelect = () => {
-    dispatch(setSelectedOutletId(outlet.id));
+    dispatch(setSelectedOutlet(outlet));
     dispatch(nextStep());
   };
 

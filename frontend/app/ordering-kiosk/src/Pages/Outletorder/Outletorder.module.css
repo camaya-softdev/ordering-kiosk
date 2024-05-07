@@ -26,3 +26,22 @@
     flex-shrink: 0;
     /* background: var(--Gray-100, #F2F4F7); */
 }
+
+.outletLogo{
+    display: flex;
+    height: 250px;
+    flex-direction: column;
+    justify-content: center; /* Add this */
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    border-radius: 16px;
+    background: #FFF;
+    
+}
+
+.outletLogoImage{
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+}

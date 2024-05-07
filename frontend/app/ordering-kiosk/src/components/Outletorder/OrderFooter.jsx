@@ -34,11 +34,18 @@ function OrderFooter(){
 
 
                 <div className={styles.summaryButtons}>
-                    <Button type="white">
+                    <Button 
+                        type="white"
+                        disabled={true}
+                        onClick={() => alert("View order")}
+                    >
                         View order
                     </Button>
 
-                    <Button type="black">
+                    <Button 
+                        type="black"
+                        disabled={true}
+                    >
                         Proceed to checkout
                     </Button>
                 </div>
