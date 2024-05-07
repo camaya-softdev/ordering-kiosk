@@ -8,6 +8,7 @@ import { setSelectedCategory } from '../../store/order/orderSlice';
 
 function CategoryList() {
     const selectedOutletId = useSelector(state => state.order.selectedOutlet.id);
+    const selectedCategory = useSelector(state => state.order.selectedCategory);
     const {categories, isCategoriesLoading, setCategoriesFilter} = useFetchCategories();
     const dispatch = useDispatch();
 
@@ -20,6 +21,20 @@ function CategoryList() {
     const selectCategory = (category) => {
         dispatch(setSelectedCategory(category));
     }
+
+    const renderCategoryCard = (category, isSelected) => (
+        <div 
+            onClick={() => selectCategory(category)}
+            key={category.name} 
+            className={`${styles.categoryCard} ${isSelected ? styles.selected : ''}`}
+        >
+            <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
+            <span className={styles.categoryName}>
+                <p>{category.name}</p>
+            </span>
+            {isSelected && <div className={styles.circle}></div>}
+        </div>
+    );
 
     return(
         <div className={styles.categoryWrapper}>
@@ -37,26 +52,8 @@ function CategoryList() {
                 {
                     categories?.data?.length > 0 ?
                     <div className={styles.categoryButtons}>
-                        <div className={styles.categoryCard}>
-                            <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
-                            <span className={styles.categoryName}>
-                                <p>Newly Added</p>
-                            </span>
-                        </div>
-
-                        {
-                            categories.data.map((category) => (
-                                <div 
-                                    onClick={() => selectCategory(category)}
-                                    key={category.id} className={styles.categoryCard}
-                                >
-                                    <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
-                                    <span className={styles.categoryName}>
-                                        <p>{category.name}</p>
-                                    </span>
-                                </div>
-                            ))
-                        }
+                        {renderCategoryCard({name: "Newly Added"}, selectedCategory && selectedCategory.name === "Newly Added")}
+                        {categories.data.map((category) => renderCategoryCard(category, selectedCategory && selectedCategory.name === category.name))}
                     </div>
                     : null
                 }
