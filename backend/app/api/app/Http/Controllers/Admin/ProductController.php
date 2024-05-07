@@ -27,7 +27,24 @@ class ProductController extends Controller
                         });
                     })
                     ->get();
-        return ProductResource::collection($products);
+
+        $newlyAdded = collect();
+
+        if($request->include_new_added){
+            $newlyAdded = clone $products;
+            $newlyAdded = $newlyAdded->filter(function ($product) {
+                return $product->created_at->gte(now()->subDays(7));
+            })->take(8);
+        
+            $newlyAdded = $newlyAdded->map(function ($product) {
+                $product->category->name = "Newly Added";
+                return $product;
+            });
+        }
+
+        $combined = $products->concat($newlyAdded);
+
+        return ProductResource::collection($combined);
     }
 
     public function store(Request $request)
