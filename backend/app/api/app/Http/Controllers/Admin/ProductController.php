@@ -18,9 +18,15 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $products = Product::with(['category'])
+                    ->when($request->has('outlet_id'), function($query) use ($request) {
+                        return $query->whereHas('category', function($query) use ($request) {
+                            $query->where('outlet_id', $request->outlet_id);
+                        });
+                    })
+                    ->get();
         return ProductResource::collection($products);
     }
 
