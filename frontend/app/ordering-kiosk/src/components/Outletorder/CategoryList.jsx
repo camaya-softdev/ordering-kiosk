@@ -18,6 +18,12 @@ function CategoryList() {
         }
     }, [selectedOutletId]);
 
+    useEffect(() => {
+        if(categories?.data?.length > 0 && !selectedCategory) {
+            selectCategory(categories.data[0]);
+        }
+    }, [categories]);
+
     const selectCategory = (category) => {
         dispatch(setSelectedCategory(category));
     }
@@ -52,8 +58,13 @@ function CategoryList() {
                 {
                     categories?.data?.length > 0 ?
                     <div className={styles.categoryButtons}>
-                        {renderCategoryCard({name: "Newly Added"}, selectedCategory && selectedCategory.name === "Newly Added")}
-                        {categories.data.map((category) => renderCategoryCard(category, selectedCategory && selectedCategory.name === category.name))}
+                        {categories.data
+                            .sort((a, b) => {
+                                if (a.name === "Newly Added") return -1;
+                                if (b.name === "Newly Added") return 1;
+                                return a.name.localeCompare(b.name);
+                            })
+                            .map((category) => renderCategoryCard(category, selectedCategory && selectedCategory.name === category.name))}
                     </div>
                     : null
                 }

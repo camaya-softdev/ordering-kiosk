@@ -24,7 +24,8 @@
     align-items: flex-start;
     gap: 16px;
     flex-shrink: 0;
-    /* background: var(--Gray-100, #F2F4F7); */
+    background: var(--Gray-100, #F2F4F7);
+    overflow: auto;
 }
 
 .outletLogo{
@@ -44,4 +45,12 @@
     width: 250px;
     height: 250px;
     object-fit: contain;
+}
+
+.innerWrapper{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
 }

@@ -23,7 +23,9 @@ const Outletorder = () => {
         </div>
 
         <div className={style.productsWrapper}>
-          <ProductList/>
+          <div className={style.innerWrapper}>
+            <ProductList/>
+          </div>
         </div>
       </div>
 
