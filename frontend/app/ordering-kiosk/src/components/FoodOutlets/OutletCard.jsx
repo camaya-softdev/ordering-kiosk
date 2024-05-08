@@ -20,7 +20,7 @@ function OutletCard({ outlet }) {
       <img
         src={`${import.meta.env.VITE_API}${outlet.image}`}
         alt={outlet.name}
-        className={styles.image}
+        className={styles.outletImage}
       />
     </div>
   );
