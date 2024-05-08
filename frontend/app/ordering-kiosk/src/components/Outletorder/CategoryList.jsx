@@ -59,7 +59,11 @@ function CategoryList() {
                     categories?.data?.length > 0 ?
                     <div className={styles.categoryButtons}>
                         {categories.data
-                            .sort((a, b) => b.name === "Newly Added" ? 1 : -1)
+                            .sort((a, b) => {
+                                if (a.name === "Newly Added") return -1;
+                                if (b.name === "Newly Added") return 1;
+                                return a.name.localeCompare(b.name);
+                            })
                             .map((category) => renderCategoryCard(category, selectedCategory && selectedCategory.name === category.name))}
                     </div>
                     : null
