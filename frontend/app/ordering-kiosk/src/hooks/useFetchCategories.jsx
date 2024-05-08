@@ -3,7 +3,8 @@ import { useQuery } from "react-query";
 import { getCategories } from "../services/CategoryService";
 
 function useFetchCategories (initialFilters = {
-    outlet_id: null
+    outlet_id: null,
+    include_new_added: 1
 }){
 
   const [categoriesFilter, setCategoriesFilter] = useState(initialFilters);

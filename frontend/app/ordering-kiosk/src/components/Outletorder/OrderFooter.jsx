@@ -2,11 +2,10 @@ import Footer from "../../layout/FooterLayout";
 import Button from "../Common/Button";
 import styles from './OrderFooter.module.css';
 import { useDispatch } from "react-redux";
-import { previousStep, resetOrder } from "../../store/order/orderSlice";
+import { previousStep } from "../../store/order/orderSlice";
 import BagIcon from "../Common/BagIcon";
 
 function OrderFooter(){
-
     const dispatch = useDispatch();
 
     return(

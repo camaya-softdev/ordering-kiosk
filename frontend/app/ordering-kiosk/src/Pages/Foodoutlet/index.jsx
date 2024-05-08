@@ -1,5 +1,5 @@
 import style from "./Foodoutlet.module.css";
-import { previousStep } from "../../store/order/orderSlice";
+import { previousStep, setSelectedCategory } from "../../store/order/orderSlice";
 import { useDispatch } from "react-redux";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import CamayaLogoGray from "../../assets/camaya-logo-gray.svg";

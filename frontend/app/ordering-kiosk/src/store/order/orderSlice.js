@@ -20,9 +20,11 @@ const orderSlice = createSlice({
     resetOrder: state => {
       state.orderStep = 0;
       state.selectedOutlet = null;
+      state.selectedCategory = null;
     },
     setSelectedOutlet: (state, action) => {
       state.selectedOutlet = action.payload;
+      state.selectedCategory = null;
     },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;

@@ -25,7 +25,7 @@ function OutletList(){
     return(
         <div className={style.wrapper}>
             {
-                isOutletsLoading ?
+                isOutletsLoading && groupedOutlets.length > 0 ?
                 <BeatLoader 
                     color="#FD3C00"
                     size={35}
