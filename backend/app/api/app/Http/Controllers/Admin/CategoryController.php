@@ -39,6 +39,7 @@ class CategoryController extends Controller
             if($isThereNewProducts){
                 $newCategory = new Category;
                 $newCategory->name = "Newly Added";
+                $newCategory->status = 1;
                 $categories = $categories->concat([$newCategory]);
             }
         }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useFetchCategories from '../../hooks/useFetchCategories';
-import styles from './CategoryList.module.css';
+import styles from './OutletOrder.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import categoryIcon from "../../assets/categories.svg";
 import BeatLoader from 'react-spinners/BeatLoader';
@@ -25,14 +25,16 @@ function CategoryList() {
     }, [categories]);
 
     const selectCategory = (category) => {
-        dispatch(setSelectedCategory(category));
+        if(category.status) {
+            dispatch(setSelectedCategory(category));
+        }
     }
 
     const renderCategoryCard = (category, isSelected) => (
         <div 
             onClick={() => selectCategory(category)}
             key={category.name} 
-            className={`${styles.categoryCard} ${isSelected ? styles.selected : ''}`}
+            className={`${styles.categoryCard} ${isSelected ? styles.selected : ''} ${category.status ? '': 'disabled'}`}
         >
             <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
             <span className={styles.categoryName}>

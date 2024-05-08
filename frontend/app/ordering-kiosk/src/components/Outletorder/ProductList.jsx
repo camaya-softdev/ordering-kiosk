@@ -1,25 +1,10 @@
-import styles from "./ProductList.module.css";
+import styles from "./OutletOrder.module.css";
 import { useSelector } from "react-redux";
 import BeatLoader from "react-spinners/BeatLoader";
 import useGroupedProducts from "../../hooks/useFetchGroupedProducts";
-import { useEffect, useLayoutEffect, useRef } from "react";
-
-function ProductCard({ product }) {
-    return (
-        <div className={styles.productCard}>
-            <div className={styles.productImageWrapper}>
-                <img src={`${import.meta.env.VITE_API}/${product.image}`} alt="product" className={styles.productImage}/>
-            </div>
-
-            <div className={styles.productDetails}>
-                <p className={styles.name}>
-                    <span className={styles.nameText}>{product.name}</span>
-                </p>
-                <span className={styles.price}>{product.price}</span>
-            </div>
-        </div>
-    );
-}
+import { useLayoutEffect, useRef } from "react";
+import ProductCard from "./ProductCard";
+import BottomModal from "../Common/BottomModal";
 
 function ProductList(){
     const selectedOutletId = useSelector(state => state.order.selectedOutlet.id);
@@ -55,6 +40,7 @@ function ProductList(){
                     })
                     .map(([category, products], index) => (
                         <div  
+                            key={category}
                             ref={el => categoryRefs.current[category] = el}
                             className={`${styles.byCategoryWrapper} ${index === 0 ? styles.first : ''}`}
                         >
@@ -63,7 +49,7 @@ function ProductList(){
                             </div>
 
                             <div className={styles.productCards}>
-                                {products.map(product => <ProductCard product={product} />)}
+                                {products.map(product => <ProductCard product={product} key={product.id}/>)}
                             </div>
                         </div>
                     ))

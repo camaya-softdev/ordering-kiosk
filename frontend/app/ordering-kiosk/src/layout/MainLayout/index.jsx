@@ -31,4 +31,7 @@ function MainLayout() {
     }
 }
 
-export default MainLayout;
+export {
+    MainLayout,
+    stylized
+};
