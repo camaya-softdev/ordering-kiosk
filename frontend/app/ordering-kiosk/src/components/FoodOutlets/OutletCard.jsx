@@ -27,12 +27,18 @@ function OutletCard({ outlet }) {
   const dispatch = useDispatch();
 
   const handleSelect = () => {
-    dispatch(setSelectedOutlet(outlet));
-    dispatch(nextStep());
+    if(outlet.status){
+      dispatch(setSelectedOutlet(outlet));
+      dispatch(nextStep());
+    }
   };
 
   return (
-    <div style={style.card} onClick={handleSelect}>
+    <div 
+      style={style.card} 
+      onClick={handleSelect}
+      className={outlet.status ? '': 'disabled'}
+    >
       <img
         src={`${import.meta.env.VITE_API}${outlet.image}`}
         alt={outlet.name}

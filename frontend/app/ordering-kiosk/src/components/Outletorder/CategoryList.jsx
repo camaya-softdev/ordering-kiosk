@@ -25,14 +25,16 @@ function CategoryList() {
     }, [categories]);
 
     const selectCategory = (category) => {
-        dispatch(setSelectedCategory(category));
+        if(category.status) {
+            dispatch(setSelectedCategory(category));
+        }
     }
 
     const renderCategoryCard = (category, isSelected) => (
         <div 
             onClick={() => selectCategory(category)}
             key={category.name} 
-            className={`${styles.categoryCard} ${isSelected ? styles.selected : ''}`}
+            className={`${styles.categoryCard} ${isSelected ? styles.selected : ''} ${category.status ? '': 'disabled'}`}
         >
             <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
             <span className={styles.categoryName}>

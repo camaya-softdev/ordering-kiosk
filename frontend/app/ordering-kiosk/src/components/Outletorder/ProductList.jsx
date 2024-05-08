@@ -2,11 +2,11 @@ import styles from "./ProductList.module.css";
 import { useSelector } from "react-redux";
 import BeatLoader from "react-spinners/BeatLoader";
 import useGroupedProducts from "../../hooks/useFetchGroupedProducts";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 function ProductCard({ product }) {
     return (
-        <div className={styles.productCard}>
+        <div className={`${styles.productCard} ${product.status ? '' : 'disabled'}`}>
             <div className={styles.productImageWrapper}>
                 <img src={`${import.meta.env.VITE_API}/${product.image}`} alt="product" className={styles.productImage}/>
             </div>
