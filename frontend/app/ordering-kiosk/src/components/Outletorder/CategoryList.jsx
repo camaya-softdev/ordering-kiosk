@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useFetchCategories from '../../hooks/useFetchCategories';
-import styles from './CategoryList.module.css';
+import styles from './OutletOrder.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import categoryIcon from "../../assets/categories.svg";
 import BeatLoader from 'react-spinners/BeatLoader';

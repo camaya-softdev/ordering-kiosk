@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import useFetchOutlets from '../../../hooks/useFetchOutlets';
+import useFetchOutlets from '../../hooks/useFetchOutlets';
 import style from './OutletList.module.css';
 import BeatLoader from "react-spinners/BeatLoader";
-import OutletCard from '../OutletCard';
+import OutletCard from './OutletCard';
 
 function OutletList(){
     const { outlets, isOutletsLoading } = useFetchOutlets();
@@ -25,7 +25,7 @@ function OutletList(){
     return(
         <div className={style.wrapper}>
             {
-                isOutletsLoading && groupedOutlets.length > 0 ?
+                isOutletsLoading ?
                 <BeatLoader 
                     color="#FD3C00"
                     size={35}

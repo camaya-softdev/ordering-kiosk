@@ -96,3 +96,30 @@
     line-height: normal;
 }
 
+.modalWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 1080px;
+    height: 1920px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    z-index: 999999;
+    background: rgba(30, 30, 30, 0.50);
+    backdrop-filter: blur(10px);
+}
+
+.modalContent{
+    display: flex;
+    width: 1080px;
+    padding: 56px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 60px;
+    border-radius: 48px 48px 0px 0px;
+    background: #FFF;
+}
+
