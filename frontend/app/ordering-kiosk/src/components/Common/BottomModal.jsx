@@ -7,17 +7,19 @@ function BottomModal({
     extras,
     title,
     subtitle,
-    showTitleDivider = false
+    showTitleDivider = false,
+    style
 }) {
     if(open){
         return (
             <div 
                 className={styles.modalWrapper}
-                onClick={onClose}
+                // onClick={onClose}
+                style={style}
             >
                 <div 
                     className={styles.modalContent}
-                    onClick={(e) => e.stopPropagation()}
+                    // onClick={(e) => e.stopPropagation()}
                 >
                     {
                         title ? 

@@ -6,7 +6,7 @@ import { previousStep } from "../../store/order/orderSlice";
 import BagIcon from "../Common/BagIcon";
 import { useState } from "react";
 import StartOverConfirmation from "./StartOverConfirmation";
-import { calculateTotalPrice } from "../../utils/Common/Price";
+import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ViewOrder from "./ViewOrder";
 
 function OrderFooter(){
@@ -36,7 +36,7 @@ function OrderFooter(){
                     </div>
 
                     <p className={styles.totalPrice}>
-                        PHP {calculateTotalPrice(selectedProducts).toFixed(2)}
+                        PHP {formatNumber(calculateTotalPrice(selectedProducts))}
                     </p>
                 </div>
 
