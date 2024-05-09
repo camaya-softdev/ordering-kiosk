@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./OutletOrder.module.css";
 import AddProductToOrder from "./AddProductToOrder";
+import { formatNumber } from "../../utils/Common/Price";
 
 function ProductCard({ product }){
     const [addProduct, setAddProduct] = useState(false);
@@ -27,7 +28,7 @@ function ProductCard({ product }){
                     <p className={styles.name}>
                         <span className={styles.nameText}>{product.name}</span>
                     </p>
-                    <span className={styles.price}>&#8369;{product.price}</span>
+                    <span className={styles.price}>&#8369;{formatNumber(product.price)}</span>
                 </div>
             </div>
 

@@ -19,11 +19,11 @@ function StartOverConfirmation ({open, onClose}){
             subtitle="Your progress will not be saved."
             extras={
                 <>
-                    <Button type='white' onClick={onClose}>
+                    <Button type='white' onClick={onClose} style={{margin: "40px 0 40px 40px"}}>
                         Cancel
                     </Button>
 
-                    <Button type='black' onClick={handleStartOver}>
+                    <Button type='black' onClick={handleStartOver} style={{margin: "40px 40px 40px 0"}}>
                         Confirm
                     </Button>
                 </>
