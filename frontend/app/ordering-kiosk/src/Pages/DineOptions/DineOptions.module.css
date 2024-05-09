@@ -86,6 +86,7 @@ input, select, textarea, button {
     backdrop-filter: blur(20px);
     box-shadow: 0 0 16px 0 rgba(16, 24, 40, 0.16);
     overflow: hidden;
+    cursor: pointer;
 }
 .buttonOption span{
     font-family: Poppins, var(--default-font-family);
