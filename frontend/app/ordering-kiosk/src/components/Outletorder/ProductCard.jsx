@@ -1,13 +1,18 @@
+import { useState } from "react";
 import styles from "./OutletOrder.module.css";
+import AddProductToOrder from "./AddProductToOrder";
 
 function ProductCard({ product }){
+    const [addProduct, setAddProduct] = useState(false);
 
     const selectProduct = () => {
         if(product.status){
-            alert('Product selected');
+            setAddProduct(true);
         }
+        
     }
 
+    
     return (
         <>
             <div 
@@ -22,9 +27,15 @@ function ProductCard({ product }){
                     <p className={styles.name}>
                         <span className={styles.nameText}>{product.name}</span>
                     </p>
-                    <span className={styles.price}>{product.price}</span>
+                    <span className={styles.price}>&#8369;{product.price}</span>
                 </div>
             </div>
+
+            <AddProductToOrder
+                product={product}
+                open={addProduct}
+                onClose={() => setAddProduct(false)}
+            />
         </>
     );
 }
