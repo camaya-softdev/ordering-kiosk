@@ -5,6 +5,7 @@ import Button from "../Common/Button";
 import StepperInput from "../Common/StepperInput";
 import { useDispatch } from 'react-redux';
 import { addSelectedProduct } from '../../store/order/orderSlice';
+import { formatNumber } from '../../utils/Common/Price';
 
 function AddProductToOrder({product, open, onClose}){
     const [quantity, setQuantity] = useState(0);
@@ -39,7 +40,7 @@ function AddProductToOrder({product, open, onClose}){
                 <div className={styles.addModalFields}>
                     <div className={styles.addModalProductDetails}>
                         <span className={styles.addModalProductName}>{product.name}</span>
-                        <span className={styles.addModalProductPrice}>&#8369;{product.price}</span>
+                        <span className={styles.addModalProductPrice}>&#8369;{formatNumber(product.price)}</span>
                     </div>
 
                     <StepperInput
