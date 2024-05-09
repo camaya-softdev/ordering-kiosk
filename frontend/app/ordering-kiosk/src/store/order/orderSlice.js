@@ -70,6 +70,19 @@ const orderSlice = createSlice({
         }
       }
     },
+    removeProduct: (state, action) => {
+      if (!action.payload.product) {
+        return;
+      }
+    
+      const productIndex = state.selectedProducts.findIndex(
+        product => product.details.id === action.payload.product.id
+      );
+    
+      if (productIndex !== -1) {
+        state.selectedProducts.splice(productIndex, 1);
+      }
+    }
   },
 });
 
@@ -81,7 +94,8 @@ export const {
   setSelectedCategory,
   addSelectedProduct,
   increaseProductQuantity,
-  decreaseProductQuantity
+  decreaseProductQuantity,
+  removeProduct
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
