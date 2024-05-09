@@ -6,30 +6,43 @@ function BottomModal({
     onClose, 
     extras,
     title,
-    subtitle
+    subtitle,
+    showTitleDivider = false,
+    style
 }) {
     if(open){
         return (
             <div 
                 className={styles.modalWrapper}
-                onClick={onClose}
+                // onClick={onClose}
+                style={style}
             >
                 <div 
                     className={styles.modalContent}
-                    onClick={(e) => e.stopPropagation()}
+                    // onClick={(e) => e.stopPropagation()}
                 >
-                    <div className={styles.modalTitleWrapper}>
-                        <div className={styles.modalInnerWrapper}>
-                            <span className={styles.modalTitle}>{title}</span>
-                            <span className={styles.modalSubtitle}>{subtitle}</span>
-                        </div>
-                    </div>
+                    {
+                        title ? 
+                        <div className={styles.modalTitleWrapper}>
+                            <div className={styles.modalInnerWrapper}>
+                                <span className={styles.modalTitle}>{title}</span>
+                                {
+                                    showTitleDivider ?
+                                    <div className={styles.modalTitleDivider}></div> : null
+                                }
+                                <span className={styles.modalSubtitle}>{subtitle}</span>
+                            </div>
+                        </div> : null
+                    }
                     
-                    <div>{children}</div>
+                    {children}
 
-                    <div className={styles.modalExtras}>
-                        {extras}
-                    </div>
+                    {
+                        extras ?
+                        <div className={styles.modalExtras}>
+                            {extras}
+                        </div> : null
+                    }
                 </div>
             </div>
         );

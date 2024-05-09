@@ -1,15 +1,21 @@
 import Footer from "../../layout/FooterLayout";
 import Button from "../Common/Button";
 import styles from './OutletOrder.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { previousStep } from "../../store/order/orderSlice";
 import BagIcon from "../Common/BagIcon";
 import { useState } from "react";
 import StartOverConfirmation from "./StartOverConfirmation";
+import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
+import ViewOrder from "./ViewOrder";
 
 function OrderFooter(){
     const dispatch = useDispatch();
-    const [startOverModal, setStartOverModal] = useState(false);
+    const [openModal, setOpenModal] = useState({
+        startOver: false,
+        viewOrder: false
+    });
+    const selectedProducts = useSelector(state => state.order.selectedProducts);
 
     return(
         <Footer className={styles.footer}>
@@ -18,7 +24,7 @@ function OrderFooter(){
                     Back to Outlets
                 </Button>
 
-                <Button onClick={() => setStartOverModal(true)}>
+                <Button onClick={() => setOpenModal((prev) => ({...prev, startOver: true}))}>
                     Start Over
                 </Button>
             </div>
@@ -26,11 +32,11 @@ function OrderFooter(){
             <div className={styles.summaryWrapper}>
                 <div className={styles.priceWrapper}>
                     <div className={styles.iconBag}>
-                        <BagIcon number={0}/>
+                        <BagIcon number={selectedProducts.length}/>
                     </div>
 
                     <p className={styles.totalPrice}>
-                        PHP 0.00
+                        PHP {formatNumber(calculateTotalPrice(selectedProducts))}
                     </p>
                 </div>
 
@@ -38,15 +44,15 @@ function OrderFooter(){
                 <div className={styles.summaryButtons}>
                     <Button 
                         type="white"
-                        disabled={true}
-                        onClick={() => alert("View order")}
+                        disabled={!selectedProducts.length}
+                        onClick={() => setOpenModal((prev) => ({...prev, viewOrder: true}))}
                     >
                         View order
                     </Button>
 
                     <Button 
                         type="black"
-                        disabled={true}
+                        disabled={!selectedProducts.length}
                     >
                         Proceed to checkout
                     </Button>
@@ -54,8 +60,13 @@ function OrderFooter(){
             </div>
 
             <StartOverConfirmation
-                open={startOverModal}
-                onClose={() => setStartOverModal(false)}
+                open={openModal.startOver}
+                onClose={() => setOpenModal((prev) => ({...prev, startOver: false}))}
+            />
+
+            <ViewOrder
+                open={openModal.viewOrder}
+                onClose={() => setOpenModal((prev) => ({...prev, viewOrder: false}))}
             />
         </Footer>
     );
