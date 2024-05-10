@@ -3,6 +3,8 @@ import dineinlogo from "../../assets/dineoptionlogo/dinein.svg";
 import deliverlogo from "../../assets/dineoptionlogo/deliver.svg";
 import takeawaylogo from "../../assets/dineoptionlogo/takeaway.svg";
 import Progress from "../../components/DineOption/Progress";
+import FooterLayout from "../../layout/FooterLayout";
+import SummaryFooter from "../../components/Outletorder/SummaryFooter";
 
 function DineOptions() {
   return (
@@ -32,7 +34,7 @@ function DineOptions() {
         </div>
         <div className={style.circleBlur}></div>
       </div>
-      <div className={style.dineoptionFooter}>
+      {/* <div className={style.dineoptionFooter}>
         <div className={style.topDetails}>
           <div className={style.diningOptionTitle}>
             <span className={style.spanTitle}>Dining option</span>
@@ -66,7 +68,12 @@ function DineOptions() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <SummaryFooter
+        showBackBtn={true}
+        showStartOver={true}
+        showDiningDetails={true}
+      />
     </>
   );
 }

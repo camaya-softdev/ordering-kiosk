@@ -2,7 +2,7 @@ import Footer from "../../layout/FooterLayout";
 import Button from "../Common/Button";
 import styles from './OutletOrder.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { previousStep } from "../../store/order/orderSlice";
+import { nextStep, previousStep } from "../../store/order/orderSlice";
 import BagIcon from "../Common/BagIcon";
 import { useState } from "react";
 import StartOverConfirmation from "./StartOverConfirmation";
@@ -16,6 +16,10 @@ function OrderFooter(){
         viewOrder: false
     });
     const selectedProducts = useSelector(state => state.order.selectedProducts);
+
+    const proceedToCheckout = () => {
+        dispatch(nextStep());
+    }
 
     return(
         <Footer className={styles.footer}>
@@ -53,6 +57,7 @@ function OrderFooter(){
                     <Button 
                         type="black"
                         disabled={!selectedProducts.length}
+                        onClick={proceedToCheckout}
                     >
                         Proceed to checkout
                     </Button>

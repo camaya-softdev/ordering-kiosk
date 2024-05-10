@@ -477,10 +477,14 @@
 .viewOrderFooter{
     border-top: 1px solid #D0D5DD;
     margin: 0;
-    box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.16), 0px 0px 6px -2px rgba(16, 24, 40, 0.16);
+    height: fit-content;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-end; 
+    /* box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.16), 0px 0px 6px -2px rgba(16, 24, 40, 0.16); */
 }
 
-.viewOrderFooter > div{
+.viewOrderFooter > .viewOrderFooterInner{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -489,7 +493,7 @@
     flex: 1 0 0;
 }
 
-.viewOrderFooter > div > div:first-of-type{
+.viewOrderFooter > .viewOrderFooterInner > .viewOrderFooterDetails{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -498,14 +502,14 @@
     align-self: stretch;
 }
 
-.viewOrderFooter > div > div:first-of-type > p {
+.viewOrderFooter > .viewOrderFooterInner > .viewOrderFooterDetails p {
     display: flex;
     align-items: center;
     gap: 8px;
     align-self: stretch;
 }
 
-.viewOrderFooter > div > div:first-of-type > p > span:first-of-type{
+.viewOrderFooter > .viewOrderFooterInner > .viewOrderFooterDetails p > span:first-of-type{
     flex: 1 0 0;
     color: #1E1E1E;
     font-family: Poppins;
@@ -515,7 +519,7 @@
     line-height: normal;
 }
 
-.viewOrderFooter > div > div:first-of-type > p > span:nth-of-type(2){
+.viewOrderFooter > .viewOrderFooterInner > .viewOrderFooterDetails > p > span:nth-of-type(2){
     color: #1E1E1E;
     font-family: Poppins;
     font-size: 24px;
@@ -524,7 +528,7 @@
     line-height: normal;
 }
 
-.viewOrderFooter > div > div:first-of-type > p:nth-of-type(2) > span{
+.viewOrderFooter > .viewOrderFooterInner > .viewOrderFooterDetails .viewOrderFooterBold > span:first-of-type{
     color: #1E1E1E;
     font-family: Poppins;
     font-size: 40px;
@@ -534,7 +538,7 @@
     flex: 1 0 0;
 }
 
-.viewOrderFooter > div > div:first-of-type > p:nth-of-type(2) > span:nth-of-type(2){
+.viewOrderFooter > .viewOrderFooterInner > .viewOrderFooterDetails .viewOrderFooterBold > span:nth-of-type(2){
     color: #1E1E1E;
     font-family: Poppins;
     font-size: 40px;
@@ -544,10 +548,18 @@
     text-align: end;
 }
 
-.viewOrderFooter > div > div:nth-of-type(2){
+.viewOrderFooter > .viewOrderFooterInner > div:nth-of-type(2){
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 16px;
     align-self: stretch;
+}
+
+.viewOrderFooter hr{
+    height: 2px;
+    align-self: stretch;
+    background: var(--Gray-200, #EAECF0);
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
