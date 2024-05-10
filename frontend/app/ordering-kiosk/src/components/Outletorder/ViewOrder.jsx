@@ -2,24 +2,21 @@ import { useSelector } from "react-redux";
 import BottomModal from "../Common/BottomModal";
 import styles from "./OutletOrder.module.css";
 import StepperInput from "../Common/StepperInput";
-import FooterLayout from '../../layout/FooterLayout';
-import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
-import Button from "../Common/Button";
 import { useDispatch } from 'react-redux';
-import { increaseProductQuantity, decreaseProductQuantity } from '../../store/order/orderSlice';
-import { useEffect, useState } from "react";
+import { increaseProductQuantity, decreaseProductQuantity, nextStep } from '../../store/order/orderSlice';
+import { useState } from "react";
 import RemoveProductConfirmation from "./RemoveProductConfirmation";
+import SummaryFooter from "./SummaryFooter";
+import { formatNumber } from "../../utils/Common/Price";
 
 function ViewOrder({open, onClose}){
     const selectedProducts = useSelector(state => state.order.selectedProducts);
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState({removeProduct: null});
 
-    // useEffect(() => {
-    //     if(selectedProducts.length === 0){
-    //         onClose();
-    //     }
-    // }, [selectedProducts]);
+    const proceedToCheckout = () => {
+        dispatch(nextStep());
+    }
 
     return(
         <BottomModal 
@@ -78,32 +75,12 @@ function ViewOrder({open, onClose}){
             
             {
                 selectedProducts.length > 0 ?
-                <FooterLayout className={styles.viewOrderFooter}>
-                    <div>
-                        <div>
-                            <p>
-                                <span>Number of order</span>
-                                <span>{selectedProducts.length}</span>
-                            </p>
-
-                            <p>
-                                <span>TOTAL</span>
-                                <span>PHP {formatNumber(calculateTotalPrice(selectedProducts))}</span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <Button type="white" onClick={onClose}>
-                                Continue to order
-                            </Button>
-
-                            <Button type="black">
-                                Proceed to checkout
-                            </Button>
-                        </div>
-
-                    </div>
-                </FooterLayout>:null
+                <SummaryFooter
+                    continueToOrderOnClick={onClose}
+                    selectDineOptionOnClick={proceedToCheckout}
+                    showContinueToOrder={true}
+                    showSelectDineOption={true}
+                />:null
 
             }
 

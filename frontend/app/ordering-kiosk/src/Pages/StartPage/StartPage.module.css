@@ -19,3 +19,24 @@
 .footer{
     background: var(--Gradient, linear-gradient(90deg, #FFE698 0%, #FD3C00 100%));
 }
+
+@keyframes moveShine {
+    0% { left: -142.035px; }
+    50% { left: 100%; }
+    100% { left: -142.035px; }
+}
+
+.shine{
+    width: 100px;
+    height: 461.694px;
+    transform: rotate(-8.117deg);
+    position: absolute;
+    bottom: 50;
+    left: -142.035px;
+    background: rgba(255, 255, 255, 0.50);
+    mix-blend-mode: soft-light;
+    filter: blur(30px);
+    animation: moveShine 7s ease-in-out infinite;
+    height: 300px;
+    overflow: hidden;
+}

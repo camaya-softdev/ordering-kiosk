@@ -1,0 +1,199 @@
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", "Source Han Sans CN", sans-serif;
+}
+.mainContainer {
+    overflow: hidden;
+}
+.mainContainer, .mainContainer * {
+    box-sizing: border-box;
+}
+input, select, textarea, button {
+    outline: 0;
+}
+.mainContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 1080px;
+    height: 1338px;
+    margin: 0 auto;
+    padding: 120px 120px 0 120px;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 80px;
+    position: relative;
+    width: 698px;
+}
+.text {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 698px;
+    height: 28px;
+    color: #1e1e1e;
+    font-family: Poppins, var(--default-font-family);
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1;
+}
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 32px;
+    position: relative;
+    width: 682px;
+    z-index: 2;
+}
+.wrapperOption {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    gap: 32px;
+    position: relative;
+    width: 682px;
+    z-index: 3;
+}
+.buttonOption{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    height: 400px;
+    width: 325px;
+    background-color: gray;
+    padding: 40px 0;
+    gap: 60px;
+    background: #ffffff;
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 16px 0 rgba(16, 24, 40, 0.16);
+    cursor: pointer;
+    overflow: hidden;
+    cursor: pointer;
+}
+.buttonOption span{
+    font-family: Poppins, var(--default-font-family);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 32px;
+    width: 250px;
+    text-align: center;
+}
+.topContainer{
+    width: 1080px;
+    padding: 56px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circleBlur{
+    width: 500px;
+    background: #ff9393;
+    height: 500px;
+    position: absolute;
+    bottom: 255px;
+    border-radius: 50%;
+    opacity: 10%;
+    box-shadow: 0 0 150px 200px #ff9393;
+}
+.dineoptionFooter{
+    display: flex;
+    flex-direction: column;
+    width: 1080px;
+    padding: 40px;
+    padding-bottom: 20px;
+}
+.topDetails{
+    display: flex;
+    flex-direction: column;
+}
+.rowPerDetails{
+    display: flex;
+    justify-content: space-between;
+}
+.diningOptionTitle{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.spanTitle, .spanDetails{
+    font-size: 28px;
+    font-family: Poppins, var(--default-font-family);
+}
+.spanDetails{
+    font-weight: 600;
+}
+.bottomDetails{
+    border-top: 1px solid black;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.proceedPaymentBtn{
+    width: 100%;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 16px;
+    color: #ffffff;
+    font-family: Poppins, var(--default-font-family);
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.backOptionsBtn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.startOverBtn, .backBtn{
+    width: 49%;
+    padding: 20px;
+    border-radius: 16px;
+    font-family: Poppins, var(--default-font-family);
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+.startOverBtn{
+    color: #1e1e1e;
+    background: #eaecf0;
+}
+.backBtn{
+    background: white;
+    border: 1px solid black;
+}
+.spanTotalTitle,.spanTotalDetails{
+    font-size: 40px;
+    font-family: Poppins, var(--default-font-family);
+    font-weight: 600;
+}
