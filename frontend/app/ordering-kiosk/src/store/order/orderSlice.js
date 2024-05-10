@@ -7,7 +7,8 @@ const orderSlice = createSlice({
     orderStep: 4,
     selectedOutlet: null,
     selectedCategory: null,
-    selectedProducts: []
+    selectedProducts: [],
+    diningOption: null
   },
   reducers: {
     nextStep: state => {
@@ -23,6 +24,7 @@ const orderSlice = createSlice({
       state.selectedOutlet = null;
       state.selectedCategory = null;
       state.selectedProducts = [];
+      state.diningOption = null;
     },
     setSelectedOutlet: (state, action) => {
       state.selectedOutlet = action.payload;
@@ -82,7 +84,10 @@ const orderSlice = createSlice({
       if (productIndex !== -1) {
         state.selectedProducts.splice(productIndex, 1);
       }
-    }
+    },
+    setDiningOption: (state, action) => {
+      state.diningOption = action.payload;
+    },
   },
 });
 
@@ -95,7 +100,8 @@ export const {
   addSelectedProduct,
   increaseProductQuantity,
   decreaseProductQuantity,
-  removeProduct
+  removeProduct,
+  setDiningOption
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

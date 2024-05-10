@@ -3,29 +3,50 @@ import dineinlogo from "../../assets/dineoptionlogo/dinein.svg";
 import deliverlogo from "../../assets/dineoptionlogo/deliver.svg";
 import takeawaylogo from "../../assets/dineoptionlogo/takeaway.svg";
 import Progress from "../../components/DineOption/Progress";
-import FooterLayout from "../../layout/FooterLayout";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
+import { useDispatch } from "react-redux";
+import { previousStep, setDiningOption } from "../../store/order/orderSlice";
+import { DELIVERY, DINE_IN, PICK_UP } from "../../utils/Constants/DiningOptions";
+import { useState } from "react";
+import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 
 function DineOptions() {
+  const dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState({startOver: false});
+
+  const selectDiningOption = (option) => {
+    dispatch(setDiningOption(option));
+    // dispatch(nextStep());
+  }
+
   return (
     <>
       <div className={style.topContainer}>
-        <Progress width={30} />
+        <Progress width={20} />
       </div>
       <div className={style.mainContainer}>
         <div className={style.wrapper}>
           <span className={style.text}>Where would you like to eat?</span>
           <div className={style.section}>
             <div className={style.wrapperOption}>
-              <div className={style.buttonOption}>
+              <div 
+                className={style.buttonOption} 
+                onClick={() => selectDiningOption(DINE_IN)}
+              >
                 <span>DINE IN</span>
                 <img src={dineinlogo} alt="Dine In Logo" />
               </div>
-              <div className={style.buttonOption}>
+              <div 
+                className={style.buttonOption}
+                onClick={() => selectDiningOption(PICK_UP)}
+              >
                 <span>PICKUP TAKEAWAY</span>
                 <img src={takeawaylogo} alt="Takeaway Logo" />
               </div>
-              <div className={style.buttonOption}>
+              <div 
+                className={style.buttonOption}
+                onClick={() => selectDiningOption(DELIVERY)}
+              >
                 <span>DELIVERY</span>
                 <img src={deliverlogo} alt="Delivery Logo" />
               </div>
@@ -34,45 +55,17 @@ function DineOptions() {
         </div>
         <div className={style.circleBlur}></div>
       </div>
-      {/* <div className={style.dineoptionFooter}>
-        <div className={style.topDetails}>
-          <div className={style.diningOptionTitle}>
-            <span className={style.spanTitle}>Dining option</span>
-            <span className={style.spanDetails}>DINE</span>
-          </div>
-          <div className={style.rowPerDetails}>
-            <span className={style.spanTitle}>Location</span>
-            <span className={style.spanDetails}>-</span>
-          </div>
-          <div className={style.rowPerDetails}>
-            <span className={style.spanTitle}>Table/Room Number</span>
-            <span className={style.spanDetails}>-</span>
-          </div>
-        </div>
-        <div className={style.bottomDetails}>
-          <div className={style.topDetails}>
-            <div className={style.rowPerDetails}>
-              <span className={style.spanTitle}>Number of order</span>
-              <span className={style.spanDetails}>-</span>
-            </div>
-            <div className={style.rowPerDetails}>
-              <span className={style.spanTotalTitle}>Total</span>
-              <span className={style.spanTotalDetails}>-</span>
-            </div>
-          </div>
-          <div className={style.buttonContainer}>
-            <div className={style.proceedPaymentBtn}>Choose payment method</div>
-            <div className={style.backOptionsBtn}>
-              <div className={style.startOverBtn}>Start over</div>
-              <div className={style.backBtn}>Back</div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <SummaryFooter
         showBackBtn={true}
         showStartOver={true}
         showDiningDetails={true}
+        startOverBtnOnClick={() => setOpenModal((prev) => ({...prev, startOver: true}))}
+        backOnClick={() => dispatch(previousStep())}
+      />
+
+      <StartOverConfirmation
+        open={openModal.startOver}
+        onClose={() => setOpenModal((prev) => ({...prev, startOver: false}))}
       />
     </>
   );
