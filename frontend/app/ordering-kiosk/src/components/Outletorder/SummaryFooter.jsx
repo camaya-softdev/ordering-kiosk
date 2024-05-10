@@ -13,11 +13,10 @@ function SummaryFooter({
     showSelectDineOption,
     showStartOver,
     showBackBtn,
-    showDiningDetails
-
+    showDiningDetails,
+    showLocationDetails
 }){
-    const selectedProducts = useSelector(state => state.order.selectedProducts);
-    const diningOption = useSelector(state => state.order.diningOption);
+    const order = useSelector(state => state.order);
 
     return(
         <FooterLayout className={styles.viewOrderFooter}>
@@ -27,21 +26,34 @@ function SummaryFooter({
                         showDiningDetails &&
                         <p>
                             <span>Dining Option</span>
-                            <span>{diningOption ? diningOption : '-'}</span>
+                            <span>{order.diningOption ? order.diningOption : '-'}</span>
                         </p>
                     }
                     {
-                        showDiningDetails &&
+                        showLocationDetails &&
+                        <>
+                            <p style={{marginTop: "40px"}}>
+                                <span>Location</span>
+                                <span>{order.location ? order.location.name : '-'}</span>
+                            </p>
+                            <p>
+                                <span>Table/Room Number</span>
+                                <span>{order.area ? order.area.name : '-'}</span>
+                            </p>
+                        </>
+                    }
+                    {
+                        (showDiningDetails || showLocationDetails) &&
                         <hr></hr>
                     }
                     <p>
                         <span>Number of order</span>
-                        <span>{selectedProducts.length}</span>
+                        <span>{order.selectedProducts.length}</span>
                     </p>
 
                     <p className={styles.viewOrderFooterBold}>
                         <span>TOTAL</span>
-                        <span>PHP {formatNumber(calculateTotalPrice(selectedProducts))}</span>
+                        <span>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</span>
                     </p>
                 </div>
 
