@@ -4,6 +4,7 @@ import style from "./MainLayout.module.css";
 import FoodOutlet from "../../Pages/Foodoutlet";
 import OutletOrder from "../../Pages/Outletorder";
 import DineOptions from "../../Pages/DineOptions";
+import LocationPage from "../../Pages/LocationPage";
 
 function stylized(WrappedComponent) {
   const StylizedComponent = function (props) {
@@ -30,6 +31,8 @@ function MainLayout() {
       return stylized(OutletOrder)();
     case 3:
       return stylized(DineOptions)();
+    case 4:
+      return stylized(LocationPage)();
     default:
       return stylized(StartPage)();
   }

@@ -1,32 +1,28 @@
 import { useEffect, useState } from "react";
 import style from "./Common.module.css";
 
-function Button({ 
-  children, 
-  onClick, 
-  style: customStyle, 
-  className: customClassName, 
+function Button({
+  children,
+  onClick,
+  style: customStyle,
+  className: customClassName,
   type = "gray",
-  disabled = false
+  disabled = false,
 }) {
-  
   const [typeCss, setTypeCss] = useState(type);
-  const [disabledCss, setDisabledCss] = useState('');
+  const [disabledCss, setDisabledCss] = useState("");
 
   useEffect(() => {
-    if(type === "gray"){
+    if (type === "gray") {
       setTypeCss(style.grayBtn);
       setDisabledCss(style.grayBtnDisabled);
-    }
-    else if(type === "black"){
+    } else if (type === "black") {
       setTypeCss(style.blackBtn);
       setDisabledCss(style.blackBtnDisabled);
-    }
-    else if(type === "white"){
+    } else if (type === "white") {
       setTypeCss(style.whiteBtn);
       setDisabledCss(style.whiteBtnDisabled);
-    }
-    else{
+    } else {
       setTypeCss(style.grayBtn);
       setDisabledCss(style.grayBtnDisabled);
     }
@@ -38,26 +34,23 @@ function Button({
       return;
     }
 
-    if(!onClick){
+    if (!onClick) {
       return;
     }
     onClick(event);
-  }
+  };
 
   return (
-      <div 
-        className={`${typeCss} ${customClassName} ${disabled ? disabledCss : ''}`}
-        style={customStyle}
-        onClick={handleClick}
-      >
-          <span>
-            <p>
-              {children}
-            </p>
-          </span>
-      </div>
-
-  )
+    <div
+      className={`${typeCss} ${customClassName} ${disabled ? disabledCss : ""}`}
+      style={customStyle}
+      onClick={handleClick}
+    >
+      <span>
+        <p>{children}</p>
+      </span>
+    </div>
+  );
 }
 
 export default Button;
