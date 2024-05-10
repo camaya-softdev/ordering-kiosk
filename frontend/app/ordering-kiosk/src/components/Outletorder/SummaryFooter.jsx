@@ -17,6 +17,7 @@ function SummaryFooter({
 
 }){
     const selectedProducts = useSelector(state => state.order.selectedProducts);
+    const diningOption = useSelector(state => state.order.diningOption);
 
     return(
         <FooterLayout className={styles.viewOrderFooter}>
@@ -26,7 +27,7 @@ function SummaryFooter({
                         showDiningDetails &&
                         <p>
                             <span>Dining Option</span>
-                            <span>-</span>
+                            <span>{diningOption ? diningOption : '-'}</span>
                         </p>
                     }
                     {
@@ -61,14 +62,14 @@ function SummaryFooter({
 
                     {
                         showStartOver ?
-                        <Button type="gray" >
+                        <Button type="gray" onClick={startOverBtnOnClick}>
                             Start over
                         </Button>:null
                     }
 
                     {
                         showBackBtn ?
-                        <Button type="white" >
+                        <Button type="white" onClick={backOnClick}>
                             Back
                         </Button>:null
                     }
