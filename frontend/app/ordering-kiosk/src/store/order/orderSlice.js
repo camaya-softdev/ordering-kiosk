@@ -50,6 +50,39 @@ const orderSlice = createSlice({
         });
       }
     },
+    increaseProductQuantity: (state, action) => {
+      const productIndex = state.selectedProducts.findIndex(
+        product => product.details.id === action.payload.product.id
+      );
+      if (productIndex !== -1) {
+        state.selectedProducts[productIndex].quantity += 1;
+      }
+    },
+    decreaseProductQuantity: (state, action) => {
+      const productIndex = state.selectedProducts.findIndex(
+        product => product.details.id === action.payload.product.id
+      );
+      if (productIndex !== -1) {
+        if (state.selectedProducts[productIndex].quantity > 1) {
+          state.selectedProducts[productIndex].quantity -= 1;
+        } else {
+          state.selectedProducts.splice(productIndex, 1);
+        }
+      }
+    },
+    removeProduct: (state, action) => {
+      if (!action.payload.product) {
+        return;
+      }
+    
+      const productIndex = state.selectedProducts.findIndex(
+        product => product.details.id === action.payload.product.id
+      );
+    
+      if (productIndex !== -1) {
+        state.selectedProducts.splice(productIndex, 1);
+      }
+    }
   },
 });
 
@@ -59,7 +92,10 @@ export const {
   resetOrder, 
   setSelectedOutlet,
   setSelectedCategory,
-  addSelectedProduct
+  addSelectedProduct,
+  increaseProductQuantity,
+  decreaseProductQuantity,
+  removeProduct
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

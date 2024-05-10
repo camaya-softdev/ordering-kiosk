@@ -37,6 +37,10 @@ function Button({
       event.preventDefault();
       return;
     }
+
+    if(!onClick){
+      return;
+    }
     onClick(event);
   }
 

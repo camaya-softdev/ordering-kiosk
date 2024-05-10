@@ -4,6 +4,11 @@ function calculateTotalPrice(selectedProducts) {
     }, 0);
 }
 
+function formatNumber(num) {
+  return parseFloat(num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
 export {
-    calculateTotalPrice
+    calculateTotalPrice,
+    formatNumber
 }
