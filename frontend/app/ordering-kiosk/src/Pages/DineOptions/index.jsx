@@ -8,7 +8,7 @@ function DineOptions() {
   return (
     <>
       <div className={style.topContainer}>
-        <Progress width={20} />
+        <Progress width={30} />
       </div>
       <div className={style.mainContainer}>
         <div className={style.wrapper}>
