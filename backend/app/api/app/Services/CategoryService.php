@@ -33,12 +33,14 @@ class CategoryService
         }
     }
 
-    public function updateCategory(Category $category, array $data)
+    public function updateCategory($categoryId, array $data)
     {
+        $category = Category::findOrFail($categoryId);
+
         DB::beginTransaction();
 
         try {
-            $oldName = $category->name; // Store the old name of the category
+            $oldName = $category->name;
 
             $category->update($data);
 
@@ -56,8 +58,10 @@ class CategoryService
         }
     }
 
-    public function deleteCategory(Category $category)
+    public function deleteCategory($categoryId)
     {
+        $category = Category::findOrFail($categoryId);
+
         DB::beginTransaction();
 
         try {
