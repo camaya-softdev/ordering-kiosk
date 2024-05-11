@@ -79,6 +79,8 @@
         "autoWidth": false,
         "responsive": true,
       });
+
+
     });
 
     $("#listingData_filter").addClass("hidden"); // hidden search input
@@ -86,6 +88,11 @@
     $("#searchInput").on("input", function (e) {
     e.preventDefault();
     $('#example2').DataTable().search($(this).val()).draw();
+    });
+
+    $("#searchProduct").on("input", function (e) {
+    e.preventDefault();
+    $('#productTable').DataTable().search($(this).val()).draw();
     });
 
     $("#searchUser").on("input", function (e) {

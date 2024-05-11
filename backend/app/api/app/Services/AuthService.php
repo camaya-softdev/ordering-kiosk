@@ -63,6 +63,8 @@ class AuthService
             // Retrieve the related outlet and assign_to_id
             $outlet = $user->outlet; // Assuming outlet is the relationship name
             $assign_to_outlet = $outlet ? $outlet->name : null;
+            $outlet_id = $outlet ? $outlet->id : null;
+            $image = $outlet ? $outlet->image : null;
 
             Log::create([
                 'user_id' => $user->id,
@@ -77,6 +79,9 @@ class AuthService
             return [
                 'user' => new UserResource($user),
                 'assign_to_outlet' => $assign_to_outlet, // Return the assign_to_id
+                'outlet_id' => $outlet_id, // Return the assign_to_id
+                'image' => $image, // Return the assign_to_id
+
                 'access_token' => $token,
             ];
         } catch (\Exception $e) {
