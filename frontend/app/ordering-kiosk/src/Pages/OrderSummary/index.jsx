@@ -145,6 +145,38 @@ const OrderSummary = () => {
                 <div className={style.quantityPrice}>P500</div>
               </div>
             </div>
+            <div className={style.orderList}>
+              <div className={style.leftDetails}>
+                <p className={style.countList}>1.</p>
+                <div className={style.priceImg}>
+                  <img src={classicburger} />
+                  <div>
+                    <p>Classic burger</p>
+                    <span className={style.price}>P250</span>
+                  </div>
+                </div>
+              </div>
+              <div className={style.rightDetails}>
+                <div>x2</div>
+                <div className={style.quantityPrice}>P500</div>
+              </div>
+            </div>
+            <div className={style.orderList}>
+              <div className={style.leftDetails}>
+                <p className={style.countList}>1.</p>
+                <div className={style.priceImg}>
+                  <img src={classicburger} />
+                  <div>
+                    <p>Classic burger</p>
+                    <span className={style.price}>P250</span>
+                  </div>
+                </div>
+              </div>
+              <div className={style.rightDetails}>
+                <div>x2</div>
+                <div className={style.quantityPrice}>P500</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

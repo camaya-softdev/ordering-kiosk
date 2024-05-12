@@ -17,7 +17,6 @@ input, select, textarea, button {
     position: relative;
     gap: 24px;
     width: 1080px;
-    height: 1920px;
     margin: 0 auto;
     padding: 30px;
 }
@@ -57,12 +56,10 @@ input, select, textarea, button {
 .orderSummarylist{
     width: 100%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
-    overflow-y: scroll;
-    max-height: 1080px;
+    max-height: 1035px;
+    overflow: scroll;
 }
 .orderList{
     display: flex;

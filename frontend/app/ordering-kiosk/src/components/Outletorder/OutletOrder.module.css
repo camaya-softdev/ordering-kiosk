@@ -563,3 +563,20 @@
     margin-top: 40px;
     margin-bottom: 40px;
 }
+
+.btnsOption{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.paymentMethod{
+    width: 100%;
+}
+
+.bottomBtn{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}

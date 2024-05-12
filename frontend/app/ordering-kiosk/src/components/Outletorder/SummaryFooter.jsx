@@ -42,7 +42,7 @@ function SummaryFooter({
           </p>
         </div>
 
-        <div>
+        <div className={styles.btnsOption}>
           {showContinueToOrder ? (
             <Button type="white" onClick={continueToOrderOnClick}>
               Continue to order
@@ -54,16 +54,25 @@ function SummaryFooter({
               Proceed to checkout
             </Button>
           ) : null}
-          <div>
+          <div className={styles.paymentMethod}>
             {showChoosePaymentBtn ? (
               //   <Button type="white" onClick={choosePaymentOnclick}>
-              <Button type="white">Choose payment method</Button>
+              <Button type="black">Choose payment method</Button>
             ) : null}
           </div>
+          <div className={styles.bottomBtn}>
+            {showStartOver ? (
+              <Button type="gray" className={styles.btnBottom}>
+                Start over
+              </Button>
+            ) : null}
 
-          {showStartOver ? <Button type="gray">Start over</Button> : null}
-
-          {showBackBtn ? <Button type="white">Back</Button> : null}
+            {showBackBtn ? (
+              <Button type="white" className={styles.btnBottom}>
+                Back
+              </Button>
+            ) : null}
+          </div>
         </div>
       </div>
     </FooterLayout>
