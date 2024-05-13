@@ -25,7 +25,7 @@
 
         <div class="modal-body">
           <!-- Form inside the modal -->
-          <form method="POST" action="{{ secure_url('users.store') }}" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="add-user-style">

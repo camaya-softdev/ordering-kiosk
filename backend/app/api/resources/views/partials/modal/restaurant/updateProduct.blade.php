@@ -4,7 +4,7 @@
 
         <div class="modal-body">
           <!-- Form inside the modal -->
-          <form method="POST" action="{{ secure_url('product.update', $product->id) }}" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

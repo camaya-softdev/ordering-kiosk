@@ -19,7 +19,7 @@
         <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-body">
                 <!-- Form inside the modal -->
-                <form id="deleteCategoryForm" method="POST" action="{{ secure_url('category.destroy') }}">
+                <form id="deleteCategoryForm" method="POST" action="{{ route('category.destroy') }}">
                     @csrf
 
                     <h5>Select a category to delete</h5><br>

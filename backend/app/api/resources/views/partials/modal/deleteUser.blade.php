@@ -13,7 +13,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <!-- Actual delete form -->
-                <form method="POST" action="{{ secure_url('user.destroy', $user->id) }}">
+                <form method="POST" action="{{ route('user.destroy', $user->id) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
