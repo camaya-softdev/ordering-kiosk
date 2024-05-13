@@ -43,7 +43,7 @@ Route::get('/account', [OutletController::class, 'index'])->name('outlet');
 Route::get('/location', [LocationController::class, 'index'])->name('location');
 
 Route::post('/outlet', [OutletController::class, 'store'])->name('outlet.store');
-Route::put('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@update')->name('outlet.update');
+Route::put('/outlets/{outlet}', [OutletController::class,'update'])->name('outlet.update');
 Route::delete('/outlets/{outlet}', 'App\Http\Controllers\Views\OutletController@destroy')->name('outlet.destroy');
 
 
@@ -69,6 +69,10 @@ Route::put('/update-category/{id}', [CategoryController::class, 'update'])->name
 Route::post('/delete-category', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+
 
 
 

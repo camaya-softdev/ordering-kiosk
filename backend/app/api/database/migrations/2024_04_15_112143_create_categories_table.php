@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('outlet_id');
             $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

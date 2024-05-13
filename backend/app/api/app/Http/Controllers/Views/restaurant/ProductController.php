@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Views\restaurant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\Storage;
@@ -54,33 +55,48 @@ class ProductController extends Controller
 
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'nullable|string|max:255',
-    //     ]);
+    public function update(Request $request, Product $product)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'nullable|string|max:255',
+        ]);
 
 
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    //     $this->categoryService->updateCategory($id, [
-    //         'name' => $request->input('update_category_name'),
-    //         'updated_at' => now()->setTimezone('Asia/Manila'),
-    //     ]);
+         // Handle image upload if provided
+         if ($request->hasFile('updateImage')) {
+            $imagePath = $request->file('updateImage')->store('public/images');
+            $imageUrl = Storage::url($imagePath);
+        } else {
+            $imageUrl = $product->image; // Keep the existing image if no new image provided
+        }
 
-    //     return redirect()->route('menu')->with('success', 'Category updated successfully');
-    // }
 
-    // public function destroy($id)
-    // {
-    //     // Call AuthService to delete the user
-    //     $this->categoryService->deleteCategory($id);
 
-    //     // Redirect with success message or handle as needed
-    //     return redirect()->route('menu')->with('success', 'Category deleted successfully');
-    // }
+        $this->productService->updateProduct($product, [
+            'name' => $request->input('update_product_name'),
+            'price' => $request->input('update_product_price'),
+            'stock' => $request->input('update_product_stock'),
+            'category_id' => $request->input('update_category_id'),
+            'status' => $request->input('create_status'),
+            'updated_at' => now()->setTimezone('Asia/Manila'),
+            'image' => $imageUrl,
+        ]);
+
+        return redirect()->route('menu')->with('success', 'Product updated successfully');
+    }
+
+    public function destroy(Product $product)
+    {
+        // Call AuthService to delete the user
+        $this->productService->deleteProduct($product);
+
+        // Redirect with success message or handle as needed
+        return redirect()->route('menu')->with('success', 'Category deleted successfully');
+    }
 
 
 }

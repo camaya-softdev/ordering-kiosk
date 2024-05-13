@@ -115,7 +115,7 @@
 
                                     </div>
                                 </div>
-                                <a class="nav-link text-dark active" id="vert-tabs-recent-tab" data-toggle="pill" href="#vert-tabs-recent" role="tab" aria-controls="vert-tabs-recent" aria-selected="true">Newly Added</a>
+                                {{-- <a class="nav-link text-dark active" id="vert-tabs-recent-tab" data-toggle="pill" href="#vert-tabs-recent" role="tab" aria-controls="vert-tabs-recent" aria-selected="true">Newly Added</a> --}}
 
                                 @foreach($categories as $category)
                                     <a class="nav-link text-dark loadProductsBtn" id="vert-tabs-{{ $category->id }}-tab" data-toggle="pill" href="#vert-tabs-{{ $category->id }}" role="tab" aria-controls="vert-tabs-{{ $category->id }}" aria-selected="false" data-category-id="{{ $category->id }}">{{ $category->name }}</a>
@@ -126,16 +126,16 @@
 
                         <div class="col-10 col-sm-9" style="background-color: #F2F4F7; padding: 20px; border-radius: 0px 8px 8px 8px;">
                             <div class="tab-content" id="vert-tabs-tabContent">
-                                <div class="tab-pane text-left fade show active" id="vert-tabs-recent" role="tabpanel" aria-labelledby="vert-tabs-recent-tab">
+                                {{-- <div class="tab-pane text-left fade show active" id="vert-tabs-recent" role="tabpanel" aria-labelledby="vert-tabs-recent-tab">
                                     <span class="text-bold">Products</span>
                                     <h1>Newly Added</h1>
-                                </div>
+                                </div> --}}
 
-                                @foreach($categories as $category)
-                                    <div class="tab-pane fade" id="vert-tabs-{{ $category->id }}" role="tabpanel" aria-labelledby="vert-tabs-{{ $category->id }}-tab">
-                                        @include('pages.restaurant.categoryContent')
-                                    </div>
-                                @endforeach
+                                @foreach($categories as $key => $category)
+                                <div class="tab-pane fade @if($key === 0) show active @endif" id="vert-tabs-{{ $category->id }}" role="tabpanel" aria-labelledby="vert-tabs-{{ $category->id }}-tab">
+                                    @include('Pages.restaurant.categoryContent')
+                                </div>
+                            @endforeach
                             </div>
                         </div>
 
@@ -144,6 +144,9 @@
             </div>
         </div>
     </div>
+
+
+
 
     <!-- Add Category Modal -->
     @include('partials.modal.restaurant.createCategory')
