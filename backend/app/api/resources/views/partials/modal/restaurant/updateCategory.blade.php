@@ -50,7 +50,7 @@
         <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-body">
                 <!-- Form inside the modal -->
-                <form method="POST" action="{{ secure_url('category.update', ['id' => $category->id ?? '0']) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('category.update', ['id' => $category->id ?? '0']) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

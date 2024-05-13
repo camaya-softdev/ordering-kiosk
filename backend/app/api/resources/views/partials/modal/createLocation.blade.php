@@ -110,7 +110,7 @@
 
         <div class="modal-body">
           <!-- Form inside the modal -->
-          <form method="POST" action="{{ secure_url('location.store') }}" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('location.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="add-user-style">

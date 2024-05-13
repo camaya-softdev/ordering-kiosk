@@ -158,7 +158,7 @@
         </span>
 
 
-            <form method="POST" action="{{ secure_url('logout') }}">
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="btn active logout-btn" style="width: 100%">Logout</button>
             </form>

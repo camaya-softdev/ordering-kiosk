@@ -32,7 +32,7 @@
                                 </div>
                                 @endif
 
-                        <form method="POST" action="{{ secure_url('login') }}">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <h1 class="login_header">Admin Login</h1>
