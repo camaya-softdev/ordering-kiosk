@@ -3,6 +3,7 @@
 }
 .mainContainer {
     overflow: hidden;
+    height: 1300px;
 }
 .mainContainer, .mainContainer * {
     box-sizing: border-box;
@@ -60,6 +61,7 @@ input, select, textarea, button {
     align-items: center;
     max-height: 1035px;
     overflow: scroll;
+    padding-bottom: 60px;
 }
 .orderList{
     display: flex;
@@ -95,4 +97,8 @@ input, select, textarea, button {
 .rightDetails{
     font-size: 32px;
     text-align: right;
+}
+
+.progressBar{
+    margin-top: 56px;
 }

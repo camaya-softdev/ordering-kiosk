@@ -7,7 +7,7 @@ import CustomDropdown from "../../components/Location/CustomDropdown";
 import useFetchLocations from "../../hooks/useFetchLocations";
 import useFetchAreas from "../../hooks/useFetchAreas";
 import { useDispatch, useSelector } from "react-redux";
-import { previousStep, setArea, setLocation } from "../../store/order/orderSlice";
+import { nextStep, previousStep, setArea, setLocation } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 
 const LocationPage = () => {
@@ -72,6 +72,7 @@ const LocationPage = () => {
                 type="black" style={{ width: "100%" }}
                 disabled={!selectedLocation || !selectedArea}
                 className={`${!selectedLocation || !selectedArea ? 'disabled' : ''}`}
+                onClick={() => dispatch(nextStep())}
               >
                 Proceed to checkout
               </Button>

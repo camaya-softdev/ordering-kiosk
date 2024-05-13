@@ -30,6 +30,9 @@ const orderSlice = createSlice({
       state.location = null;
       state.area = null;
     },
+    setOrderStep: (state, action) => {
+      state.orderStep = action.payload;
+    },
     setSelectedOutlet: (state, action) => {
       state.selectedOutlet = action.payload;
       state.selectedCategory = null;
@@ -105,6 +108,7 @@ export const {
   nextStep, 
   previousStep, 
   resetOrder, 
+  setOrderStep,
   setSelectedOutlet,
   setSelectedCategory,
   addSelectedProduct,
