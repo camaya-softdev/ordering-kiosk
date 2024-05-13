@@ -67,7 +67,7 @@ class ProductService
         try {
             $productName = $product->name; // Store the name of the product being deleted
 
-            $product->delete();
+            $product->delete(); // Soft delete the product
 
             Log::create([
                 'user_id' => Auth::id(),
