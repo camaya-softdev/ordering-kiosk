@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const orderSlice = createSlice({
   name: 'order',
   initialState: { 
-    orderStep: 5,
+    orderStep: 6,
     selectedOutlet: null,
     selectedCategory: null,
     selectedProducts: []

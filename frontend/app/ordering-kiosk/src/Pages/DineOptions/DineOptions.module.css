@@ -1,15 +1,19 @@
 :root {
     --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", "Source Han Sans CN", sans-serif;
 }
+
 .mainContainer {
     overflow: hidden;
 }
+
 .mainContainer, .mainContainer * {
     box-sizing: border-box;
 }
+
 input, select, textarea, button {
     outline: 0;
 }
+
 .mainContainer {
     display: flex;
     align-items: flex-start;
@@ -21,6 +25,7 @@ input, select, textarea, button {
     margin: 0 auto;
     padding: 120px 120px 0 120px;
 }
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -31,6 +36,7 @@ input, select, textarea, button {
     position: relative;
     width: 698px;
 }
+
 .text {
     display: flex;
     align-items: flex-start;
@@ -49,6 +55,7 @@ input, select, textarea, button {
     white-space: nowrap;
     z-index: 1;
 }
+
 .section {
     display: flex;
     flex-direction: column;
@@ -60,6 +67,7 @@ input, select, textarea, button {
     width: 682px;
     z-index: 2;
 }
+
 .wrapperOption {
     display: flex;
     align-items: flex-start;
@@ -70,7 +78,8 @@ input, select, textarea, button {
     width: 682px;
     z-index: 3;
 }
-.buttonOption{
+
+.buttonOption {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,7 +98,8 @@ input, select, textarea, button {
     overflow: hidden;
     cursor: pointer;
 }
-.buttonOption span{
+
+.buttonOption span {
     font-family: Poppins, var(--default-font-family);
     font-size: 32px;
     font-weight: 600;
@@ -97,7 +107,8 @@ input, select, textarea, button {
     width: 250px;
     text-align: center;
 }
-.topContainer{
+
+.topContainer {
     width: 1080px;
     padding: 56px 0;
     display: flex;
@@ -105,7 +116,7 @@ input, select, textarea, button {
     justify-content: center;
 }
 
-.circleBlur{
+.circleBlur {
     width: 500px;
     background: #ff9393;
     height: 500px;
@@ -114,47 +125,57 @@ input, select, textarea, button {
     border-radius: 50%;
     opacity: 10%;
     box-shadow: 0 0 150px 200px #ff9393;
+    z-index: -99;
 }
-.dineoptionFooter{
+
+.dineoptionFooter {
     display: flex;
     flex-direction: column;
     width: 1080px;
     padding: 40px;
     padding-bottom: 20px;
 }
-.topDetails{
+
+.topDetails {
     display: flex;
     flex-direction: column;
 }
-.rowPerDetails{
+
+.rowPerDetails {
     display: flex;
     justify-content: space-between;
 }
-.diningOptionTitle{
+
+.diningOptionTitle {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
 }
-.spanTitle, .spanDetails{
+
+.spanTitle, .spanDetails {
     font-size: 28px;
     font-family: Poppins, var(--default-font-family);
 }
-.spanDetails{
+
+.spanDetails {
     font-weight: 600;
 }
-.bottomDetails{
+
+.bottomDetails {
     border-top: 1px solid black;
     margin-top: 20px;
     padding-top: 10px;
 }
-.buttonContainer{
+
+.buttonContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
 }
-.proceedPaymentBtn{
+
+.proceedPaymentBtn {
     width: 100%;
     background-color: #1e1e1e;
     padding: 20px;
@@ -167,14 +188,16 @@ input, select, textarea, button {
     margin-top: 20px;
     cursor: pointer;
 }
-.backOptionsBtn{
+
+.backOptionsBtn {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
 }
-.startOverBtn, .backBtn{
+
+.startOverBtn, .backBtn {
     width: 49%;
     padding: 20px;
     border-radius: 16px;
@@ -184,15 +207,18 @@ input, select, textarea, button {
     text-align: center;
     cursor: pointer;
 }
-.startOverBtn{
+
+.startOverBtn {
     color: #1e1e1e;
     background: #eaecf0;
 }
-.backBtn{
+
+.backBtn {
     background: white;
     border: 1px solid black;
 }
-.spanTotalTitle,.spanTotalDetails{
+
+.spanTotalTitle, .spanTotalDetails {
     font-size: 40px;
     font-family: Poppins, var(--default-font-family);
     font-weight: 600;
