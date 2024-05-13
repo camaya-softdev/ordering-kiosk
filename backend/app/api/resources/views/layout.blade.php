@@ -31,7 +31,7 @@
                 <p>Welcome, {{ $loginData['user']['username'] }}!</p>
 
                 <!-- Outlet creation form -->
-                <form method="POST" action="{{ route('outlet.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ secure_url('outlet.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="name">Outlet Name:</label>

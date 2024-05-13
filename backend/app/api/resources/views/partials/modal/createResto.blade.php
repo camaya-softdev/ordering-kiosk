@@ -96,7 +96,7 @@
 
         <div class="modal-body">
           <!-- Form inside the modal -->
-          <form method="POST" action="{{ route('outlet.store') }}" enctype="multipart/form-data">
+          <form method="POST" action="{{ secure_url('outlet.store') }}" enctype="multipart/form-data">
             @csrf
 
 

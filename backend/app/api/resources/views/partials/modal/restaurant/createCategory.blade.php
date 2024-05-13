@@ -42,7 +42,7 @@
                 <!-- Form inside the modal -->
 
 
-                <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ secure_url('category.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="add-category-layout">
