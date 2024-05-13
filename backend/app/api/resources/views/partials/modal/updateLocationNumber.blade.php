@@ -1,7 +1,7 @@
 <div class="modal fade" id="updateLocationNumberModal{{$locationNumber->id}}" tabindex="-1" role="dialog" aria-labelledby="updateLocationNumberModalLabel{{$locationNumber->id}}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="border-radius: 12px;">
-            <form method="POST" action="{{ route('locationNumber.update', $locationNumber->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ secure_url('locationNumber.update', $locationNumber->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">

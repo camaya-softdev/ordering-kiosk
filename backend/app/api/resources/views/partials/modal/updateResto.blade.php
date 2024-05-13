@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" >
 
-        <form method="POST" action="{{ route('outlet.update', $outlet->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ secure_url('outlet.update', $outlet->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="modal-body">
