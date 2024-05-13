@@ -7,6 +7,15 @@ use App\Http\Controllers\Views\UserController;
 use App\Http\Controllers\Views\LocationController;
 use App\Http\Controllers\Views\LocationNumberController;
 
+use App\Http\Controllers\Views\restaurant\RestaurantController;
+use App\Http\Controllers\Views\restaurant\MenuController;
+use App\Http\Controllers\Views\restaurant\CategoryController;
+
+use App\Http\Controllers\Views\restaurant\ProductController;
+
+
+
+
 
 
 
@@ -49,6 +58,23 @@ Route::delete('/location/{id}/delete', [LocationController::class, 'destroy'])->
 Route::post('/location-number', [LocationNumberController::class, 'store'])->name('locationNumber.store');
 Route::put('/location-number/{id}/update', [LocationNumberController::class, 'update'])->name('locationNumber.update');
 Route::delete('/location-number/{id}/delete', [LocationNumberController::class, 'destroy'])->name('locationNumber.destroy');
+
+
+
+
+Route::get('/restaurants-view', [RestaurantController::class, 'index'])->name('resto.view');
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+Route::post('/create-category', [CategoryController::class, 'store'])->name('category.store');
+Route::put('/update-category/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::post('/delete-category', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+
+
+
+
+
+
 
 
 

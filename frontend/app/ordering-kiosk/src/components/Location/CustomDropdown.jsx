@@ -1,10 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./CustomDropdown.module.css"; // Import CSS module for styling
+import BeatLoader from "react-spinners/BeatLoader";
+import downIcon from "../../assets/chevron-down.svg";
+import upIcon from "../../assets/chevron-up.svg";
 
-function CustomDropdown({ options, defaultOption, onSelect }) {
+function CustomDropdown({ options, defaultOption, onSelect, displayProperty = "name", loading, disabled}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setSelectedOption(defaultOption);
+  }, [defaultOption]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -21,27 +28,38 @@ function CustomDropdown({ options, defaultOption, onSelect }) {
   }, []);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
   };
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-    onSelect(option);
+    if (!disabled) {
+      setSelectedOption(option[displayProperty]); // use the displayProperty
+      setIsOpen(false);
+      onSelect(option); 
+    }
   };
 
   return (
-    <div className={styles.customDropdown} ref={dropdownRef}>
+    <div className={`${styles.customDropdown} ${disabled ? 'disabled' : ""}`} ref={dropdownRef}>
       <div className={styles.selectedOption} onClick={toggleDropdown}>
-        {selectedOption || defaultOption}
+        {
+          loading ? <BeatLoader/> : selectedOption || defaultOption
+        }
+        <img src={isOpen ? upIcon : downIcon} alt="dropdown icon" />
       </div>
-      <ul className={`${styles.options} ${isOpen ? styles.open : ""}`}>
-        {options.map((option, index) => (
-          <li key={index} onClick={() => handleOptionClick(option)}>
-            {option}
-          </li>
-        ))}
-      </ul>
+      {
+        loading ? null : (
+          <ul className={`${styles.options} ${isOpen ? styles.open : ""}`}>
+            {options.map((option, index) => (
+              <li key={index} onClick={() => handleOptionClick(option)}>
+                {option[displayProperty]} 
+              </li>
+            ))}
+          </ul>
+        )
+      }
     </div>
   );
 }

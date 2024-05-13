@@ -4,10 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const orderSlice = createSlice({
   name: 'order',
   initialState: { 
-    orderStep: 6,
+    orderStep: 0,
     selectedOutlet: null,
     selectedCategory: null,
-    selectedProducts: []
+    selectedProducts: [],
+    diningOption: null,
+    location: null,
+    area: null
   },
   reducers: {
     nextStep: state => {
@@ -23,6 +26,12 @@ const orderSlice = createSlice({
       state.selectedOutlet = null;
       state.selectedCategory = null;
       state.selectedProducts = [];
+      state.diningOption = null;
+      state.location = null;
+      state.area = null;
+    },
+    setOrderStep: (state, action) => {
+      state.orderStep = action.payload;
     },
     setSelectedOutlet: (state, action) => {
       state.selectedOutlet = action.payload;
@@ -82,6 +91,15 @@ const orderSlice = createSlice({
       if (productIndex !== -1) {
         state.selectedProducts.splice(productIndex, 1);
       }
+    },
+    setDiningOption: (state, action) => {
+      state.diningOption = action.payload;
+    },
+    setLocation: (state, action) => {
+      state.location = action.payload;
+    },
+    setArea: (state, action) => {
+      state.area = action.payload;
     }
   },
 });
@@ -90,12 +108,16 @@ export const {
   nextStep, 
   previousStep, 
   resetOrder, 
+  setOrderStep,
   setSelectedOutlet,
   setSelectedCategory,
   addSelectedProduct,
   increaseProductQuantity,
   decreaseProductQuantity,
-  removeProduct
+  removeProduct,
+  setDiningOption,
+  setLocation,
+  setArea
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

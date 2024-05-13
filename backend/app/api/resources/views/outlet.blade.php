@@ -54,6 +54,12 @@
 
 </style>
 
+@if($loginData['user']['username'] != 'admin')
+
+        <script>window.location = "/restaurants-view";</script>
+
+@endif
+
     <div class="content-wrapper bg-white cnt-pd">
         <div class="content-header csm-pb">
             <div class="container-fluid">

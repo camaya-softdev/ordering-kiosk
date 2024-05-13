@@ -1,23 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./LocationPage.module.css";
 import Progress from "../../components/DineOption/Progress";
 import Button from "../../components/Common/Button";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
 import CustomDropdown from "../../components/Location/CustomDropdown";
-const LocationPage = () => {
-  const [selectedOption1, setSelectedOption1] = useState("");
-  const [selectedOption2, setSelectedOption2] = useState("");
+import useFetchLocations from "../../hooks/useFetchLocations";
+import useFetchAreas from "../../hooks/useFetchAreas";
+import { useDispatch, useSelector } from "react-redux";
+import { nextStep, previousStep, setArea, setLocation } from "../../store/order/orderSlice";
+import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 
-  const options1 = ["Option 1", "Option 2", "Option 3"];
-  const options2 = ["Option A", "Option B", "Option C"];
+const LocationPage = () => {
+  const selectedLocation = useSelector((state) => state.order.location);
+  const selectedArea = useSelector((state) => state.order.area);
+  const [openModals, setOpenModals] = useState({startOver: false});
+  const dispatch = useDispatch();
+
+  const {locations, isLocationsLoading} = useFetchLocations();
+  const {areas, isAreasLoading, setAreasFilter} = useFetchAreas();
 
   const handleDropdown1Select = (option) => {
-    setSelectedOption1(option);
+    dispatch(setLocation(option));
+    if(selectedLocation?.id !== option.id){
+      dispatch(setArea(null));
+    }
   };
 
   const handleDropdown2Select = (option) => {
-    setSelectedOption2(option);
+    dispatch(setArea(option));
   };
+
+  useEffect(() => {
+    if (selectedLocation) {
+      setAreasFilter((prev) => ({...prev, location_id: selectedLocation.id}));
+    }
+  }, [selectedLocation, selectedArea]);
+
   return (
     <>
       <div className={style.topContainer}>
@@ -31,20 +49,31 @@ const LocationPage = () => {
               <div className={style.dropdownSelection}>
                 <label>Location</label>
                 <CustomDropdown
-                  options={options1}
-                  defaultOption="Select"
+                  options={locations?.data}
+                  defaultOption={selectedLocation ? selectedLocation.name : "Select"}
                   onSelect={handleDropdown1Select}
+                  displayProperty="name"
+                  loading={isLocationsLoading}    
+                  disabled={isLocationsLoading}            
                 />
               </div>
               <div className={style.dropdownSelection}>
                 <label>Table/Room Number</label>
                 <CustomDropdown
-                  options={options2}
-                  defaultOption="Select"
+                  options={areas?.data}
+                  defaultOption={selectedArea ? selectedArea.name : "Select"}
                   onSelect={handleDropdown2Select}
+                  loading={isAreasLoading}
+                  displayProperty="name"
+                  disabled={!selectedLocation || isAreasLoading}
                 />
               </div>
-              <Button type="black" disabled style={{ width: "100%" }}>
+              <Button 
+                type="black" style={{ width: "100%" }}
+                disabled={!selectedLocation || !selectedArea}
+                className={`${!selectedLocation || !selectedArea ? 'disabled' : ''}`}
+                onClick={() => dispatch(nextStep())}
+              >
                 Proceed to checkout
               </Button>
             </div>
@@ -56,6 +85,14 @@ const LocationPage = () => {
         showBackBtn={true}
         showStartOver={true}
         showDiningDetails={true}
+        showLocationDetails={true}
+        backOnClick={() => dispatch(previousStep())}
+        startOverBtnOnClick={() => setOpenModals({startOver: true})}
+      />
+
+      <StartOverConfirmation
+        open={openModals.startOver}
+        onClose={() => setOpenModals({startOver: false})}
       />
     </>
   );
