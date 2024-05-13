@@ -36,6 +36,11 @@ const orderSlice = createSlice({
       state.location = null;
       state.area = null;
       state.paymentOption = null;
+      state.gcashPaymentDetails = {
+        name: null,
+        referenceNumber: null,
+        phoneNumber: null
+      };
     },
     setOrderStep: (state, action) => {
       state.orderStep = action.payload;
