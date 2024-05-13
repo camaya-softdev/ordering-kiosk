@@ -9,6 +9,7 @@ function SummaryFooter({
   selectDineOptionOnClick,
   startOverBtnOnClick,
   backOnClick,
+  choosePaymentOnClick,
   showContinueToOrder,
   showSelectDineOption,
   showStartOver,
@@ -63,7 +64,9 @@ function SummaryFooter({
 
                   <div className={styles.paymentMethod}>
                     {showChoosePaymentBtn ? (
-                      <Button type="black">Choose payment method</Button>
+                      <Button type="black" onClick={choosePaymentOnClick}>
+                        Choose payment method
+                      </Button>
                     ) : null}
                   </div>
 

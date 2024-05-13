@@ -109,3 +109,11 @@ input, select, textarea, button {
 .progressBar{
     margin-top: 56px;
 }
+
+.topContainer{
+    width: 1080px;
+    padding-top: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

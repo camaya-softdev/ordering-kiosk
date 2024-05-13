@@ -6,7 +6,7 @@ import armynavylogo from "../../assets/army-navy-logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import { formatNumber } from "../../utils/Common/Price";
-import { previousStep, setOrderStep } from "../../store/order/orderSlice";
+import { nextStep, previousStep, setOrderStep } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 
 const OrderSummary = () => {
@@ -26,8 +26,9 @@ const OrderSummary = () => {
 
   return (
     <>
-      <Progress width={60} style={{marginTop: "56px"}}/>
-
+      <div className={style.topContainer}>
+        <Progress width={60} />
+      </div>
       <div className={style.mainContainer}>
         <p className={style.title}>Order Summary</p>
         <div className={style.content}>
@@ -66,6 +67,7 @@ const OrderSummary = () => {
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
         backOnClick={onBackClick}
         startOverBtnOnClick={() => setOpenModal({startOver: true})}
+        choosePaymentOnClick={() => dispatch(nextStep())}
       />
 
       <StartOverConfirmation
