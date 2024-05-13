@@ -1,0 +1,113 @@
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", "Source Han Sans CN", sans-serif;
+}
+.mainContainer {
+    overflow: hidden;
+}
+.mainContainer, .mainContainer * {
+    box-sizing: border-box;
+}
+input, select, textarea, button {
+    outline: 0;
+}
+.mainContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 1080px;
+    height: 1338px;
+    margin: 0 auto;
+    padding: 120px 120px 0 120px;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 80px;
+    position: relative;
+    width: 698px;
+}
+.text {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 698px;
+    height: 28px;
+    color: #1e1e1e;
+    font-family: Poppins, var(--default-font-family);
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: center;
+    white-space: nowrap;
+}
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 32px;
+    position: relative;
+    width: 682px;
+}
+.wrapperOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 50px;
+    width: 85%;
+}
+.dropdownSelection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap:30px;
+    font-family: Poppins, var(--default-font-family);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 52px;
+    text-align: center;
+    width: 100%;
+}
+
+.dropdownSelection select {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 10px 20px;
+    background: #eaecf0;
+    border: none;
+    border-radius: 16px;
+  }
+
+.topContainer{
+    width: 1080px;
+    padding: 56px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circleBlur{
+    width: 500px;
+    background: #ff9393;
+    height: 500px;
+    position: absolute;
+    bottom: 255px;
+    border-radius: 50%;
+    opacity: 10%;
+    box-shadow: 0 0 150px 200px #ff9393;
+    z-index: -99;
+}
