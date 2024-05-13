@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import style from "./OrderSummary.module.css";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
 import Progress from "../../components/DineOption/Progress";
-import armynavylogo from "../../assets/army-navy-logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import { formatNumber } from "../../utils/Common/Price";
@@ -11,6 +10,7 @@ import StartOverConfirmation from "../../components/Outletorder/StartOverConfirm
 
 const OrderSummary = () => {
   const selectedDiningOption = useSelector(state => state.order.diningOption);
+  const selectedOutlet = useSelector(state => state.order.selectedOutlet);
   const selectedProducts = useSelector(state => state.order.selectedProducts);
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({startOver: false});
@@ -33,8 +33,8 @@ const OrderSummary = () => {
         <p className={style.title}>Order Summary</p>
         <div className={style.content}>
           <div className={style.outletNameLogo}>
-            <img src={armynavylogo} alt="" />
-            <span>Army Navy</span>
+            <img src={`${import.meta.env.VITE_API}/${selectedOutlet.image}`} alt="" />
+            <span>{selectedOutlet.name}</span>
           </div>
           <div className={style.orderSummarylist}>
             {selectedProducts.map((product, index) => (

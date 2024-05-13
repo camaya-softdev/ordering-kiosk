@@ -11,7 +11,12 @@ const orderSlice = createSlice({
     diningOption: null,
     location: null,
     area: null,
-    paymentOption: null
+    paymentOption: null,
+    gcashPaymentDetails: {
+      name: null,
+      referenceNumber: null,
+      phoneNumber: null
+    }
   },
   reducers: {
     nextStep: state => {
@@ -105,6 +110,9 @@ const orderSlice = createSlice({
     },
     setPaymentOption: (state, action) => {
       state.paymentOption = action.payload;
+    },
+    setGCashPaymentDetails: (state, action) => {
+      state.gcashPaymentDetails = action.payload
     }
   },
 });
@@ -123,7 +131,8 @@ export const {
   setDiningOption,
   setLocation,
   setArea,
-  setPaymentOption
+  setPaymentOption,
+  setGCashPaymentDetails
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

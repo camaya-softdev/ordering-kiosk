@@ -8,11 +8,15 @@ import StartOverConfirmation from "../../components/Outletorder/StartOverConfirm
 import { previousStep } from "../../store/order/orderSlice";
 
 import style from './GCashScanPage.module.css';
+import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
 
 function GCashScanPage(){
     const dispatch = useDispatch();
     const selectedDiningOption = useSelector(state => state.order.diningOption);
-    const [openModal, setOpenModal] = useState({startOver: false});
+    const [openModal, setOpenModal] = useState({
+      startOver: false,
+      confirmPayment: false
+    });
   
     return (
       <>
@@ -42,11 +46,17 @@ function GCashScanPage(){
           backOnClick={() => dispatch(previousStep())}
           startOverBtnOnClick={() => setOpenModal({startOver: true})}
           showConfirmPaymentBtn={true}
+          confirmPaymentOnClick={() => setOpenModal({confirmPayment: true})}
         />
   
         <StartOverConfirmation
           open={openModal.startOver}
           onClose={() => setOpenModal({startOver: false})}
+        />
+
+        <ConfirmGCashPayment
+          open={openModal.confirmPayment}
+          onClose={() => setOpenModal({confirmPayment: false})}
         />
       </>
     );

@@ -6,7 +6,7 @@ import gcashlogo from "../../assets/gcashlogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
-import { nextStep, previousStep, setPaymentOption } from "../../store/order/orderSlice";
+import { nextStep, previousStep, setGCashPaymentDetails, setPaymentOption } from "../../store/order/orderSlice";
 import { CASH_PAYMENT, GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 
 const PaymentOptions = () => {
@@ -21,6 +21,7 @@ const PaymentOptions = () => {
     }
     else if(paymentMethod === CASH_PAYMENT) {
       dispatch(setPaymentOption(CASH_PAYMENT));
+      dispatch(setGCashPaymentDetails({}));
       alert("cash");
     }
   }
