@@ -23,14 +23,21 @@ button {
 }
 
 .mainContainer {
+    padding: 40px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
     width: 1080px;
-    margin: 0 auto;
-    padding: 120px 0 0 0;
+    margin: auto;
     height: 1920px;
+    justify-content: center; 
+}
+
+.parentWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .titleContainer {
@@ -39,30 +46,6 @@ button {
     font-size: 48px;
     font-weight: 600;
     line-height: 28px;
-}
-
-.buttonOptions {
-    display: flex;
-    align-items: center;
-    margin-top: 100px;
-    gap: 40px;
-}
-
-.btnWrapper {
-    width: 290px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #EAECF0;
-    border-radius: 16px;
-    font-family: Poppins, var(--default-font-family);
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 40px;
-    cursor: pointer;
-    text-align: center;
-    background: white;
 }
 
 .circleBlur{
@@ -83,4 +66,45 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.instructions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+
+.instructions p {
+    display: flex;
+    width: 750px;
+    padding: 0px 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.instructions p span{
+    flex: 1 0 0;
+    color: #1E1E1E;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 52px; /* 162.5% */
+}
+
+.gcashWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.gcashWrapper img{
+    width: 464px;
+    height: 700px;
+    object-fit: cover;
 }

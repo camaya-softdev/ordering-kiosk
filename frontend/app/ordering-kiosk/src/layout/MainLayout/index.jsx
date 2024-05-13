@@ -7,6 +7,7 @@ import DineOptions from "../../Pages/DineOptions";
 import LocationPage from "../../Pages/LocationPage";
 import OrderSummary from "../../Pages/OrderSummary";
 import PaymentOptions from "../../Pages/PaymentOptions";
+import GCashScanPage from "../../Pages/GCashScanPage";
 
 function stylized(WrappedComponent) {
   const StylizedComponent = function (props) {
@@ -39,6 +40,8 @@ function MainLayout() {
       return stylized(OrderSummary)();
     case 6:
       return stylized(PaymentOptions)();
+    case 7:
+      return stylized(GCashScanPage)();
     default:
       return stylized(StartPage)();
   }

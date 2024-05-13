@@ -10,7 +10,8 @@ const orderSlice = createSlice({
     selectedProducts: [],
     diningOption: null,
     location: null,
-    area: null
+    area: null,
+    paymentOption: null
   },
   reducers: {
     nextStep: state => {
@@ -29,6 +30,7 @@ const orderSlice = createSlice({
       state.diningOption = null;
       state.location = null;
       state.area = null;
+      state.paymentOption = null;
     },
     setOrderStep: (state, action) => {
       state.orderStep = action.payload;
@@ -100,6 +102,9 @@ const orderSlice = createSlice({
     },
     setArea: (state, action) => {
       state.area = action.payload;
+    },
+    setPaymentOption: (state, action) => {
+      state.paymentOption = action.payload;
     }
   },
 });
@@ -117,7 +122,8 @@ export const {
   removeProduct,
   setDiningOption,
   setLocation,
-  setArea
+  setArea,
+  setPaymentOption
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

@@ -10,13 +10,15 @@ function SummaryFooter({
   startOverBtnOnClick,
   backOnClick,
   choosePaymentOnClick,
+  confirmPaymentOnClick,
   showContinueToOrder,
   showSelectDineOption,
   showStartOver,
   showBackBtn,
   showDiningDetails,
   showChoosePaymentBtn,
-  showLocationDetails
+  showLocationDetails,
+  showConfirmPaymentBtn
 }) {
   const order = useSelector(state => state.order);
 
@@ -60,14 +62,22 @@ function SummaryFooter({
                 </div>
 
                 <div className={styles.btnsOption}>
-                  
-
                   <div className={styles.paymentMethod}>
-                    {showChoosePaymentBtn ? (
-                      <Button type="black" onClick={choosePaymentOnClick}>
-                        Choose payment method
-                      </Button>
-                    ) : null}
+                    {
+                      showChoosePaymentBtn ? (
+                        <Button type="black" onClick={choosePaymentOnClick}>
+                          Choose payment method
+                        </Button>
+                      ) : null
+                    }
+
+                    {
+                      showConfirmPaymentBtn ? (
+                        <Button type="black" onClick={confirmPaymentOnClick}>
+                          Confirm payment (provide reference number)
+                        </Button>
+                      ) : null
+                    }
                   </div>
 
                   <div className={styles.bottomBtn}>
