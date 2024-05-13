@@ -5,21 +5,22 @@ import Button from "../Common/Button";
 import styles from "./OutletOrder.module.css";
 
 function SummaryFooter({
-    continueToOrderOnClick, 
-    selectDineOptionOnClick,
-    startOverBtnOnClick,
-    backOnClick,
-    showContinueToOrder,
-    showSelectDineOption,
-    showStartOver,
-    showBackBtn,
-    showDiningDetails,
-    showLocationDetails
-}){
-    const order = useSelector(state => state.order);
+  continueToOrderOnClick,
+  selectDineOptionOnClick,
+  startOverBtnOnClick,
+  backOnClick,
+  showContinueToOrder,
+  showSelectDineOption,
+  showStartOver,
+  showBackBtn,
+  showDiningDetails,
+  showChoosePaymentBtn,
+  showLocationDetails
+}) {
+  const order = useSelector(state => state.order);
 
     return(
-        <FooterLayout className={styles.viewOrderFooter}>
+      <FooterLayout className={styles.viewOrderFooter}>
             <div className={styles.viewOrderFooterInner}>
                 <div className={styles.viewOrderFooterDetails}>
                     {
@@ -57,38 +58,44 @@ function SummaryFooter({
                     </p>
                 </div>
 
-                <div>
-                    {
-                        showContinueToOrder ? 
-                        <Button type="white" onClick={continueToOrderOnClick}>
-                            Continue to order
-                        </Button>:null
-                    }
+                <div className={styles.btnsOption}>
+                  
 
-                    {
-                        showSelectDineOption ?
-                        <Button type="black" onClick={selectDineOptionOnClick}>
-                            Proceed to checkout
-                        </Button>:null
-                    }
+                  <div className={styles.paymentMethod}>
+                    {showChoosePaymentBtn ? (
+                      <Button type="black">Choose payment method</Button>
+                    ) : null}
+                  </div>
 
-                    {
-                        showStartOver ?
-                        <Button type="gray" onClick={startOverBtnOnClick}>
-                            Start over
-                        </Button>:null
-                    }
+                  <div className={styles.bottomBtn}>
+                      {showStartOver ? (
+                        <Button type="gray" className={styles.btnBottom} onClick={startOverBtnOnClick}>
+                          Start over
+                        </Button>
+                      ) : null}
 
-                    {
+                      {
                         showBackBtn ?
                         <Button type="white" onClick={backOnClick}>
                             Back
                         </Button>:null
-                    }
-                </div>
+                      }
 
-            </div>
-        </FooterLayout>
+                      {showContinueToOrder ? (
+                        <Button type="white" onClick={continueToOrderOnClick} >
+                          Continue to order
+                        </Button>
+                      ) : null}
+
+                      {showSelectDineOption ? (
+                        <Button type="black" onClick={selectDineOptionOnClick}>
+                          Proceed to checkout
+                        </Button>
+                      ) : null}
+                  </div>
+                </div>
+              </div>
+      </FooterLayout>
     );
 }
 

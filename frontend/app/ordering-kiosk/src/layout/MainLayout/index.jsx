@@ -5,6 +5,7 @@ import FoodOutlet from "../../Pages/Foodoutlet";
 import OutletOrder from "../../Pages/Outletorder";
 import DineOptions from "../../Pages/DineOptions";
 import LocationPage from "../../Pages/LocationPage";
+import OrderSummary from "../../Pages/OrderSummary";
 
 function stylized(WrappedComponent) {
   const StylizedComponent = function (props) {
@@ -33,6 +34,8 @@ function MainLayout() {
       return stylized(DineOptions)();
     case 4:
       return stylized(LocationPage)();
+    case 5:
+      return stylized(OrderSummary)();
     default:
       return stylized(StartPage)();
   }

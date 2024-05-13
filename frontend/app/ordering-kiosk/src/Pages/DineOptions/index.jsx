@@ -5,7 +5,7 @@ import takeawaylogo from "../../assets/dineoptionlogo/takeaway.svg";
 import Progress from "../../components/DineOption/Progress";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
 import { useDispatch } from "react-redux";
-import { nextStep, previousStep, setDiningOption } from "../../store/order/orderSlice";
+import { nextStep, previousStep, setArea, setDiningOption, setLocation, setOrderStep } from "../../store/order/orderSlice";
 import { DELIVERY, DINE_IN, PICK_UP } from "../../utils/Constants/DiningOptions";
 import { useState } from "react";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
@@ -16,7 +16,14 @@ function DineOptions() {
 
   const selectDiningOption = (option) => {
     dispatch(setDiningOption(option));
-    dispatch(nextStep());
+    if(option === DINE_IN || option === DELIVERY){
+      dispatch(nextStep());
+    }
+    else if(option === PICK_UP){
+      dispatch(setOrderStep(5));
+      dispatch(setLocation(null));
+      dispatch(setArea(null));
+    }
   }
 
   return (
