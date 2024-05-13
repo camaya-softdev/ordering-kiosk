@@ -34,11 +34,14 @@ function OutletList(){
                 :
                 <div className={style.classificationWrapper}>
                     {
-                        Object.entries(groupedOutlets).map(([classification, outlets]) => (
+                        Object.entries(groupedOutlets).map(([classification, outlets], index) => (
                             <div key={classification}>
                                 <span className={style.classificationText}>{classification}</span>
                                 <hr className={style.divider}/>
-                                <div className={style.outletsWrapper}>
+                                <div 
+                                    className={style.outletsWrapper}
+                                    style={index === groupedOutlets.length -1 ? {marginBottom: 40} : {marginBottom: 20}}
+                                >
                                     {outlets.map(outlet => (
                                         <OutletCard key={outlet.id} outlet={outlet}/>
                                     ))}
