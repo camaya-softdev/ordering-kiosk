@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Outlet::class, 'assign_to_outlet');
     }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
 }
