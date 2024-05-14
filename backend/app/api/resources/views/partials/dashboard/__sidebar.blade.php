@@ -69,18 +69,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#F2F4F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-              </i>
-              <p>
-                Activity Logs
-              </p>
-            </a>
-          </li>
+
           @else
           <li class="nav-item">
             <a href="{{ route('resto.view') }}" class="nav-link {{ request()->is('restaurants-view') ? 'active bg-warning' : '' }}" style="color:white!important">
@@ -123,8 +112,10 @@
             </a>
           </li>
 
+          @endif
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('log') }}"  class="nav-link  {{ request()->is('activity-log') ? 'active bg-warning' : '' }}" style="color:white!important">
               <i class="nav-icon">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#F2F4F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -135,8 +126,6 @@
               </p>
             </a>
           </li>
-
-          @endif
 
 
         </ul>

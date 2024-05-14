@@ -12,6 +12,7 @@ use App\Http\Controllers\Views\restaurant\MenuController;
 use App\Http\Controllers\Views\restaurant\CategoryController;
 
 use App\Http\Controllers\Views\restaurant\ProductController;
+use App\Http\Controllers\Views\ActivitylogController;
 
 
 
@@ -71,6 +72,12 @@ Route::post('/delete-category', [CategoryController::class, 'destroy'])->name('c
 Route::post('/product', [ProductController::class, 'store'])->name('product.store');
 Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
 Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+
+Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('log');
+Route::post('/export-logs', [ActivityLogController::class, 'exportLogs'])->name('exportLogs');
+
+
 
 
 
