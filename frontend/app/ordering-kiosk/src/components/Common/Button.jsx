@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import style from "./Common.module.css";
+import BeatLoader from "react-spinners/BeatLoader";
 
 function Button({
   children,
@@ -8,6 +9,7 @@ function Button({
   className: customClassName,
   type = "gray",
   disabled = false,
+  loading = false
 }) {
   const [typeCss, setTypeCss] = useState(type);
   const [disabledCss, setDisabledCss] = useState("");
@@ -47,7 +49,11 @@ function Button({
       onClick={handleClick}
     >
       <span>
-        <p>{children}</p>
+        {
+          loading ? 
+          <BeatLoader color="white" size={20} />
+          : <p>{children}</p>
+        }
       </span>
     </div>
   );
