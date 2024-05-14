@@ -139,7 +139,7 @@
         <hr style=" border-top: .5px solid white">
          <span class="brand-link">
 
-         <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="height:40px">
+         <img src="../../dist/img/Camaya.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="height:40px">
         <div style="display: flex; flex-direction: column; justify-content: start;">
             <span style="font-size:14px">{{ $loginData['user']['first_name'] }} {{ $loginData['user']['last_name'] }}</span>
             <span style="font-size:14px; font-weight:bold">{{ $loginData['user']['username'] }}</span>

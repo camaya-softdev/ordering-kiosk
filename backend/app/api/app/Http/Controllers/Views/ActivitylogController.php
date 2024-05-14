@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use App\Models\Log;
 use App\Exports\ActivityLogExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class ActivitylogController extends Controller
 {
@@ -42,15 +46,26 @@ class ActivitylogController extends Controller
         $loginData = session('loginData');
         $outlet_id = $loginData['user']['assign_to_outlet'];
 
-        $activityLog = Log::leftJoin('users', 'users.id','logs.user_id')
-        ->where("users.assign_to_outlet", $outlet_id)
-        ->whereDate('logs.created_at', $selectedDate)
-        ->select('logs.*', 'users.username')
-        ->orderBy("logs.date","desc")
-        ->get();
+        $user_id =  Auth::id();
+
+            $activityLog = Log::leftJoin('users', 'users.id','logs.user_id')
+            ->where("users.assign_to_outlet", $outlet_id)
+            ->whereDate('logs.created_at', $selectedDate)
+            ->select('logs.*', 'users.username')
+            ->orderBy("logs.date","desc")
+            ->get();
+
+            if ($activityLog)
+            {
+                Log::create([
+                    'user_id' => $user_id,
+                    'action' => 'Exported Logs - : ' . $selectedDate,
+                ]);
 
 
-        return Excel::download(new ActivityLogExport($activityLog), 'activity_logs.xlsx');
+            return Excel::download(new ActivityLogExport($activityLog), 'activity_logs.xlsx');
+            }
+
         // return response()->json($activityLog);
     }
 
