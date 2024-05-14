@@ -27,8 +27,8 @@ const OrderPending = () => {
           </div>
           <div className={style.flexStyle}>
             <div className={style.flexStyleFirstChld}>
-              <p>Order number</p>
-              <span>12</span>
+              <p>Dining Option</p>
+              <span>DELIVER</span>
             </div>
             <div className={style.flexStyleScndChld}>
               <div className={style.flexStyleChild}>
