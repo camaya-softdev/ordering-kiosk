@@ -12,7 +12,7 @@ use App\Http\Controllers\Views\restaurant\MenuController;
 use App\Http\Controllers\Views\restaurant\CategoryController;
 
 use App\Http\Controllers\Views\restaurant\ProductController;
-use App\Http\Controllers\Views\ActivityLogController;
+use App\Http\Controllers\Views\ActivitylogController;
 
 
 
