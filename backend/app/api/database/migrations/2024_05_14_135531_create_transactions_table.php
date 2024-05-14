@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->customer_id()->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('reference_number')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'voided'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'voided', 'completed'])->default('pending');
             $table->string('remarks')->nullable();
             $table->enum('dining_option', ['dine-in', 'pick-up', 'delivery'])->default('dine-in');
             $table->string('payment_method')->default('cash');

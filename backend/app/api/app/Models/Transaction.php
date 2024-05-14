@@ -9,6 +9,12 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    public static $STATUS_PENDING = 'pending';
+    public static $STATUS_CONFIRMED = 'confirmed';
+    public static $STATUS_CANCELLED = 'cancelled';
+    public static $STATUS_VOIDED = 'voided';
+    public static $STATUS_COMPLETED = 'completed';
+
     protected $fillable = [
         'customer_id',
         'reference_number',
