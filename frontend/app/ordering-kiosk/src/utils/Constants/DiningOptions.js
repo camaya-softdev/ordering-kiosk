@@ -1,5 +1,5 @@
-const DINE_IN = "DINE-IN";
-const PICK_UP = "PICK-UP";
-const DELIVERY = "DELIVERY";
+const DINE_IN = "dine-in";
+const PICK_UP = "pick-up";
+const DELIVERY = "delivery";
 
 export { DINE_IN, PICK_UP, DELIVERY };
