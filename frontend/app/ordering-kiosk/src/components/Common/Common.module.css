@@ -129,6 +129,20 @@
     overflow: hidden;
 }
 
+@media (max-width: 1080px) {
+    .modalWrapper, .modalContent {
+        width: 100wh;
+        left: 0;
+        right: 0;
+        transform: initial;
+        position: fixed;
+    }
+
+    .modalContent{
+        overflow-x: auto;
+    }
+}
+
 .modalTitleWrapper{
     display: flex;
     flex-direction: column;

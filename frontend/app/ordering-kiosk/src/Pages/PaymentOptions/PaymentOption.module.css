@@ -7,6 +7,7 @@
 
 .main-container {
     overflow: hidden;
+    height: 1300px;
 }
 
 .main-container,
@@ -64,14 +65,22 @@ button {
     background: white;
 }
 
-.circleBlur {
+.circleBlur{
     width: 500px;
     background: #ff9393;
     height: 500px;
     position: absolute;
-    bottom: -300px;
+    bottom: 1000px;
     border-radius: 50%;
-    opacity: 7%;
+    opacity: 10%;
     box-shadow: 0 0 150px 200px #ff9393;
-    z-index: -100;
+    z-index: -99;
+}
+
+.topContainer{
+    width: 1080px;
+    padding-top: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -18,6 +18,8 @@
 <script src="{{ asset('/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- date-range-picker -->
+<script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
 <style>
      /* Add custom styles */
@@ -40,6 +42,8 @@
 </style>
 <script>
     $(function () {
+    // $('#searchLog').daterangepicker();
+
       $('#example2').DataTable({
         "paging": true,
         "lengthChange": false,
@@ -79,6 +83,18 @@
         "autoWidth": false,
         "responsive": true,
       });
+
+      $('#logTable').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+
+
     });
 
     $("#listingData_filter").addClass("hidden"); // hidden search input
@@ -86,6 +102,11 @@
     $("#searchInput").on("input", function (e) {
     e.preventDefault();
     $('#example2').DataTable().search($(this).val()).draw();
+    });
+
+    $("#searchProduct").on("input", function (e) {
+    e.preventDefault();
+    $('#productTable').DataTable().search($(this).val()).draw();
     });
 
     $("#searchUser").on("input", function (e) {

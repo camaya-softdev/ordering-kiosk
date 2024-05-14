@@ -24,6 +24,8 @@ function StartPage (){
                 >
                     <span className={style.title}>Start order</span>
                 </div>
+
+                <div className={style.shine}/>
             </FooterLayout>
         </div>
     );

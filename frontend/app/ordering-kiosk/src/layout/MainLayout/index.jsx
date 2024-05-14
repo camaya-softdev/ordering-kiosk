@@ -7,6 +7,7 @@ import DineOptions from "../../Pages/DineOptions";
 import LocationPage from "../../Pages/LocationPage";
 import OrderSummary from "../../Pages/OrderSummary";
 import PaymentOptions from "../../Pages/PaymentOptions";
+import GCashScanPage from "../../Pages/GCashScanPage";
 import OrderConfirmed from "../../Pages/OrderConfirmed";
 import OrderPending from "../../Pages/OrderPending";
 
@@ -41,6 +42,8 @@ function MainLayout() {
       return stylized(OrderSummary)();
     case 6:
       return stylized(PaymentOptions)();
+    case 7:
+      return stylized(GCashScanPage)();
     case 8:
       return stylized(OrderPending)();
     case 9:

@@ -18,9 +18,12 @@ class LocationNumberController extends Controller
         $this->locationNumberService = $locationNumberService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $locationNumbers = LocationNumber::all();
+        $locationNumbers = LocationNumber::when($request->has('location_id'), function($query) use ($request) {
+            return $query->where('location_id', $request->location_id);
+        })
+        ->get();
         return LocationNumberResource::collection($locationNumbers);
     }
 
