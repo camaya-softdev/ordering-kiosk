@@ -28,10 +28,9 @@ function ConfirmGCashPayment({ open, onClose }) {
     
         try {
             const response = await (await placeOrderQuery).mutateAsync(order);
-            console.log(response);
             alert("Successfully added!");
         } catch (error) {
-            alert("Cannot add type(s).");
+            alert("Cannot create transaction. Please try again.");
         } finally {
             setIsLoading(false);
         }
