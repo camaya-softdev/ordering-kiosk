@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\NewOrder;
 
 class CreateTransactionController extends Controller
 {
@@ -46,6 +47,8 @@ class CreateTransactionController extends Controller
                     'quantity' => $product['quantity'],
                 ]);
             }
+
+            broadcast(new NewOrder($newTransaction))->toOthers();
 
             DB::commit();
 
