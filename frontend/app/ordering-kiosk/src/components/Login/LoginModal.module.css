@@ -1,0 +1,17 @@
+.modalFields{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+
+.modalButtons{
+    display: flex;
+    padding: 60px 40px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    align-self: stretch;
+}
