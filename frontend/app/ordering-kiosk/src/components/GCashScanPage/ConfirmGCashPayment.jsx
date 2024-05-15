@@ -3,38 +3,41 @@ import Button from "../Common/Button";
 import CustomInputField from "./CustomField";
 import styles from "./GCashScanPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { setGCashPaymentDetails } from "../../store/order/orderSlice";
+import { useEffect, useState } from "react";
+import { nextStep, setCreatedTransaction, setGCashPaymentDetails } from "../../store/order/orderSlice";
 import { useCreateTransaction } from "../../services/TransactionService";
+import { GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 
 function ConfirmGCashPayment({ open, onClose }) {
     const order = useSelector(state => state.order);
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
     const placeOrderQuery = useCreateTransaction();
     const [gcashPaymentDetails, setGcashPaymentDetails] = useState({
         name: "",
         phoneNumber: "",
         referenceNumber: ""
     });
+    
 
     const handleConfirm = () => {
         dispatch(setGCashPaymentDetails(gcashPaymentDetails));
-        handleSave();
     }
 
     const handleSave = async () => {
-        setIsLoading(true);
-    
         try {
             const response = await (await placeOrderQuery).mutateAsync(order);
-            alert("Successfully added!");
+            dispatch(setCreatedTransaction(response.data.transaction));
+            dispatch(nextStep());
         } catch (error) {
             alert("Cannot create transaction. Please try again.");
-        } finally {
-            setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (order.paymentOption === GCASH_PAYMENT && order.gcashPaymentDetails !== null) {
+          handleSave();
+        }
+    }, [order.paymentOption, order.gcashPaymentDetails]);
 
     return (
         <BottomModal
@@ -70,7 +73,8 @@ function ConfirmGCashPayment({ open, onClose }) {
                 <Button 
                     type="black"
                     onClick={handleConfirm}
-                    disabled={!gcashPaymentDetails.name || !gcashPaymentDetails.phoneNumber || !gcashPaymentDetails.referenceNumber}
+                    loading={placeOrderQuery.isLoading}
+                    disabled={!gcashPaymentDetails.name || !gcashPaymentDetails.phoneNumber || !gcashPaymentDetails.referenceNumber || placeOrderQuery.isLoading}
                 >
                     Confirm
                 </Button>

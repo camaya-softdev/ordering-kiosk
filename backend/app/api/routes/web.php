@@ -13,6 +13,9 @@ use App\Http\Controllers\Views\restaurant\CategoryController;
 
 use App\Http\Controllers\Views\restaurant\ProductController;
 use App\Http\Controllers\Views\ActivitylogController;
+use App\Http\Controllers\Views\restaurant\OrderController;
+
+
 
 
 
@@ -76,6 +79,9 @@ Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name
 
 Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('log');
 Route::post('/export-logs', [ActivityLogController::class, 'exportLogs'])->name('exportLogs');
+
+Route::get('/order-report', [OrderController::class, 'index'])->name('order-report');
+
 
 
 
