@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Views\restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Exports\ReportExport;
 use Illuminate\Support\Facades\Validator;
 // use App\Services\ProductService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -42,6 +44,33 @@ class OrderController extends Controller
 
         return view('Pages.restaurant.report', ['report'=> $orderReport,'loginData' => $loginData]);
 
+    }
+
+    public function exportReport(Request $request)
+    {
+        $loginData = session('loginData');
+        $outlet_id = $loginData['user']['assign_to_outlet'];
+        $selectedDate = $request->input('selectedDate');
+
+        // Fetch specific data from transactions
+        $orderReport = Transaction::select(
+            'transactions.reference_number',
+            'transactions.id',
+            'transactions.payment_method',
+            'transactions.status',
+            DB::raw('GROUP_CONCAT(orders.quantity, "x ", products.name SEPARATOR "\n") as order_details'), // Concatenate order details
+            DB::raw('SUM(orders.quantity * products.price) AS total') // Calculate total
+        )
+        ->leftJoin('orders', 'orders.transaction_id', '=', 'transactions.id')
+        ->leftJoin('products', 'products.id', '=', 'orders.product_id')
+        ->where('transactions.outlet_id', '=', $outlet_id)
+        ->where('transactions.created_at', 'LIKE', '%' . $selectedDate . '%')
+        ->groupBy('transactions.id')
+        ->get();
+
+
+        // Generate the export file using a custom export class (ReportsExport)
+        return Excel::download(new ReportExport($orderReport), 'reports.xlsx');
     }
 
     // public function store(Request $request)
