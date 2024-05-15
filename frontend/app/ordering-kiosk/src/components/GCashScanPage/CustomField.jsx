@@ -6,6 +6,8 @@ function CustomInputField({
     placeholder,
     onChange,
     onFocus,
+    error,
+    onBlur
 }){
 
     return(
@@ -20,7 +22,9 @@ function CustomInputField({
                     value={value}
                     onChange={onChange} 
                     onFocus={onFocus}
+                    onBlur={onBlur}
                 />
+                {error && <div className={styles.errorMessage}>{error}</div>}
             </div>
         </div>
     );

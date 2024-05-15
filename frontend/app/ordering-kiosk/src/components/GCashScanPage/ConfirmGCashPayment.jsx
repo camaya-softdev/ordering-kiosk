@@ -12,6 +12,9 @@ function ConfirmGCashPayment({ open, onClose }) {
     const order = useSelector(state => state.order);
     const dispatch = useDispatch();
     const placeOrderQuery = useCreateTransaction();
+    const [fieldErrors, setFieldErrors] = useState({
+        phoneNumber: null
+    });
     const [gcashPaymentDetails, setGcashPaymentDetails] = useState({
         name: "",
         phoneNumber: "",
@@ -39,6 +42,12 @@ function ConfirmGCashPayment({ open, onClose }) {
         }
     }, [order.paymentOption, order.gcashPaymentDetails]);
 
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneNumberPattern = /^(\+63|0)\d{10}$/;
+        const isValid = phoneNumberPattern.test(phoneNumber);
+        setFieldErrors({ ...fieldErrors, phoneNumber: isValid ? null : 'Invalid phone number' });
+    };
+
     return (
         <BottomModal
             open={open}
@@ -63,7 +72,11 @@ function ConfirmGCashPayment({ open, onClose }) {
                     label="Enter your phone number"
                     placeholder="0912 345 6789"
                     value={gcashPaymentDetails.phoneNumber}
-                    onChange={(e) => setGcashPaymentDetails({ ...gcashPaymentDetails, phoneNumber: e.target.value })}
+                    onChange={(e) => {
+                        setGcashPaymentDetails({ ...gcashPaymentDetails, phoneNumber: e.target.value });
+                        validatePhoneNumber(e.target.value);
+                    }}
+                    error={fieldErrors.phoneNumber}
                 />
             </div>
 
@@ -74,7 +87,7 @@ function ConfirmGCashPayment({ open, onClose }) {
                     type="black"
                     onClick={handleConfirm}
                     loading={placeOrderQuery.isLoading}
-                    disabled={!gcashPaymentDetails.name || !gcashPaymentDetails.phoneNumber || !gcashPaymentDetails.referenceNumber || placeOrderQuery.isLoading}
+                    disabled={fieldErrors.phoneNumber !== null || !gcashPaymentDetails.name || !gcashPaymentDetails.phoneNumber || !gcashPaymentDetails.referenceNumber || placeOrderQuery.isLoading}
                 >
                     Confirm
                 </Button>
