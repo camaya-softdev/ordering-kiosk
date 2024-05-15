@@ -100,16 +100,21 @@ class OrderPending extends React.Component {
             <div className={style.flexStyle}>
               <div className={style.flexStyleScndChld}>
                 <div className={style.flexStyleChild}>
-                  <p>Total</p>
+                  <p>TOTAL</p>
                   <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
                 </div>
-                <div className={style.flexStyleChild}>
-                  <p>Payment</p>
-                  <p>{order.paymentOption}</p>
-                </div>
+                
                 {
                   order.gcashPaymentDetails !== null ?
                   <div className={style.flexStyleChild}>
+                    <p>PAYMENT (VIA GCASH)</p>
+                    <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
+                  </div>
+                  : null
+                }
+                {
+                  order.gcashPaymentDetails !== null ?
+                  <div className={style.flexStyleChild} style={{marginTop: 24}}>
                     <span>Reference Number</span>
                     <span>{order.gcashPaymentDetails.referenceNumber}</span>
                   </div>
