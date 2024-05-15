@@ -4,9 +4,8 @@ import Button from "../Common/Button";
 import CustomInputField from "../GCashScanPage/CustomField";
 import styles from "./LoginModal.module.css";
 import { useLogin } from "../../services/AuthService";
-import Cookies from 'js-cookie';
 
-function LoginModal({open, onClose}){
+function LoginModal({open, onClose, onLoginSuccess}){
     const loginQuery = useLogin();
     const [credentials, setCredentials] = useState({
         username: "",
@@ -15,10 +14,11 @@ function LoginModal({open, onClose}){
 
     const handleLogin = async () => {
         try {
-            const response = await (await loginQuery).mutateAsync(credentials);
-            console.log(response);
+            const response = await (loginQuery).mutateAsync(credentials);
+            onLoginSuccess(response.data);
+
         } catch (error) {
-            alert("Cannot create transaction. Please try again.");
+            alert("Cannot login. Please try again.");
         }
     };
 
@@ -46,8 +46,8 @@ function LoginModal({open, onClose}){
                     <Button
                         type="black"
                         onClick={handleLogin}
-                        // loading={placeOrderQuery.isLoading}
-                        disabled={!credentials.username || !credentials.password}
+                        loading={loginQuery.isLoading}
+                        disabled={!credentials.username || !credentials.password || loginQuery.isLoading}
                     >
                         Login
                     </Button>

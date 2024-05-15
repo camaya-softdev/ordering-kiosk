@@ -11,7 +11,7 @@ export const useLogin = () => {
         });
 
         if (response.status === 200) {
-            Cookies.set('user', JSON.stringify(response.data.user));
+            Cookies.set('user', JSON.stringify(response.data), { expires: 10000 } );
         }
 
         return response;

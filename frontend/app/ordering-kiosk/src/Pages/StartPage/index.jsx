@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { nextStep } from '../../store/order/orderSlice';
 import style from "./StartPage.module.css";
 import pic from "../../assets/orderpage.jpg";
@@ -6,24 +6,27 @@ import FooterLayout from '../../layout/FooterLayout';
 import CamayaLogo from '../../assets/camaya-logo.svg';
 import LoginModal from '../../components/Login/LoginModal';
 import { useState, useEffect } from 'react';
-import { useCheckUser } from '../../hooks/useCheckUser'; // Import useCheckUser hook
+import Cookies from 'js-cookie';
 
 function StartPage (){
-    const user = useSelector(state => state.user.user); // Select user from Redux store
     const [loginModal, setLoginModal] = useState(true);
+    const [user, setUser] = useState(Cookies.get('user'));
+    const dispatch = useDispatch();
 
-    useCheckUser(); // Use custom hook
-
-    // Function to move to the next step of the order process
     const goToNextStep = () => {
         dispatch(nextStep());
     };
 
     useEffect(() => {
-        if (user) {
-            setLoginModal(false); // Close modal if user is logged in
+        if (user !== undefined) {
+            setLoginModal(false); 
         }
-    }, [user]); // Add user as dependency
+    }, [user]);
+
+    const handleLoginSuccess = (userData) => {
+        setUser(userData);
+        setLoginModal(false);
+    };
 
     return(
         <div>
@@ -43,6 +46,7 @@ function StartPage (){
             <LoginModal
                 open={loginModal}
                 onClose={() => setLoginModal(false)}
+                onLoginSuccess={handleLoginSuccess} 
             />
         </div>
     );
