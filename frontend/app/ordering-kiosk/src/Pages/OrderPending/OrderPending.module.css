@@ -187,3 +187,14 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+@media print {
+    .flexStyleScndChld, .flexStyle, .OrderContent, .mainContainer {
+      overflow: visible !important;
+      height: auto !important;
+    }
+    .mainContainer {
+      height: auto !important;
+      margin-top: 40px;
+    }
+}
