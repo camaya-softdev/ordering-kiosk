@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { nextStep } from '../../store/order/orderSlice';
 import style from "./StartPage.module.css";
-import pic from "../../assets/orderpage.jpg";
+import pic from "../../assets/splash_image.jpeg";
 import FooterLayout from '../../layout/FooterLayout';
 import CamayaLogo from '../../assets/camaya-logo.svg';
 import LoginModal from '../../components/Login/LoginModal';
@@ -30,7 +30,9 @@ function StartPage (){
 
     return(
         <div>
-            <img src={pic} />
+            <div className={style.imageWrapper}>
+                <img src={pic} />
+            </div>
             <FooterLayout className={style.footer}>
                 <img src={CamayaLogo}/>
                 <div 
