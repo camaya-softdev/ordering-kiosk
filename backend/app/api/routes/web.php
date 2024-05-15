@@ -81,6 +81,7 @@ Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('log'
 Route::post('/export-logs', [ActivityLogController::class, 'exportLogs'])->name('exportLogs');
 
 Route::get('/order-report', [OrderController::class, 'index'])->name('order-report');
+Route::post('/export-report', [OrderController::class, 'exportReport'])->name('export-report');
 
 
 
