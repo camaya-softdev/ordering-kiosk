@@ -6,7 +6,7 @@ import gcashlogo from "../../assets/gcashlogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
-import { nextStep, previousStep, setGCashPaymentDetails, setOrderStep, setPaymentOption } from "../../store/order/orderSlice";
+import { nextStep, previousStep, setCreatedTransaction, setGCashPaymentDetails, setOrderStep, setPaymentOption } from "../../store/order/orderSlice";
 import { CASH_PAYMENT, GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 import { useCreateTransaction } from "../../services/TransactionService";
 
@@ -19,7 +19,7 @@ const PaymentOptions = () => {
 
   useEffect(() => {
     if (order.paymentOption === CASH_PAYMENT && order.gcashPaymentDetails === null) {
-      handleSave();
+      handleSaveCash();
     }
   }, [order.paymentOption, order.gcashPaymentDetails]);
   
@@ -34,9 +34,10 @@ const PaymentOptions = () => {
     }
   }
 
-  const handleSave = async () => {
+  const handleSaveCash = async () => {
     try {
         const response = await (await placeOrderQuery).mutateAsync(order);
+        dispatch(setCreatedTransaction(response.data.transaction));
         dispatch(setOrderStep(8));
     } catch (error) {
         alert("Cannot create transaction. Please try again.");

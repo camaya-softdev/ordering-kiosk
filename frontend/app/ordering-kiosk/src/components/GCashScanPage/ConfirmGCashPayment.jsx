@@ -4,7 +4,7 @@ import CustomInputField from "./CustomField";
 import styles from "./GCashScanPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { nextStep, setGCashPaymentDetails } from "../../store/order/orderSlice";
+import { nextStep, setCreatedTransaction, setGCashPaymentDetails } from "../../store/order/orderSlice";
 import { useCreateTransaction } from "../../services/TransactionService";
 import { GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 
@@ -26,6 +26,7 @@ function ConfirmGCashPayment({ open, onClose }) {
     const handleSave = async () => {
         try {
             const response = await (await placeOrderQuery).mutateAsync(order);
+            dispatch(setCreatedTransaction(response.data.transaction));
             dispatch(nextStep());
         } catch (error) {
             alert("Cannot create transaction. Please try again.");
