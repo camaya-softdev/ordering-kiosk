@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { resetOrder } from "../../store/order/orderSlice";
 import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ReactToPrint from 'react-to-print';
+import { CASH_PAYMENT, GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -34,8 +35,17 @@ class OrderPending extends React.Component {
           </div>
           <div className={style.prcdOutlet}>
             <p>
-              Kindly take a picture of your order details for reference then
-              proceed to <span>{order.selectedOutlet.name}</span> to pay.
+              {
+                order.paymentOption === CASH_PAYMENT ?
+                <>
+                  Kindly take a picture of your order details for reference then
+                  proceed to <span>{order.selectedOutlet.name}</span> to pay.
+                </>
+                :
+                <>
+                  Army Navy will contact you shortly to update you with your order status.
+                </>
+              }
             </p>
           </div>
           <div className={style.OrderContent}>
@@ -90,12 +100,35 @@ class OrderPending extends React.Component {
             <div className={style.flexStyle}>
               <div className={style.flexStyleScndChld}>
                 <div className={style.flexStyleChild}>
-                  <p>Total</p>
-                  <span>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</span>
+                  <p>TOTAL</p>
+                  <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
                 </div>
+                
+                {
+                  order.gcashPaymentDetails !== null ?
+                  <div className={style.flexStyleChild}>
+                    <p>PAYMENT (VIA GCASH)</p>
+                    <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
+                  </div>
+                  : null
+                }
+                {
+                  order.gcashPaymentDetails !== null ?
+                  <div className={style.flexStyleChild} style={{marginTop: 24}}>
+                    <span>REFERENCE NUMBER</span>
+                    <span>{order.gcashPaymentDetails.referenceNumber}</span>
+                  </div>
+                  :null
+                }
               </div>
             </div>
           </div>
+          {/* {
+            order.paymentOption === GCASH_PAYMENT ?
+            <div className={style.paragraphMsg}>
+              <p>Take a picture of your order details for reference.</p>
+            </div> : null
+          } */}
         </div>
         <FooterLayout className={style.footer}>
           <img src={CamayaLogo} />

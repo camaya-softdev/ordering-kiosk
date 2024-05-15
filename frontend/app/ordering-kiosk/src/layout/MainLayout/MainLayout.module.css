@@ -9,3 +9,10 @@
     overflow: hidden;
     border: 1px solid #000000;
 }
+
+@media print {
+    .mainLayout {
+      height: auto !important;
+      overflow: visible !important;
+    }
+}
