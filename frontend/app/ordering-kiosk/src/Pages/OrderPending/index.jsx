@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { resetOrder } from "../../store/order/orderSlice";
 import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ReactToPrint from 'react-to-print';
-import { CASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
+import { CASH_PAYMENT, GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -43,7 +43,7 @@ class OrderPending extends React.Component {
                 </>
                 :
                 <>
-                  Please wait for your payment to be verified. We'll prepare your order once payment is confirmed.
+                  Army Navy will contact you shortly to update you with your order status.
                 </>
               }
             </p>
@@ -115,7 +115,7 @@ class OrderPending extends React.Component {
                 {
                   order.gcashPaymentDetails !== null ?
                   <div className={style.flexStyleChild} style={{marginTop: 24}}>
-                    <span>Reference Number</span>
+                    <span>REFERENCE NUMBER</span>
                     <span>{order.gcashPaymentDetails.referenceNumber}</span>
                   </div>
                   :null
@@ -123,6 +123,12 @@ class OrderPending extends React.Component {
               </div>
             </div>
           </div>
+          {/* {
+            order.paymentOption === GCASH_PAYMENT ?
+            <div className={style.paragraphMsg}>
+              <p>Take a picture of your order details for reference.</p>
+            </div> : null
+          } */}
         </div>
         <FooterLayout className={style.footer}>
           <img src={CamayaLogo} />
