@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\OutletController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CreateTransactionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\LocationNumberController;
+use App\Http\Controllers\Admin\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +66,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
   Route::get('locations', [LocationController::class, 'index']);
   Route::get('location-numbers', [LocationNumberController::class, 'index']);
   Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
+
+
+
+
+  Route::post('create-transaction', [CreateTransactionController::class, 'store']);
 

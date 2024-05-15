@@ -2,12 +2,16 @@ import BottomModal from "../Common/BottomModal";
 import Button from "../Common/Button";
 import CustomInputField from "./CustomField";
 import styles from "./GCashScanPage.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { setGCashPaymentDetails } from "../../store/order/orderSlice";
+import { useCreateTransaction } from "../../services/TransactionService";
 
 function ConfirmGCashPayment({ open, onClose }) {
+    const order = useSelector(state => state.order);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+    const placeOrderQuery = useCreateTransaction();
     const [gcashPaymentDetails, setGcashPaymentDetails] = useState({
         name: "",
         phoneNumber: "",
@@ -16,8 +20,21 @@ function ConfirmGCashPayment({ open, onClose }) {
 
     const handleConfirm = () => {
         dispatch(setGCashPaymentDetails(gcashPaymentDetails));
-        alert("Payment details saved successfully!");
+        handleSave();
     }
+
+    const handleSave = async () => {
+        setIsLoading(true);
+    
+        try {
+            const response = await (await placeOrderQuery).mutateAsync(order);
+            alert("Successfully added!");
+        } catch (error) {
+            alert("Cannot create transaction. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <BottomModal

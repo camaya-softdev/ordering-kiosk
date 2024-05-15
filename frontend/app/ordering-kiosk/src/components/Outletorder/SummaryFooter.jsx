@@ -30,7 +30,7 @@ function SummaryFooter({
                         showDiningDetails &&
                         <p>
                             <span>Dining Option</span>
-                            <span>{order.diningOption ? order.diningOption : '-'}</span>
+                            <span>{order.diningOption ? order.diningOption.toUpperCase() : '-'}</span>
                         </p>
                     }
                     {
