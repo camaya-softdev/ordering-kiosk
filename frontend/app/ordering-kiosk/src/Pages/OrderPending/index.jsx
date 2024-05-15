@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { resetOrder } from "../../store/order/orderSlice";
 import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ReactToPrint from 'react-to-print';
+import { CASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -34,8 +35,17 @@ class OrderPending extends React.Component {
           </div>
           <div className={style.prcdOutlet}>
             <p>
-              Kindly take a picture of your order details for reference then
-              proceed to <span>{order.selectedOutlet.name}</span> to pay.
+              {
+                order.paymentOption === CASH_PAYMENT ?
+                <>
+                  Kindly take a picture of your order details for reference then
+                  proceed to <span>{order.selectedOutlet.name}</span> to pay.
+                </>
+                :
+                <>
+                  Please wait for your payment to be verified. We'll prepare your order once payment is confirmed.
+                </>
+              }
             </p>
           </div>
           <div className={style.OrderContent}>
@@ -91,8 +101,20 @@ class OrderPending extends React.Component {
               <div className={style.flexStyleScndChld}>
                 <div className={style.flexStyleChild}>
                   <p>Total</p>
-                  <span>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</span>
+                  <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
                 </div>
+                <div className={style.flexStyleChild}>
+                  <p>Payment</p>
+                  <p>{order.paymentOption}</p>
+                </div>
+                {
+                  order.gcashPaymentDetails !== null ?
+                  <div className={style.flexStyleChild}>
+                    <span>Reference Number</span>
+                    <span>{order.gcashPaymentDetails.referenceNumber}</span>
+                  </div>
+                  :null
+                }
               </div>
             </div>
           </div>

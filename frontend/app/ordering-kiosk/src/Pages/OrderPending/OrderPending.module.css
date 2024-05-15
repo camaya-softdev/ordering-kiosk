@@ -192,9 +192,11 @@
     .flexStyleScndChld, .flexStyle, .OrderContent, .mainContainer {
       overflow: visible !important;
       height: auto !important;
+      max-height: none !important;
     }
     .mainContainer {
       height: auto !important;
-      margin-top: 40px;
+      overflow: visible !important;
+      margin-top: 60px;
     }
 }
