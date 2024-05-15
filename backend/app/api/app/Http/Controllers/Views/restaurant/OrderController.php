@@ -37,7 +37,9 @@ class OrderController extends Controller
         ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
         ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
         ->where('outlet_id','=',$outlet_id )
-        ->with(['orders.product'])
+        ->with(['orders.product' => function ($query) {
+            $query->withTrashed(); // Include soft-deleted products
+        }])
         ->get();
 
     //    return $orderReport;
@@ -65,90 +67,37 @@ class OrderController extends Controller
         ->leftJoin('products', 'products.id', '=', 'orders.product_id')
         ->where('transactions.outlet_id', '=', $outlet_id)
         ->where('transactions.created_at', 'LIKE', '%' . $selectedDate . '%')
+        ->with(['orders.product' => function ($query) {
+            $query->withTrashed(); // Include soft-deleted products
+        }])
         ->groupBy('transactions.id')
         ->get();
 
+    // return $orderReport;
 
-        // Generate the export file using a custom export class (ReportsExport)
-        return Excel::download(new ReportExport($orderReport), 'reports.xlsx');
+    // Generate the export file using a custom export class (ReportsExport)
+    return Excel::download(new ReportExport($orderReport), 'reports.xlsx');
+}
+
+
+    public function update(Request $request)
+    {
+        $orderId = $request->input('orderId');
+        $newStatus = $request->input('status');
+        $order = Transaction::find($orderId);
+
+        if ($order) {
+            // Update the status of the order
+            $order->status = $newStatus;
+            $order->save();
+
+            return redirect()->route('resto.view')->with('success', 'Status Updated successfully');
+        } else {
+            return "Error";
+        }
     }
 
-    // public function store(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'required|string|max:255',
-    //         'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-    //         'stock' => 'required|integer',
-    //         'create_status' => 'required',
-    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
-    //     ]);
 
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
-
-    //     // Handle image upload
-    //     $imagePath = $request->file('image')->store('public/images');
-    //     $imageUrl = Storage::url($imagePath);
-
-    //     $outlet = $this->productService->createProduct([
-    //         'name' => $request->input('name'),
-    //         'price' => $request->input('price'),
-    //         'stock' => $request->input('stock'),
-    //         'category_id' => $request->input('category_id'),
-    //         'status' => $request->input('create_status'),
-    //         'outlet_classification' => $request->input('outlet_classification'),
-    //         'image' => $imageUrl,
-    //     ]);
-
-    //     return redirect()->route('menu')->with('success', 'Product created successfully');
-
-
-
-    // }
-
-    // public function update(Request $request, Product $product)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'nullable|string|max:255',
-    //     ]);
-
-
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
-
-    //      // Handle image upload if provided
-    //      if ($request->hasFile('updateImage')) {
-    //         $imagePath = $request->file('updateImage')->store('public/images');
-    //         $imageUrl = Storage::url($imagePath);
-    //     } else {
-    //         $imageUrl = $product->image; // Keep the existing image if no new image provided
-    //     }
-
-
-
-    //     $this->productService->updateProduct($product, [
-    //         'name' => $request->input('update_product_name'),
-    //         'price' => $request->input('update_product_price'),
-    //         'stock' => $request->input('update_product_stock'),
-    //         'category_id' => $request->input('update_category_id'),
-    //         'status' => $request->input('create_status'),
-    //         'updated_at' => now()->setTimezone('Asia/Manila'),
-    //         'image' => $imageUrl,
-    //     ]);
-
-    //     return redirect()->route('menu')->with('success', 'Product updated successfully');
-    // }
-
-    // public function destroy(Product $product)
-    // {
-    //     // Call AuthService to delete the user
-    //     $this->productService->deleteProduct($product);
-
-    //     // Redirect with success message or handle as needed
-    //     return redirect()->route('menu')->with('success', 'Category deleted successfully');
-    // }
 
 
 }

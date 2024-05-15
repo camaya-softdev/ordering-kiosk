@@ -45,10 +45,11 @@ class ReportExport implements FromCollection, WithHeadings, ShouldAutoSize, With
                 'Order' => $orderString, // Set the order column to the concatenated product details
                 'Payment Method' => $transaction->payment_method,
                 'Total' => $transaction->total,
-                'Pending' => $transaction->status,
+                'Status' => $transaction->status, // Change 'Pending' to 'Status'
             ];
         });
     }
+
 
     public function headings(): array
     {
