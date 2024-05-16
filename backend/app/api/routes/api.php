@@ -67,9 +67,10 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
    Route::get('locations', [LocationController::class, 'index']);
    Route::get('location-numbers', [LocationNumberController::class, 'index']);
    Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
+   Route::post('create-transaction', [CreateTransactionController::class, 'store']);
   });
 
 
 
-  Route::post('create-transaction', [CreateTransactionController::class, 'store']);
+
 
