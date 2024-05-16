@@ -21,7 +21,7 @@
                             <option value="cancelled">Cancelled</option>
                             <option value="voided">Voided</option>
                             <option value="completed">Completed</option>
-                            <option value="no_show">No Show</option>
+                            <option value="No Show">No Show</option>
                         </select>
                     </div>
                     <div class="modal-footer">

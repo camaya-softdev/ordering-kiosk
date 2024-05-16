@@ -58,7 +58,7 @@
 }
 
 .toggle-btn {
-        display: inline-block;
+        /* display: -; */
         width: 40px;
         height: 20px;
         position: relative;
@@ -112,30 +112,29 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                <div class="my-tabs">
-                    <div class="row">
-                        <div class="col-2 col-sm-2" style="padding-right:0">
-                            <a class="nav-link text-dark active text-bold" id="vert-tabs-orders-tab" data-toggle="pill" href="#vert-tabs-orders" role="tab" aria-controls="vert-tabs-orders" aria-selected="true">Orders</a>
-                            <div class="toggle-btn-wrapper">
-                                <div class="toggle-btn" id="cashFilterToggle" data-filter="cash"></div>
-                                <label class="text-dark" for="cashFilterToggle">For Cash Payment</label>
-                            </div>
-                            <div class="toggle-btn-wrapper">
-                                <div class="toggle-btn" id="gcashFilterToggle" data-filter="gcash"></div>
-                                <label class="text-dark" for="gcashFilterToggle">Paid Through Gcash</label>
-                            </div>
-                            <div class="toggle-btn-wrapper">
-                                <div class="toggle-btn" id="noShowFilterToggle" data-filter="no_show"></div>
-                                <label class="text-dark" for="noShowFilterToggle">No Show</label>
-                            </div>
-                            <div class="toggle-btn-wrapper">
-                                <div class="toggle-btn" id="confirmedFilterToggle" data-filter="confirmed"></div>
-                                <label class="text-dark" for="confirmedFilterToggle">Confirmed Order</label>
-                            </div>
-                        </div>
+
+               <div style="display: flex; gap: 20px; padding:5px">
+                <div class="toggle-btn-wrapper">
+                    <div class="toggle-btn" id="cashFilterToggle" data-filter="cash"></div>
+                    <label class="text-dark" for="cashFilterToggle">For Cash Payment</label>
+                </div>
+                <div class="toggle-btn-wrapper">
+                    <div class="toggle-btn" id="gcashFilterToggle" data-filter="gcash"></div>
+                    <label class="text-dark" for="gcashFilterToggle">Paid Through Gcash</label>
+                </div>
+                <div class="toggle-btn-wrapper">
+                    <div class="toggle-btn" id="noShowFilterToggle" data-filter="no_show"></div>
+                    <label class="text-dark" for="noShowFilterToggle">No Show</label>
+                </div>
+                <div class="toggle-btn-wrapper">
+                    <div class="toggle-btn" id="confirmedFilterToggle" data-filter="confirmed"></div>
+                    <label class="text-dark" for="confirmedFilterToggle">Confirmed Order</label>
+                </div>
+               </div>
 
 
-                        <div class="col-10 col-sm-9" style="background-color: #F2F4F7; padding: 20px; border-radius: 0px 8px 8px 8px;">
+
+                        <div style="background-color: #F2F4F7; padding: 20px; border-radius: 0px 8px 8px 8px;">
 
                                     <div class="tab-content" id="vert-tabs-tabContent">
                                         <div class="tab-pane text-left fade show active" id="vert-tabs-orders" role="tabpanel" aria-labelledby="vert-tabs-orders-tab">
@@ -146,8 +145,8 @@
 
                         </div>
 
-                    </div>
-                </div>
+
+
             </div>
         </div>
     </div>
