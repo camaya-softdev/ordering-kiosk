@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Views\restaurant;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 
 
-class RestaurantController extends Controller
+class OrderController extends Controller
 {
-    public function index()
+    public function latestOrderId(Request $request)
     {
         $latestOrderId = Transaction::latest()->value('id');
-
-        // return $latestOrderId;
-        $loginData = session('loginData');
-        $outlet_id = $loginData['user']['assign_to_outlet'];
-
-        // Check if login data exists
-        if ($loginData) {
+        $outlet_id = $request->input('outlet_id');
 
             $orderReport = Transaction::select(
                 'transactions.*',
@@ -28,6 +22,7 @@ class RestaurantController extends Controller
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
             ->where('outlet_id','=',$outlet_id )
+            ->where('transactions.id','=',$latestOrderId)
             ->with('customer')
             ->with(['orders.product' => function ($query) {
                 $query->withTrashed(); // Include soft-deleted products
@@ -35,14 +30,25 @@ class RestaurantController extends Controller
             ->orderBy('transactions.created_at','desc')
             ->get();
 
-            // return  $orderReport;
 
-            // Pass the login data to the view
-            return view('Pages.restaurant.restaurant', ['latestOrderId' => $latestOrderId,'loginData' => $loginData, 'orders' => $orderReport]);
+
+        return response()->json(['latestOrderId' => $orderReport]);
+    }
+
+    public function update(Request $request)
+    {
+        $orderId = $request->input('orderId');
+        $newStatus = $request->input('status');
+        $order = Transaction::find($orderId);
+
+        if ($order) {
+            // Update the status of the order
+            $order->status = $newStatus;
+            $order->save();
+
+            return redirect()->route('resto.view')->with('success', 'Status Updated successfully');
         } else {
-            // Handle the case where login data is not available
-            // Redirect the user to the login page or handle it as needed
-            return redirect()->route('login');
+            return "Error";
         }
     }
 }

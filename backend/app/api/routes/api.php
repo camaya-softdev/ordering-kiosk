@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\LocationNumberController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
    Route::delete('location-numbers/{locationNumber}', [LocationNumberController::class, 'destroy']);
 
 
+
 });
 
 
@@ -67,8 +69,10 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
   Route::get('location-numbers', [LocationNumberController::class, 'index']);
   Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
 
+  Route::get('/latest-order-data', [OrderController::class, 'latestOrderId']);
 
 
 
   Route::post('create-transaction', [CreateTransactionController::class, 'store']);
+
 
