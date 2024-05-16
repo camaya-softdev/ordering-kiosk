@@ -85,6 +85,9 @@ Route::post('/export-report', [OrderController::class, 'exportReport'])->name('e
 
 Route::post('/update-order', [OrderController::class, 'update'])->name('order.update');
 
+Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
+
+
 
 
 
