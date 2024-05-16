@@ -57,6 +57,7 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        // return $request;
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|string|max:255',
         ]);
@@ -67,8 +68,8 @@ class ProductController extends Controller
         }
 
          // Handle image upload if provided
-         if ($request->hasFile('updateImage')) {
-            $imagePath = $request->file('updateImage')->store('public/images');
+         if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images');
             $imageUrl = Storage::url($imagePath);
         } else {
             $imageUrl = $product->image; // Keep the existing image if no new image provided

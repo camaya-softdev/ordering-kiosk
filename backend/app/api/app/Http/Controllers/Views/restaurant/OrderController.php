@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Views\restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Exports\ReportExport;
 use Illuminate\Support\Facades\Validator;
 // use App\Services\ProductService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -35,7 +37,9 @@ class OrderController extends Controller
         ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
         ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
         ->where('outlet_id','=',$outlet_id )
-        ->with(['orders.product'])
+        ->with(['orders.product' => function ($query) {
+            $query->withTrashed(); // Include soft-deleted products
+        }])
         ->get();
 
     //    return $orderReport;
@@ -44,82 +48,56 @@ class OrderController extends Controller
 
     }
 
-    // public function store(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'required|string|max:255',
-    //         'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-    //         'stock' => 'required|integer',
-    //         'create_status' => 'required',
-    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
-    //     ]);
+    public function exportReport(Request $request)
+    {
+        $loginData = session('loginData');
+        $outlet_id = $loginData['user']['assign_to_outlet'];
+        $selectedDate = $request->input('selectedDate');
 
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
+        // Fetch specific data from transactions
+        $orderReport = Transaction::select(
+            'transactions.reference_number',
+            'transactions.id',
+            'transactions.payment_method',
+            'transactions.status',
+            DB::raw('GROUP_CONCAT(orders.quantity, "x ", products.name SEPARATOR "\n") as order_details'), // Concatenate order details
+            DB::raw('SUM(orders.quantity * products.price) AS total') // Calculate total
+        )
+        ->leftJoin('orders', 'orders.transaction_id', '=', 'transactions.id')
+        ->leftJoin('products', 'products.id', '=', 'orders.product_id')
+        ->where('transactions.outlet_id', '=', $outlet_id)
+        ->where('transactions.created_at', 'LIKE', '%' . $selectedDate . '%')
+        ->with(['orders.product' => function ($query) {
+            $query->withTrashed(); // Include soft-deleted products
+        }])
+        ->groupBy('transactions.id')
+        ->get();
 
-    //     // Handle image upload
-    //     $imagePath = $request->file('image')->store('public/images');
-    //     $imageUrl = Storage::url($imagePath);
+    // return $orderReport;
 
-    //     $outlet = $this->productService->createProduct([
-    //         'name' => $request->input('name'),
-    //         'price' => $request->input('price'),
-    //         'stock' => $request->input('stock'),
-    //         'category_id' => $request->input('category_id'),
-    //         'status' => $request->input('create_status'),
-    //         'outlet_classification' => $request->input('outlet_classification'),
-    //         'image' => $imageUrl,
-    //     ]);
-
-    //     return redirect()->route('menu')->with('success', 'Product created successfully');
-
-
-
-    // }
-
-    // public function update(Request $request, Product $product)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'nullable|string|max:255',
-    //     ]);
+    // Generate the export file using a custom export class (ReportsExport)
+    return Excel::download(new ReportExport($orderReport), 'reports.xlsx');
+}
 
 
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
+    public function update(Request $request)
+    {
+        $orderId = $request->input('orderId');
+        $newStatus = $request->input('status');
+        $order = Transaction::find($orderId);
 
-    //      // Handle image upload if provided
-    //      if ($request->hasFile('updateImage')) {
-    //         $imagePath = $request->file('updateImage')->store('public/images');
-    //         $imageUrl = Storage::url($imagePath);
-    //     } else {
-    //         $imageUrl = $product->image; // Keep the existing image if no new image provided
-    //     }
+        if ($order) {
+            // Update the status of the order
+            $order->status = $newStatus;
+            $order->save();
+
+            return redirect()->route('resto.view')->with('success', 'Status Updated successfully');
+        } else {
+            return "Error";
+        }
+    }
 
 
-
-    //     $this->productService->updateProduct($product, [
-    //         'name' => $request->input('update_product_name'),
-    //         'price' => $request->input('update_product_price'),
-    //         'stock' => $request->input('update_product_stock'),
-    //         'category_id' => $request->input('update_category_id'),
-    //         'status' => $request->input('create_status'),
-    //         'updated_at' => now()->setTimezone('Asia/Manila'),
-    //         'image' => $imageUrl,
-    //     ]);
-
-    //     return redirect()->route('menu')->with('success', 'Product updated successfully');
-    // }
-
-    // public function destroy(Product $product)
-    // {
-    //     // Call AuthService to delete the user
-    //     $this->productService->deleteProduct($product);
-
-    //     // Redirect with success message or handle as needed
-    //     return redirect()->route('menu')->with('success', 'Category deleted successfully');
-    // }
 
 
 }
