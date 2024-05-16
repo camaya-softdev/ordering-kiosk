@@ -11,6 +11,7 @@ function LoginModal({open, onClose, onLoginSuccess}){
         username: "",
         password: ""
     });
+    const [error, setError] = useState(null);
 
     const handleLogin = async () => {
         try {
@@ -18,7 +19,7 @@ function LoginModal({open, onClose, onLoginSuccess}){
             onLoginSuccess(response.data);
 
         } catch (error) {
-            alert("Cannot login. Please try again.");
+            setError(error.response.data.message);
         }
     };
 
@@ -51,7 +52,11 @@ function LoginModal({open, onClose, onLoginSuccess}){
                     >
                         Login
                     </Button>
+
+                    
                 </div>
+
+                {error && <div className={styles.errorMessage}>{error}</div>}
             </div>
         </BottomModal>
     );
