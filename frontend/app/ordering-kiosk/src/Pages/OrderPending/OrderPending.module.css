@@ -20,7 +20,7 @@
     width: 1080px;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    /* gap: 60px; */
     height: 1620px;
     /* margin-top: 100px; */
 }
@@ -28,13 +28,14 @@
 .prcdOutlet p {
     width: 720px;
     height: 104px;
-    margin: 0 auto;
+    margin: 60px auto;
     color: #1e1e1e;
     font-family: Poppins, var(--default-font-family);
     font-size: 32px;
     font-weight: 400;
     line-height: 52px;
     text-align: center;
+
 }
 
 .OrderContent {
@@ -59,6 +60,7 @@
     flex-direction: column;
     align-items: center;
     gap: 32px;
+    margin-top: 60px;
 }
 
 .pOrderConfirm p {
@@ -82,7 +84,7 @@
 .flexStyle {
     display: flex;
     flex-direction: column;
-    max-height: 400px;
+    max-height: 280px;
     overflow: auto;
 }
 
@@ -96,7 +98,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #D0D5DD;
-    padding: 24px 40px 24px 40px;
+    padding: 0px 40px 24px 40px;
     gap: 24px;
 }
 
@@ -143,8 +145,8 @@
     font-size: 32px;
     font-weight: 400;
     line-height: 52px;
-    margin-bottom: 120px;
     width: 75%;
+    text-align: center;
 }
 
 .flexStyleChild {
