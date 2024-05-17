@@ -38,7 +38,7 @@ class OrderPending extends React.Component {
               {
                 order.paymentOption === CASH_PAYMENT ?
                 <>
-                  Kindly take a picture of your order details for reference then
+                  Kindly take your order slip for reference then
                   proceed to <span>{order.selectedOutlet.name}</span> to pay.
                 </>
                 :
@@ -106,7 +106,7 @@ class OrderPending extends React.Component {
                 
                 {
                   order.gcashPaymentDetails !== null ?
-                  <div className={style.flexStyleChild}>
+                  <div className={style.flexStyleChild} style={{marginTop: "24px"}}>
                     <p>PAYMENT (VIA GCASH)</p>
                     <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
                   </div>
@@ -114,7 +114,7 @@ class OrderPending extends React.Component {
                 }
                 {
                   order.gcashPaymentDetails !== null ?
-                  <div className={style.flexStyleChild} style={{marginTop: 24}}>
+                  <div className={style.flexStyleChild} style={{marginTop: 48}}>
                     <span>REFERENCE NUMBER</span>
                     <span>{order.gcashPaymentDetails.referenceNumber}</span>
                   </div>
@@ -123,12 +123,13 @@ class OrderPending extends React.Component {
               </div>
             </div>
           </div>
-          {/* {
+          {
             order.paymentOption === GCASH_PAYMENT ?
-            <div className={style.paragraphMsg}>
-              <p>Take a picture of your order details for reference.</p>
-            </div> : null
-          } */}
+            <div className={`${style.paragraphMsg}`}>
+            <p>Kindly take your order slip for reference</p>
+          </div> : null
+          }
+          
         </div>
         <FooterLayout className={style.footer}>
           <img src={CamayaLogo} />
