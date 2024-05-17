@@ -193,13 +193,15 @@
 @media print {
     .flexStyleScndChld, .flexStyle, .OrderContent, .mainContainer {
       overflow: visible !important;
-      height: auto !important;
+      height: auto !important; 
       max-height: none !important;
     }
     .mainContainer {
       height: auto !important;
       overflow: visible !important;
-      margin-top: 60px;
+      /* margin: 5px!important; */
+      padding: 0!important;
+      width: 100%!important;
     }
 
     .paragraphMsg{
