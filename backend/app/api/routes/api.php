@@ -58,21 +58,23 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
   Route::get('user', [AuthController::class, 'user']);
 
   //Outlets
-  Route::get('outlets', [OutletController::class, 'index']);
+  Route::group(['middleware' => 'auth:sanctum'], function() {
+   Route::get('outlets', [OutletController::class, 'index']);
 
-  Route::get('/outlet_category/{outlet_id}', [OutletController::class, 'OutletCategory']);
-  Route::apiResource('categories', CategoryController::class);
-  Route::get('/category_products/{category_id}', [CategoryController::class, 'CategoryProducts']);
-  Route::apiResource('products', ProductController::class);
+   Route::get('/outlet_category/{outlet_id}', [OutletController::class, 'OutletCategory']);
+   Route::apiResource('categories', CategoryController::class);
+   Route::get('/category_products/{category_id}', [CategoryController::class, 'CategoryProducts']);
+   Route::apiResource('products', ProductController::class);
 
-  Route::get('locations', [LocationController::class, 'index']);
-  Route::get('location-numbers', [LocationNumberController::class, 'index']);
-  Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
+   Route::get('locations', [LocationController::class, 'index']);
+   Route::get('location-numbers', [LocationNumberController::class, 'index']);
+   Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
+   Route::post('create-transaction', [CreateTransactionController::class, 'store']);
+  });
 
   Route::get('/latest-order-data', [OrderController::class, 'latestOrderId']);
 
 
 
-  Route::post('create-transaction', [CreateTransactionController::class, 'store']);
 
 

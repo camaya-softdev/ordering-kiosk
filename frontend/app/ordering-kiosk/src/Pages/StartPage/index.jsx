@@ -1,21 +1,38 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { nextStep } from '../../store/order/orderSlice';
 import style from "./StartPage.module.css";
-import pic from "../../assets/orderpage.jpg";
+import pic from "../../assets/splash_image.jpeg";
 import FooterLayout from '../../layout/FooterLayout';
 import CamayaLogo from '../../assets/camaya-logo.svg';
+import LoginModal from '../../components/Login/LoginModal';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 function StartPage (){
+    const [loginModal, setLoginModal] = useState(true);
+    const [user, setUser] = useState(Cookies.get('user'));
     const dispatch = useDispatch();
 
-    // Function to move to the next step of the order process
     const goToNextStep = () => {
         dispatch(nextStep());
     };
 
+    useEffect(() => {
+        if (user !== undefined) {
+            setLoginModal(false); 
+        }
+    }, [user]);
+
+    const handleLoginSuccess = (userData) => {
+        setUser(userData);
+        setLoginModal(false);
+    };
+
     return(
         <div>
-            <img src={pic} />
+            <div className={style.imageWrapper}>
+                <img src={pic} />
+            </div>
             <FooterLayout className={style.footer}>
                 <img src={CamayaLogo}/>
                 <div 
@@ -27,6 +44,12 @@ function StartPage (){
 
                 <div className={style.shine}/>
             </FooterLayout>
+
+            <LoginModal
+                open={loginModal}
+                onClose={() => setLoginModal(false)}
+                onLoginSuccess={handleLoginSuccess} 
+            />
         </div>
     );
 }

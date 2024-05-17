@@ -7,7 +7,8 @@ function CustomInputField({
     onChange,
     onFocus,
     error,
-    onBlur
+    onBlur,
+    type = "text"
 }){
 
     return(
@@ -23,6 +24,7 @@ function CustomInputField({
                     onChange={onChange} 
                     onFocus={onFocus}
                     onBlur={onBlur}
+                    type={type}
                 />
                 {error && <div className={styles.errorMessage}>{error}</div>}
             </div>
