@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th style="width: 15%">Order Number</th>
+            <th style="width: 15%">Reference Number</th>
             <th style="width: 15%">Payment Method</th>
             <th style="width: 15%">Status</th>
             <th style="width: 10%">Total</th>
@@ -21,6 +22,10 @@
             <td style="font-weight: bold">
                #{{ $order_details->id }} <br>
             </td>
+            <td style="font-weight: bold">
+                {{ $order_details->reference_number ?? 'N/A' }} <br>
+            </td>
+
             <td>
                 {{ $order_details->payment_method }}
             </td>
@@ -151,6 +156,7 @@
             const newRow = `
                 <tr data-order-id="${orderDetails.id}">
                     <td style="font-weight: bold">#${orderDetails.id}</td>
+                    <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
                     <td>${orderDetails.payment_method}</td>
                     <td>${orderDetails.status}</td>
                     <td>₱${total}</td>
@@ -240,7 +246,7 @@
     let existingOrderIds = new Set($('tr[data-order-id]').map(function() { return $(this).data('order-id'); }).get());
 
     // Fetch latest order data initially and set up polling
-    const outletId = '{{ $orders->first()->outlet_id }}';
+    const outletId = '{{ $orders->first()->outlet_id ?? 0 }}';
     fetchLatestOrderData(outletId);
     setInterval(function() {
         fetchLatestOrderData(outletId);
