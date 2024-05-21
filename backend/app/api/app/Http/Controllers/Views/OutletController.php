@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Views;
 use App\Http\Controllers\Controller;
 use App\Models\Outlet;
 use App\Models\User;
+use App\Models\PaymentMethod;
 use App\Services\OutletService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -30,9 +31,10 @@ class OutletController extends Controller
             ->groupBy('outlets.id')
             ->get();
 
+            $paymentMethod = PaymentMethod::get();
             $users = User::with('outlet')->get();
 
-            return view('outlet', ['users' => $users,'outlets' => $outlets, 'loginData' => $loginData]);
+            return view('outlet', ['users' => $users,'outlets' => $outlets, 'loginData' => $loginData, 'paymentMethod' => $paymentMethod]);
 
         } else {
             return redirect()->route('login')->with('error', 'Invalid username or password');
