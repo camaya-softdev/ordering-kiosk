@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col">
 
-                                    <input type="radio" name="update_status" id="update_status_inactive" value="0" autocomplete="off">
+                                    <input type="radio" name="status" id="update_status_inactive" value="0" autocomplete="off">
 
                                 </div>
                             </div>
