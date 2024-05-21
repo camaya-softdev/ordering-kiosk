@@ -15,6 +15,7 @@ use App\Http\Controllers\Views\restaurant\ProductController;
 use App\Http\Controllers\Views\ActivitylogController;
 use App\Http\Controllers\Views\restaurant\OrderController;
 
+use App\Http\Controllers\Views\PaymentMethodController;
 
 
 
@@ -87,6 +88,15 @@ Route::post('/export-report', [OrderController::class, 'exportReport'])->name('e
 Route::post('/update-order', [OrderController::class, 'update'])->name('order.update');
 
 Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
+
+
+Route::post('/payment-method', [PaymentMethodController::class, 'store'])->name('payment.store');
+Route::put('/payment-method/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('payment.update');
+Route::delete('/payment-method/{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('payment.destroy');
+
+
+
+
 
 
 

@@ -93,6 +93,7 @@
                             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link text-dark active" id="vert-tabs-account-tab" data-toggle="pill" href="#vert-tabs-account" role="tab" aria-controls="vert-tabs-account" aria-selected="true">Users</a>
                                 <a class="nav-link text-dark" id="vert-tabs-restaurant-tab" data-toggle="pill" href="#vert-tabs-restaurant" role="tab" aria-controls="vert-tabs-restaurant" aria-selected="false">Restaurant</a>
+                                <a class="nav-link text-dark" id="vert-tabs-payment-tab" data-toggle="pill" href="#vert-tabs-payment" role="tab" aria-controls="vert-tabs-payment" aria-selected="false">Payment Method</a>
                             </div>
                         </div>
 
@@ -105,6 +106,10 @@
 
                                         <div class="tab-pane fade" id="vert-tabs-restaurant" role="tabpanel" aria-labelledby="vert-tabs-restaurant-tab">
                                             @include('partials.restaurants')
+                                        </div>
+
+                                        <div class="tab-pane fade" id="vert-tabs-payment" role="tabpanel" aria-labelledby="vert-tabs-payment-tab">
+                                            @include('partials.payment')
                                         </div>
                                     </div>
 
@@ -120,6 +125,7 @@
 
     @include('partials.modal.createResto')
     @include('partials.modal.createUser')
+    @include('partials.modal.admin.createPayment')
 
 
 
