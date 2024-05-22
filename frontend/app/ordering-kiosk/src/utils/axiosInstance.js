@@ -22,6 +22,9 @@ API.interceptors.request.use((config) => {
 API.interceptors.response.use(
   response => response,
   error => {
+    if (error.response && error.response.status === 401) {
+      Cookies.remove('user'); // remove the user cookie
+    }
     return Promise.reject(error);
   }
 );
