@@ -3,29 +3,48 @@
  .orderTable th {
         font-weight: lighter !important;
     }
+.csm-ribbon {
+    background-color: #F97066;
+    width: 100px;
+    height: 4px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 2px;
+}
 </style>
 <table id="orderTable" class="orderTable table table-bordered table-hover custom-table">
     <thead>
         <tr>
-            <th style="width: 15%">Order Number</th>
-            <th style="width: 15%">Reference Number</th>
-            <th style="width: 15%">Payment Method</th>
-            <th style="width: 15%">Status</th>
-            <th style="width: 10%">Total</th>
-            <th style="width: 20%">Order Detail</th>
-            <th style="width: 20%">Action</th>
+            <th>Order Number</th>
+            <th>Reference Number</th>
+            <th>Customer Details</th>
+            <th>Payment Method</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Order Detail</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach($orders as $order_details)
-        <tr data-order-id="{{ $order_details->id }}">
-            <td style="font-weight: bold">
-               #{{ $order_details->id }} <br>
+        <tr data-order-id="{{ $order_details->id }}" style="{{ ($order_details->payment_method === 'gcash' && $order_details->status === 'pending') ? 'background-color: #FEF2DE;' : '' }}"
+            >
+            <td style="position: relative; font-weight: bold;">
+                <span class="{{ ($order_details->payment_method === 'gcash' && $order_details->status === 'pending') ? 'csm-ribbon' : '' }}"></span>
+                #{{ $order_details->id }}
             </td>
+
             <td style="font-weight: bold">
                 {{ $order_details->reference_number ?? 'N/A' }} <br>
             </td>
-
+            <td>
+                {{ $order_details->customer->name ?? 'N/A' }} <br>
+                {{ $order_details->customer->mobile_number ?? '' }}
+            </td>
             <td>
                 {{ $order_details->payment_method }}
             </td>

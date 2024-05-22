@@ -9,6 +9,24 @@
 
               <h5>Create Payment Method</h5><br>
 
+              <label for="image">Display Image:</label>
+              <div class="form-group resto-upload">
+                  <div class="row">
+                      <div class="col">
+                          <label for="image">Upload Image (Max Size: 2MB):</label>
+                          <input class="btn btn-secondary" type="file" class="form-control-file" id="image" name="image" onchange="checkFileSizeAndTypePayment(this)" accept=".jpeg,.jpg,.png">
+                          <small id="fileSizeErrorPayment" class="text-danger" style="display:none;">File size exceeds the limit (Max Size: 2MB)</small>
+                          <small id="fileTypeErrorPayment" class="text-danger" style="display:none;">Only JPEG and PNG files are allowed</small>
+                      </div>
+                      <div class="col">
+                          <div id="imagePreviewPayment" style="display:none;">
+                              <img id="previewPayment" src="#" alt="Image Preview" height="100">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
 
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -99,6 +117,53 @@ $(document).ready(function() {
             $(this).removeClass('btn-custom-unselected');
         });
     });
+
+    function checkFileSizeAndTypePayment(input) {
+        const maxSizePayment = 2 * 1024 * 1024; // 2MB in bytes
+        const validTypesPayment = ['image/jpeg', 'image/png'];
+        const fileSizeErrorPayment = document.getElementById("fileSizeErrorPayment");
+        const fileTypeErrorPayment = document.getElementById("fileTypeErrorPayment");
+
+        if (input.files && input.files[0]) {
+            const fileSize = input.files[0].size;
+            const fileType = input.files[0].type;
+
+            if (fileSize > maxSizePayment) {
+                fileSizeErrorPayment.style.display = "block";
+                fileTypeErrorPayment.style.display = "none";
+                input.value = ""; // Clear the file input
+            } else if (!validTypesPayment.includes(fileType)) {
+                fileSizeErrorPayment.style.display = "none";
+                fileTypeErrorPayment.style.display = "block";
+                input.value = ""; // Clear the file input
+            } else {
+                fileSizeErrorPayment.style.display = "none";
+                fileTypeErrorPayment.style.display = "none";
+                previewImagePayment(input); // Call the previewImage function
+            }
+        }
+    }
+
+
+
+    function previewImagePayment(input)
+    {
+        var previewPayment = document.getElementById('previewPayment');
+        var imagePreviewPayment = document.getElementById('imagePreviewPayment');
+        var fileSizeErrorPayment = document.getElementById('fileSizeErrorPayment');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewPayment.src = e.target.result;
+                imagePreviewPayment.style.display = 'block';
+                fileSizeErrorPayment.style.display = 'none';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 
 

@@ -18,6 +18,7 @@ class PaymentMethodService
             $paymentMethod = PaymentMethod::create([
                 'name' => $data['name'],
                 'status' => $data['status'],
+                'image' => $data['image'],
             ]);
 
             Log::create([

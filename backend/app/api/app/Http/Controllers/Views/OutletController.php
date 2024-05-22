@@ -34,6 +34,8 @@ class OutletController extends Controller
             $paymentMethod = PaymentMethod::get();
             $users = User::with('outlet')->get();
 
+            // return  $paymentMethod ;
+
             return view('outlet', ['users' => $users,'outlets' => $outlets, 'loginData' => $loginData, 'paymentMethod' => $paymentMethod]);
 
         } else {

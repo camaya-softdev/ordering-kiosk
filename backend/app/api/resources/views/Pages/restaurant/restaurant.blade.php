@@ -163,8 +163,8 @@
             var rows = document.getElementById('orderTable').getElementsByTagName('tr');
 
             for (var i = 1; i < rows.length; i++) { // Start from index 1 to skip the header row
-                var paymentMethod = rows[i].getElementsByTagName('td')[2].innerText.trim();
-                var status = rows[i].getElementsByTagName('td')[3].innerText.trim();
+                var paymentMethod = rows[i].getElementsByTagName('td')[3].innerText.trim();
+                var status = rows[i].getElementsByTagName('td')[4].innerText.trim();
 
                 // Hide row by default if it's "Confirmed"
                 if (status === 'confirmed') {
