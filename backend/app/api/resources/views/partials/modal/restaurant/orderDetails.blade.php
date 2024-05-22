@@ -27,7 +27,8 @@
 
             // Extracting necessary information from the orderDetails object
             var diningOption = orderDetails.dining_option;
-            var location = orderDetails.location + ' - ' + orderDetails.number;
+            // var location = orderDetails.location + ' - ' + orderDetails.number;
+            var location = orderDetails.number ? orderDetails.location + ' - ' + orderDetails.number: 'N/A';
             var customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
 
             // Add customer name, dining option, and location above the table

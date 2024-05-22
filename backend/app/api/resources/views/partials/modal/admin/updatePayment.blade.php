@@ -26,6 +26,22 @@
 
               <h5>Update Payment Method</h5><br>
 
+              <label for="updateImage">Update Image:</label>
+              <div class="form-group resto-upload">
+                  <div class="row">
+                      <div class="col">
+                          <label for="updateImage">Upload Image (Max Size: 2MB):</label>
+                          <input class="btn btn-secondary" type="file" class="form-control-file" id="updateImage" name="updateImage" onchange="checkFileSizeAndTypePayment2(this)" accept=".jpeg,.jpg,.png">
+                          <small id="updateFileSizeError" class="text-danger" style="display:none;">File size exceeds the limit (Max Size: 2MB)</small>
+                          <small id="updateFileTypeError" class="text-danger" style="display:none;">Only JPEG and PNG files are allowed</small>
+                      </div>
+                      <div class="col">
+                          <div id="updateImagePreview" style="display:none;">
+                              <img id="updatePreview" src="#" alt="Image Preview" height="100">
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -116,6 +132,48 @@ $(document).ready(function() {
             $(this).removeClass('btn-custom-unselected');
         });
     });
+
+    function checkFileSizeAndTypePayment2(input) {
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+    const validTypes = ['image/jpeg', 'image/png'];
+    const fileSizeError = document.getElementById("updateFileSizeError");
+    const fileTypeError = document.getElementById("updateFileTypeError");
+
+    if (input.files && input.files[0]) {
+        const fileSize = input.files[0].size;
+        const fileType = input.files[0].type;
+
+        if (fileSize > maxSize) {
+            fileSizeError.style.display = "block";
+            fileTypeError.style.display = "none";
+            input.value = ""; // Clear the file input
+        } else if (!validTypes.includes(fileType)) {
+            fileSizeError.style.display = "none";
+            fileTypeError.style.display = "block";
+            input.value = ""; // Clear the file input
+        } else {
+            fileSizeError.style.display = "none";
+            fileTypeError.style.display = "none";
+            previewImagePayment2(input); // Call the previewImage function
+        }
+    }
+}
+
+function previewImagePayment2(input) {
+    var preview = document.getElementById('updatePreview');
+    var imagePreview = document.getElementById('updateImagePreview');
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            imagePreview.style.display = 'block'; // Show preview and buttons
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 
 

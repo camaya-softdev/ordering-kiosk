@@ -8,6 +8,8 @@ use App\Models\PaymentMethod;
 use App\Services\PaymentMethodService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -24,17 +26,24 @@ class PaymentMethodController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
             'status' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $imagePath = $request->file('image')->store('public/images');
+        $imageUrl = Storage::url($imagePath);
+
+        // return $imageUrl;
 
         $payment = $this->paymentMethodService->createPayment([
             'name' => $request->input('name'),
             'status' => $request->input('status'),
+            'updateImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
+
 
         return redirect()->route('outlet')->with('success', 'Payment Method created successfully');
 
@@ -52,9 +61,18 @@ class PaymentMethodController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Handle image upload if provided
+        if ($request->hasFile('updateImage')) {
+            $imagePath = $request->file('updateImage')->store('public/images');
+            $imageUrl = Storage::url($imagePath);
+        } else {
+            $imageUrl = $paymentMethod->image; // Keep the existing image if no new image provided
+        }
+
         $this->paymentMethodService->updatePayment($paymentMethod, [
             'name' => $request->input('name'),
             'status' => $request->input('update_status'),
+            'image' => $imageUrl,
             'updated_at' => now()->setTimezone('Asia/Manila'),
         ]);
 

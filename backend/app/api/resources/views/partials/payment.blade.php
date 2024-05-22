@@ -53,7 +53,7 @@
     <table id="example2" class="table table-bordered table-hover custom-table">
     <thead>
         <tr>
-            <th>Payment Method</th>
+            <th>Image - Payment Method</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -62,7 +62,7 @@
     <tbody>
     @foreach ($paymentMethod as $payment)
     <tr>
-        <td>{{ $payment->name }}</td>
+        <td class="text-bold"><img src="{{ asset($payment->image) }}" alt="Payment Image" height="50px"> {{ $payment->name }}</td>
         <td class="{{ $payment->status == 1 ? 'text-success' : 'text-danger' }}">
             {{ $payment->status == 1 ? 'Active' : 'Inactive' }}
         </td>

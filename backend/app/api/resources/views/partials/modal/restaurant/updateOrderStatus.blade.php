@@ -18,9 +18,9 @@
                         <select class="form-control" id="statusSelect" name="status">
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="voided">Voided</option>
-                            <option value="completed">Completed</option>
+                            {{-- <option value="cancelled">Cancelled</option> --}}
+                            {{-- <option value="voided">Voided</option> --}}
+                            {{-- <option value="completed">Completed</option> --}}
                             <option value="No Show">No Show</option>
                         </select>
                     </div>
