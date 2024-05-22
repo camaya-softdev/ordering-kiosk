@@ -74,6 +74,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
    Route::get('payment-method', [PaymentMethodController::class, 'index']);
 
+   Route::get('auth-test', function() {
+      return response()->json(['message' => 'Hello, world!']);
+   });
   });
 
   Route::get('/latest-order-data', [OrderController::class, 'latestOrderId']);
