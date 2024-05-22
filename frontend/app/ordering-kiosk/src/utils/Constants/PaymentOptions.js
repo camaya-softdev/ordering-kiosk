@@ -1,5 +1,5 @@
-const GCASH_PAYMENT = "gcash";
-const CASH_PAYMENT = "cash";
+const GCASH_PAYMENT = "GCash";
+const CASH_PAYMENT = "Cash";
 
 export {
     GCASH_PAYMENT,

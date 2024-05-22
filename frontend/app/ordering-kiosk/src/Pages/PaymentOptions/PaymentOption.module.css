@@ -46,6 +46,11 @@ button {
     align-items: center;
     margin-top: 100px;
     gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 75%;
+    max-height: 1000px;
+    overflow: auto;
 }
 
 .btnWrapper {
@@ -56,13 +61,23 @@ button {
     align-items: center;
     border: 1px solid #EAECF0;
     border-radius: 16px;
+    background: white;
+    
+  
+}
+
+.btnWrapper span{
     font-family: Poppins, var(--default-font-family);
     font-size: 32px;
     font-weight: 400;
     line-height: 40px;
     cursor: pointer;
     text-align: center;
-    background: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+    max-width: 290px;
+    max-height: 250px;
 }
 
 .circleBlur{

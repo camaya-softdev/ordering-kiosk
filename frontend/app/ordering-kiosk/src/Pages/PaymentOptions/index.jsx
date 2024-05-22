@@ -9,6 +9,8 @@ import StartOverConfirmation from "../../components/Outletorder/StartOverConfirm
 import { nextStep, previousStep, setCreatedTransaction, setGCashPaymentDetails, setOrderStep, setPaymentOption } from "../../store/order/orderSlice";
 import { CASH_PAYMENT, GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 import { useCreateTransaction } from "../../services/TransactionService";
+import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const PaymentOptions = () => {
   const selectedDiningOption = useSelector(state => state.order.diningOption);
   const [openModal, setOpenModal] = useState({startOver: false});
   const placeOrderQuery = useCreateTransaction();
+  const {paymentMethods, isPaymentMethodsLoading} = useFetchPaymentMethods();
 
   useEffect(() => {
     if (order.paymentOption === CASH_PAYMENT && order.gcashPaymentDetails === null) {
@@ -52,13 +55,37 @@ const PaymentOptions = () => {
       <div className={style.mainContainer}>
         <div className={style.titleContainer}>Choose your payment method</div>
         <div className={style.buttonOptions}>
-          <div className={style.btnWrapper} onClick={() => onSelectPayment(CASH_PAYMENT)}>
-            Pay at the counter <br />
-            (cash)
-          </div>
-          <div className={style.btnWrapper} onClick={() => onSelectPayment(GCASH_PAYMENT)}>
-            <img src={gcashlogo} />
-          </div>
+          {
+            isPaymentMethodsLoading ? 
+            <BeatLoader 
+              color="#FD3C00"
+              size={35}
+              speedMultiplier={0.5}
+            />
+            :
+            <>
+              {
+                Object.entries(paymentMethods?.payment_method).map(([key, paymentMethod]) => {
+                  return (
+                    <div 
+                      key={paymentMethod.name} 
+                      className={`${style.btnWrapper} ${paymentMethod.status ? '' : 'disabled'}`} 
+                      onClick={() => {
+                        if (paymentMethod.status) {
+                          onSelectPayment(paymentMethod.name);
+                        }
+                      }}
+                    >
+                      {
+                        paymentMethod.image ? <img src={`${import.meta.env.VITE_API}${paymentMethod.image}`} /> : <span>{paymentMethod.name}</span>
+                      }
+                    </div>
+                  );
+                })
+              }
+            </>
+          }
+          
         </div>
       </div>
       <div className={style.circleBlur}></div>

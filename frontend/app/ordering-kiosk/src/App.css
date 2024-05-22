@@ -24,6 +24,7 @@ html {
 
 .disabled > * {
     opacity: 0.3!important;
+    cursor:not-allowed!important;
 }
 
 body{
