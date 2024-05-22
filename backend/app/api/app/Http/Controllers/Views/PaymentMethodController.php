@@ -26,22 +26,25 @@ class PaymentMethodController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
             'status' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $imagePath = $request->file('image')->store('public/images');
-        $imageUrl = Storage::url($imagePath);
+
+        if($request->hasFile('image')){
+            $imagePath = $request->file('image')->store('public/images');
+            $imageUrl = Storage::url($imagePath);
+        }
 
         // return $imageUrl;
 
         $payment = $this->paymentMethodService->createPayment([
             'name' => $request->input('name'),
             'status' => $request->input('status'),
-            'image' => $imageUrl,
+            'image' => $imageUrl ?? null,
         ]);
 
 

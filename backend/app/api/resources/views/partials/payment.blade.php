@@ -62,7 +62,12 @@
     <tbody>
     @foreach ($paymentMethod as $payment)
     <tr>
-        <td class="text-bold"><img src="{{ asset($payment->image) }}" alt="Payment Image" height="50px"> {{ $payment->name }}</td>
+        <td class="text-bold">
+            @if(isset($payment->image))
+                <img src="{{ asset($payment->image) }}" alt="Payment Image" height="50px">
+            @endif
+            {{ $payment->name }}
+        </td>
         <td class="{{ $payment->status == 1 ? 'text-success' : 'text-danger' }}">
             {{ $payment->status == 1 ? 'Active' : 'Inactive' }}
         </td>
