@@ -41,7 +41,7 @@ class PaymentMethodController extends Controller
         $payment = $this->paymentMethodService->createPayment([
             'name' => $request->input('name'),
             'status' => $request->input('status'),
-            'updateImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+            'image' => $imageUrl,
         ]);
 
 
@@ -54,6 +54,7 @@ class PaymentMethodController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|string|max:255',
             'status' => 'nullable',
+            'updateImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
 
 
