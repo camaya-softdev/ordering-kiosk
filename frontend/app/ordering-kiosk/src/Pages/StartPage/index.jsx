@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { nextStep } from '../../store/order/orderSlice';
 import style from "./StartPage.module.css";
-import pic from "../../assets/splash_image.jpeg";
 import FooterLayout from '../../layout/FooterLayout';
 import CamayaLogo from '../../assets/camaya-logo.svg';
 import LoginModal from '../../components/Login/LoginModal';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+
+import pic1 from '../../assets/Slideshow/pic1.jpeg';
+import vid1 from '../../assets/Slideshow/vid1.mp4';
+import Slideshow from '../../components/Common/Slideshow';
 
 function StartPage (){
     const [loginModal, setLoginModal] = useState(true);
@@ -31,7 +34,10 @@ function StartPage (){
     return(
         <div>
             <div className={style.imageWrapper}>
-                <img src={pic} />
+                <Slideshow items={[
+                    pic1,
+                    vid1,
+                ]} />
             </div>
             <FooterLayout className={style.footer}>
                 <img src={CamayaLogo}/>

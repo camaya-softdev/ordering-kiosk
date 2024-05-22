@@ -297,3 +297,52 @@
     font-weight: 600;
     line-height: 32px; /* 100% */
 }
+
+.slideshowWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slideshowWrapper img, .slideshowWrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slideshowWrapper button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.slideshowWrapper button:first-child {
+    left: 10px;
+}
+
+.slideshowWrapper button:last-child {
+    right: 10px;
+}
+
+.navButton {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.navButton:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.navIcon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
