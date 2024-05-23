@@ -191,7 +191,7 @@
             const total = calculateTotal(orderDetails.orders);
             const newRow = `
                 <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
-                    <td style="position: relative;>
+                    <td style="position: relative;">
 
                         ${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending'
                             ? `
