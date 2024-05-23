@@ -19,6 +19,7 @@
 <table id="orderTable" class="orderTable table table-bordered table-hover custom-table">
     <thead>
         <tr>
+            <th>Time</th>
             <th>Order Number</th>
             <th>Reference Number</th>
             <th>Customer Details</th>
@@ -33,6 +34,14 @@
         @foreach($orders as $order_details)
         <tr data-order-id="{{ $order_details->id }}" style="{{ ($order_details->payment_method === 'gcash' && $order_details->status === 'pending') ? 'background-color: #FEF2DE;' : '' }}"
             >
+            <td>
+                @if($order_details->payment_method === 'gcash' && $order_details->status === 'pending')
+                    <span class="order-timer" id="timer-{{ $order_details->id }}" data-created-at="{{ $order_details->created_at }}"></span>
+                @else
+                    {{ $order_details->created_at }}
+                @endif
+            </td>
+
             <td style="position: relative; font-weight: bold;">
                 <span class="{{ ($order_details->payment_method === 'gcash' && $order_details->status === 'pending') ? 'csm-ribbon' : '' }}"></span>
                 #{{ $order_details->id }}
@@ -41,16 +50,20 @@
             <td style="font-weight: bold">
                 {{ $order_details->reference_number ?? 'N/A' }} <br>
             </td>
+
             <td>
                 {{ $order_details->customer->name ?? 'N/A' }} <br>
                 {{ $order_details->customer->mobile_number ?? '' }}
             </td>
+
             <td>
                 {{ $order_details->payment_method }}
             </td>
+
             <td>
                 {{ $order_details->status }}
             </td>
+
             <td>
                 @php
                     $total = $order_details->orders->sum(function ($order) {
@@ -59,13 +72,16 @@
                 @endphp
                 ₱{{ $total }}
             </td>
+
             <td>
                 <button class="btn btn-warning text-light view-order-details" data-toggle="modal" data-target="#orderDetailsModal" data-order="{{ $order_details }}">View Order Details</button>
             </td>
+
             <td>
                 <button class="btn btn-secondary text-light" data-toggle="modal" data-target="#changeStatusModal{{ $order_details->id }}">Change Status</button>
                 @include('partials.modal.restaurant.updateOrderStatus')
             </td>
+
 
 
 
@@ -133,6 +149,7 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -173,9 +190,19 @@
         if (!existingOrderIds.has(orderDetails.id)) {
             const total = calculateTotal(orderDetails.orders);
             const newRow = `
-                <tr data-order-id="${orderDetails.id}">
+                <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
+                    <td>
+                    ${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending'
+                        ? `<span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
+                        : orderDetails.created_at}
+                    </td>
                     <td style="font-weight: bold">#${orderDetails.id}</td>
                     <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
+                    <td>
+                        ${orderDetails.customer.name ?? 'N/A'} <br>
+                        ${orderDetails.customer.mobile_number ?? ''}
+                    </td>
+
                     <td>${orderDetails.payment_method}</td>
                     <td>${orderDetails.status}</td>
                     <td>₱${total}</td>
@@ -259,6 +286,30 @@
         // Append the modal to the body
         $('body').append(modalTemplate);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateTimers() {
+            document.querySelectorAll('.order-timer').forEach(function(timerElement) {
+                var createdAt = moment(timerElement.getAttribute('data-created-at'));
+                var now = moment();
+                var duration = moment.duration(now.diff(createdAt));
+
+                var hours = Math.floor(duration.asHours());
+                var minutes = duration.minutes();
+                var seconds = duration.seconds();
+
+                timerElement.textContent = hours + 'h ' + minutes + 'm ' + seconds + 's';
+            });
+        }
+
+        // Update the timers every second
+        setInterval(updateTimers, 1000);
+
+        // Initial update
+        updateTimers();
+    });
+
+
 
 
     $(document).ready(function() {
