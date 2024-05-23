@@ -6,7 +6,7 @@
 .csm-ribbon {
     background-color: #F97066;
     width: 100px;
-    height: 4px;
+    height: 8px;
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -32,10 +32,11 @@
     </thead>
     <tbody>
         @foreach($orders as $order_details)
-        <tr data-order-id="{{ $order_details->id }}" style="{{ ($order_details->payment_method === 'gcash' && $order_details->status === 'pending') ? 'background-color: #FEF2DE;' : '' }}"
+        <tr data-order-id="{{ $order_details->id }}" style="{{ ($order_details->payment_method === 'GCash' && $order_details->status === 'pending') ? 'background-color: #FEF2DE;' : '' }}"
             >
-            <td>
-                @if($order_details->payment_method === 'gcash' && $order_details->status === 'pending')
+            <td style="position: relative;">
+                @if($order_details->payment_method === 'GCash' && $order_details->status === 'pending')
+                <span class="csm-ribbon"></span>
                     <span class="order-timer" id="timer-{{ $order_details->id }}" data-created-at="{{ $order_details->created_at }}"></span>
                 @else
                     {{ $order_details->created_at }}
@@ -43,7 +44,6 @@
             </td>
 
             <td style="position: relative; font-weight: bold;">
-                <span class="{{ ($order_details->payment_method === 'gcash' && $order_details->status === 'pending') ? 'csm-ribbon' : '' }}"></span>
                 #{{ $order_details->id }}
             </td>
 
@@ -190,14 +190,16 @@
         if (!existingOrderIds.has(orderDetails.id)) {
             const total = calculateTotal(orderDetails.orders);
             const newRow = `
-                <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
-                    <td>
-                        ${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending'
-                            ? `<span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
+                <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
+                    <td style="position: relative;>
+
+                        ${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending'
+                            ? `
+                            <span class="csm-ribbon"></span>
+                            <span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
                             : orderDetails.created_at}
                     </td>
-                    <td style="position: relative; font-weight: bold;">
-                        <span class="${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending' ? 'csm-ribbon' : ''}"></span>
+                    <tdfont-weight: bold;">
                         #${orderDetails.id}
                     </td>
                     <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
