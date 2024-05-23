@@ -199,7 +199,7 @@
                             <span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
                             : orderDetails.created_at}
                     </td>
-                    <tdfont-weight: bold;">
+                    <td style="font-weight: bold;">
                         #${orderDetails.id}
                     </td>
                     <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
