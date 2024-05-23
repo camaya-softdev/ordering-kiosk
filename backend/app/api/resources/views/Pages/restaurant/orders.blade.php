@@ -192,11 +192,14 @@
             const newRow = `
                 <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
                     <td>
-                    ${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending'
-                        ? `<span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
-                        : orderDetails.created_at}
+                        ${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending'
+                            ? `<span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
+                            : orderDetails.created_at}
                     </td>
-                    <td style="font-weight: bold">#${orderDetails.id}</td>
+                    <td style="position: relative; font-weight: bold;">
+                        <span class="${orderDetails.payment_method === 'gcash' && orderDetails.status === 'pending' ? 'csm-ribbon' : ''}"></span>
+                        #${orderDetails.id}
+                    </td>
                     <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
                     <td>
                         ${orderDetails.customer.name ?? 'N/A'} <br>
