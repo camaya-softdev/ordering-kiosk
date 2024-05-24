@@ -14,5 +14,7 @@
     .mainLayout {
       height: auto !important;
       overflow: visible !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 }
