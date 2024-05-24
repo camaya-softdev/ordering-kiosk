@@ -85,7 +85,7 @@
 
 </style>
 
-    <div class="content-wrapper bg-white cnt-pd">
+    <div class="{{ $loginData['user']['username'] === 'it_department' ? '' : 'content-wrapper' }} bg-white cnt-pd">
         <div class="content-header csm-pb">
             <div class="container-fluid">
                 <div class="row mb-5">
@@ -140,6 +140,14 @@
                                         <div class="tab-pane text-left fade show active" id="vert-tabs-orders" role="tabpanel" aria-labelledby="vert-tabs-orders-tab">
                                             @include('Pages.restaurant.orders')
                                         </div>
+                                       @if($loginData['user']['username'] === "it_department")
+                                       <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="btn active logout-btn" style="width: 100%">Logout</button>
+                                        </form>
+
+                                        @endif
+
 
                                     </div>
 
