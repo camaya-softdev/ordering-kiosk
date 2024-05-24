@@ -1,8 +1,9 @@
 import React from "react";
-import style from "./OrderPending.module.css";
+import style from "./OrderResult.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import ClockIcon from "../../assets/ClockIcon.svg";
+import CheckIcon from "../../assets/CheckIcon.svg";
 import { connect } from "react-redux";
 import { resetOrder } from "../../store/order/orderSlice";
 import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
@@ -28,108 +29,202 @@ class OrderPending extends React.Component {
           ref={this.printRef}
           onAfterPrint={() => console.log('Print dialog closed.')}
         />
-        <div className={style.mainContainer} id="print-me" ref={el => (this.componentRef = el)}>
-          <div className={style.pOrderConfirm}>
-            <img src={ClockIcon} />
-            <p>Order Pending...</p>
-          </div>
-          <div className={style.prcdOutlet}>
-            <p>
-              {
-                order.paymentOption === CASH_PAYMENT ?
-                <>
-                  Kindly take your order slip for reference then
-                  proceed to <span>{order.selectedOutlet.name}</span> to pay.
-                </>
-                :
-                <>
-                  Army Navy will contact you shortly to update you with your order status.
-                </>
-              }
-            </p>
-          </div>
-          <div className={style.OrderContent}>
-            <div className={style.frstCol}>Order Details</div>
-            <div className={style.flexStyleFirst}>
-              <p>Order number</p>
-              <span>{order.createdTransaction?.id ?? '-'}</span>
-            </div>
-            <div className={style.flexStyle}>
-              <div className={style.flexStyleFirstChld}>
-                <p>Dining Option</p>
-                <span>{order.diningOption.toUpperCase()}</span>
+        <div className={style.resultWrapper} id="print-me" ref={el => (this.componentRef = el)}>
+          <div className={style.innerWrapper}>
+            <div className={style.iconWrapper}>
+              <div className={style.iconDetails}>
+                <img src={order.paymentOption === CASH_PAYMENT ? ClockIcon : CheckIcon}/>
+                <span className={style.orderStatus}>
+                  {order.paymentOption === CASH_PAYMENT ? "Order Pending..." : "Order Confirmed!"}
+                </span>
               </div>
-              {
-                order.location !== null && order.area !== null ?
-                <div className={style.flexStyleScndChld}>
-                  <div className={style.flexStyleChild}>
-                    <p>Location</p>
-                    <span>{order.location.name}</span>
-                  </div>
-                  <div className={style.flexStyleChild}>
-                    <p>Table/Room Number</p>
-                    <span>{order.area.name}</span>
-                  </div>
-                </div> : null
-              }
             </div>
-            <div className={style.flexStyle}>
-              <div className={style.flexStyleFirstChld}>
-                <span>{order.selectedOutlet.name}</span>
-              </div>
 
-              {
-                Object.entries(order.selectedProducts).map(([key, product]) => {
-                  return (
-                    <div className={style.flexStyleScndChld} key={key}>
-                      <div className={style.flexStyleChild}>
-                        <div>
-                          <label className={style.productName}>
-                            {product.details.name}
-                          </label>
-                          {` (PHP ${formatNumber(product.details.price)})`}
-                        </div>
-                        <p>{`x${product.quantity}`}</p>
-                      </div>
-                      <p className={style.overAllTotal}>{`PHP ${formatNumber(product.details.price * product.quantity)}`}</p>
-                    </div>
-                  );
-                })
-              }
-            </div>
-            <div className={style.flexStyle}>
-              <div className={style.flexStyleScndChld}>
-                <div className={style.flexStyleChild}>
-                  <p>TOTAL</p>
-                  <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
-                </div>
-                
+            <div className={style.resultNotes}>
+              <div className={style.logoText}>
+                <p>
                 {
-                  order.gcashPaymentDetails !== null ?
-                  <div className={style.flexStyleChild} style={{marginTop: "24px"}}>
-                    <p>PAYMENT (VIA GCASH)</p>
-                    <p>PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}</p>
-                  </div>
-                  : null
+                  order.paymentOption === CASH_PAYMENT ?
+                  <>
+                    Kindly take your order slip for reference then
+                    proceed to <span>{order.selectedOutlet.name}</span> to pay.
+                  </>
+                  :
+                  <>
+                    Army Navy is preparing your order. If there are any concerns, we will contact you. 
+                    <br></br><br></br>
+                    Kindly take your order slip for reference.
+                  </>
                 }
-                {
-                  order.gcashPaymentDetails !== null ?
-                  <div className={style.flexStyleChild} style={{marginTop: 48}}>
-                    <span>REFERENCE NUMBER</span>
-                    <span>{order.gcashPaymentDetails.referenceNumber}</span>
-                  </div>
-                  :null
-                }
+                </p>
               </div>
             </div>
+
+            <div className={style.orderDetails}>
+                <div className={style.receiptComponents}>
+                  <div className={style.orderSummary}>
+                    <div className={style.innerSummary}>
+                      <div className={style.summaryTitle}>
+                        <span>Order details</span>
+                      </div>
+
+                      <div className={style.summaryRow}>
+                        <div>
+                          <span>
+                            ORDER NUMBER
+                          </span>
+                          <span>
+                            {order.createdTransaction?.id ?? '-'}
+                          </span>
+                        </div>
+                      </div>
+                      <hr className={style.line}/>
+                      <div className={style.summaryRow}>
+                        <div>
+                          <span>
+                            Dining Option
+                          </span>
+                          <span>
+                            {order.diningOption.toUpperCase() ?? '-'} 
+                          </span>
+                        </div>
+                      </div>
+                      {
+                        order.location !== null && order.area !== null ?
+                        <div className={style.summaryRow}>
+                          <div>
+                            <span>
+                              Location
+                            </span>
+                            <span>
+                              {order.location.name}
+                            </span>
+                          </div>
+                          <div>
+                            <span>
+                              Table/Room Number
+                            </span>
+                            <span>
+                              {order.area.name}
+                            </span>
+                          </div>
+                        </div> : null
+                      }
+                      <hr className={style.line}/>
+                      <div className={style.orderList}>
+                        <div className={style.orderOutlet}>
+                          <p>
+                            <span>{order.selectedOutlet.name}</span>
+                          </p>
+                        </div>
+
+                        <div className={style.orderProducts}>
+                        {
+                          Object.entries(order.selectedProducts).map(([key, product]) => {
+                            return (
+                              <div className={style.orderItem}>
+                                <div className={style.itemDetails}>
+                                  <p>
+                                    <span>
+                                      {product.details.name}{` (PHP ${formatNumber(product.details.price)})`}
+                                    </span>
+                                    <span>
+                                      {`x${product.quantity}`}
+                                    </span>
+                                  </p>
+                                </div>
+    
+                                <div className={style.itemTotal}>
+                                  <p>
+                                    <span>{`PHP ${formatNumber(product.details.price * product.quantity)}`}</span>
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })
+                        }
+                          
+                        </div>
+                      </div>
+
+                      <hr className={style.line}/>
+                      <div className={style.ordersFooter}>
+                        <div className={style.footerRow}>
+                          <div>
+                            <div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span>
+                                    TOTAL
+                                  </span>
+                                  <span>
+                                    PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {
+                          order.gcashPaymentDetails !== null ?
+                          <div className={style.footerRow}>
+                            <div>
+                              <div>
+                                <div className={style.footerRowDetails}>
+                                  <p>
+                                    <span>
+                                      PAYMENT (VIA GCASH)
+                                    </span>
+                                    <span>
+                                      PHP {formatNumber(calculateTotalPrice(order.selectedProducts))}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div> : null
+                        }
+                        <div className={style.footerRow}>
+                          <div>
+                            <div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span>
+                                    DATE
+                                  </span>
+                                  <span>
+                                    {new Date().toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {
+                        order.gcashPaymentDetails !== null ?
+                        <div className={style.footerRow}>
+                          <div>
+                            <div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span className={style.bold}>
+                                    REFERENCE NUMBER
+                                  </span>
+                                  <span className={style.bold}>
+                                    {order.gcashPaymentDetails.referenceNumber}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div> : null
+                      }
+                    </div>
+                  </div>
+                </div>
+            </div>
           </div>
-          {
-            order.paymentOption === GCASH_PAYMENT ?
-            <div className={`${style.paragraphMsg}`}>
-            <p>Kindly take your order slip for reference</p>
-          </div> : null
-          }
-          
         </div>
         <FooterLayout className={style.footer}>
           <img src={CamayaLogo} />
