@@ -18,6 +18,8 @@ class OrderPending extends React.Component {
       this.printRef.current.handlePrint();
     }
   }
+
+
   render() {
     const { order, dispatch } = this.props;
 
@@ -27,7 +29,11 @@ class OrderPending extends React.Component {
           trigger={() => <></>}
           content={() => this.componentRef}
           ref={this.printRef}
-          onAfterPrint={() => console.log('Print dialog closed.')}
+          onAfterPrint={() => {
+            setTimeout(() => {
+              dispatch(resetOrder());
+            }, 5000);
+          }}
         />
         <div className={style.resultWrapper} id="print-me" ref={el => (this.componentRef = el)}>
           <div className={style.innerWrapper}>
@@ -122,7 +128,7 @@ class OrderPending extends React.Component {
                         {
                           Object.entries(order.selectedProducts).map(([key, product]) => {
                             return (
-                              <div className={style.orderItem}>
+                              <div className={style.orderItem} key={product.details.id}>
                                 <div className={style.itemDetails}>
                                   <p>
                                     <span>
