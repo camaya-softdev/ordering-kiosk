@@ -16,7 +16,9 @@
   }
 
 </style>
+@if($loginData['user']['username'] == "it_department")
 
+@else
 <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4" style="background-color: #344054">
     <div class="sidebar">
         <a href="#" class="brand-link">
@@ -156,3 +158,4 @@
 
     <!-- /.sidebar-custom -->
   </aside>
+@endif

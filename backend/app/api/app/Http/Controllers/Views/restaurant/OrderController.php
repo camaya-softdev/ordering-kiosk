@@ -27,24 +27,30 @@ class OrderController extends Controller
     public function index()
     {
         $loginData = session('loginData');
-        $outlet_id = $loginData['user']['assign_to_outlet'];
 
-        $orderReport = Transaction::select(
-            'transactions.*',
-            'locations.name as location',
-            'location_numbers.name as number'
-            )
-        ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
-        ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
-        ->where('outlet_id','=',$outlet_id )
-        ->with(['orders.product' => function ($query) {
-            $query->withTrashed(); // Include soft-deleted products
-        }])
-        ->get();
+        if ($loginData) {
+            $outlet_id = $loginData['user']['assign_to_outlet'];
 
-    //    return $orderReport;
+            $orderReport = Transaction::select(
+                'transactions.*',
+                'locations.name as location',
+                'location_numbers.name as number'
+                )
+            ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
+            ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
+            ->where('outlet_id','=',$outlet_id )
+            ->with(['orders.product' => function ($query) {
+                $query->withTrashed(); // Include soft-deleted products
+            }])
+            ->get();
 
-        return view('Pages.restaurant.report', ['report'=> $orderReport,'loginData' => $loginData]);
+             //    return $orderReport;
+
+            return view('Pages.restaurant.report', ['report'=> $orderReport,'loginData' => $loginData]);
+        } else {
+
+            return redirect()->route('login');
+        }
 
     }
 
