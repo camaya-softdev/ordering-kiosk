@@ -179,8 +179,8 @@
                     rows[i].style.display = (confirmedChecked ? '' : 'none');
                 } else {
                     // Hide row if it doesn't match the selected filters
-                    if ((cashChecked && paymentMethod !== 'cash') ||
-                        (gcashChecked && paymentMethod !== 'gcash') ||
+                    if ((cashChecked && paymentMethod !== 'Cash') ||
+                        (gcashChecked && paymentMethod !== 'GCash') ||
                         (noShowChecked && status !== 'No Show')) {
                         rows[i].style.display = 'none';
                     } else {

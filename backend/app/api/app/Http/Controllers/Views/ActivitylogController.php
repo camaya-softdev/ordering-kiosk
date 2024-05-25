@@ -19,10 +19,10 @@ class ActivitylogController extends Controller
     public function index()
     {
         $loginData = session('loginData');
-        $outlet_id = $loginData['user']['assign_to_outlet'];
+
 
         if ($loginData) {
-
+            $outlet_id = $loginData['user']['assign_to_outlet'];
 
             $activityLog = Log::leftJoin('users', 'users.id','logs.user_id')
             ->where("users.assign_to_outlet", $outlet_id)
