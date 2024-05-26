@@ -1,32 +1,102 @@
-.title{
+.title {
     color: #FFF;
     font-family: Poppins;
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
-    line-height: 28px; /* 58.333% */
+    line-height: 28px;
+    transition: transform .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    /* 58.333% */
 }
 
-.startButton{
+.title:hover {
+    transform: scale(1.3);
+}
+
+.startButton {
     cursor: pointer;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
-.footer{
+/* .footer {
     background: var(--Gradient, linear-gradient(90deg, #FFE698 0%, #FD3C00 100%));
+} */
+.footer {
+    position: relative;
+    background: linear-gradient(90deg, #FFE698 0%, #FD3C00 100%);
+    background-size: 200% 200%;
+    overflow: hidden;
 }
+
+.footer img {
+    z-index: 2;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: rgba(230, 230, 230, 0.3);
+    background-size: 200% 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 10px;
+    transform: translateX(-105%) skewX(15deg);
+    transition: transform 1.5s ease, border-radius 0.5s ease;
+    z-index: 1;
+}
+
+
+
+
+.footer:hover::before {
+    transform: translateX(0);
+    animation: gradientSlide 5s infinite linear;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    /* Ensure content is above the pseudo-element */
+}
+
+@keyframes gradientSlide {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+
+
+
 
 @keyframes moveShine {
-    0% { left: -142.035px; }
-    50% { left: 100%; }
-    100% { left: -142.035px; }
+    0% {
+        left: -142.035px;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: -142.035px;
+    }
 }
 
-.shine{
+.shine {
     width: 100px;
     height: 461.694px;
     transform: rotate(-8.117deg);
@@ -41,7 +111,7 @@
     overflow: hidden;
 }
 
-.imageWrapper{
+.imageWrapper {
     height: 1620px;
     width: 1080px;
 }
