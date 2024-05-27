@@ -1,4 +1,4 @@
-.categoriesWrapper{
+.categoriesWrapper {
     display: flex;
     width: 345px;
     height: 1620px;
@@ -10,13 +10,13 @@
     background: var(--Gray-100, #F2F4F7);
 }
 
-.mainWrapper{
+.mainWrapper {
     background-color: white;
     display: flex;
     flex-direction: row;
 }
 
-.productsWrapper{
+.productsWrapper {
     display: flex;
     width: 735px;
     height: 1620px;
@@ -28,26 +28,34 @@
     overflow: auto;
 }
 
-.outletLogo{
+.outletLogo {
     display: flex;
     height: 250px;
     flex-direction: column;
-    justify-content: center; /* Add this */
+    justify-content: center;
     align-items: center;
     flex-shrink: 0;
     align-self: stretch;
     border-radius: 16px;
     background: #FFF;
-    
+    transition: box-shadow 0.5s ease;
 }
 
-.outletLogoImage{
-    width: 250px;
-    height: 250px;
-    object-fit: contain;
+.outletLogo:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.innerWrapper{
+.outletLogo:hover .outletLogoImage {
+    transform: scale(1.5);
+}
+
+.outletLogoImage {
+    width: 150px;
+    height: 150px;
+    transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.innerWrapper {
     display: flex;
     align-items: flex-start;
     gap: 10px;

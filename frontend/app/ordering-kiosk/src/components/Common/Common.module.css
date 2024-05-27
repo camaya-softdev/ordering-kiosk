@@ -1,4 +1,4 @@
-.grayBtn{
+.grayBtn {
     cursor: pointer;
     display: flex;
     height: 100px;
@@ -12,9 +12,14 @@
 
     /* shadow-2 */
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
+    transition: all 1s ease;
 }
 
-.grayBtn > span > p {
+.grayBtn:hover {
+    background: var(--Gray-200, #b4b6b8);
+}
+
+.grayBtn>span>p {
     color: var(--Gray-600, #475467);
     font-family: Poppins;
     font-size: 24px;
@@ -25,7 +30,7 @@
 
 
 
-.whiteBtn{
+.whiteBtn {
     cursor: pointer;
     display: flex;
     height: 100px;
@@ -40,14 +45,20 @@
 
     /* shadow-2 */
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
+    transition: background 1s ease;
 }
 
-.whiteBtnDisabled{
+.whiteBtn:hover {
+    background-color: rgba(222, 221, 221, 0.807);
+}
+
+
+.whiteBtnDisabled {
     border: 1px solid #8E8E8E;
     cursor: not-allowed;
 }
 
-.whiteBtn > span > p {
+.whiteBtn>span>p {
     color: #1E1E1E;
     font-family: Poppins;
     font-size: 28px;
@@ -56,12 +67,12 @@
     line-height: normal;
 }
 
-.whiteBtnDisabled > span > p {
+.whiteBtnDisabled>span>p {
     color: #8E8E8E;
 }
 
 
-.blackBtn{
+.blackBtn {
     cursor: pointer;
     display: flex;
     height: 100px;
@@ -75,23 +86,28 @@
 
     /* shadow-2 */
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
+    transition: background 1s ease;
 }
 
-.blackBtnDisabled{
+.blackBtn:hover {
+    background: #030523cb
+}
+
+.blackBtnDisabled {
     background: #8E8E8E;
     cursor: not-allowed;
 }
 
-.blackBtn > span,
-.whiteBtn > span,
-.grayBtn > span {
+.blackBtn>span,
+.whiteBtn>span,
+.grayBtn>span {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
 
-.blackBtn > span > p {
+.blackBtn>span>p {
     color: #FFF;
     font-family: Poppins;
     font-size: 28px;
@@ -100,7 +116,7 @@
     line-height: normal;
 }
 
-.modalWrapper{
+.modalWrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -116,7 +132,7 @@
     backdrop-filter: blur(10px);
 }
 
-.modalContent{
+.modalContent {
     display: flex;
     width: 1080px;
     /* padding: 40px; */
@@ -138,12 +154,12 @@
         position: fixed;
     }
 
-    .modalContent{
+    .modalContent {
         overflow-x: auto;
     }
 }
 
-.modalTitleWrapper{
+.modalTitleWrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -151,7 +167,7 @@
     padding: 40px 40px 0 40px;
 }
 
-.modalExtras{
+.modalExtras {
     display: flex;
     height: 100px;
     /* padding: 0px 40px; */
@@ -162,12 +178,12 @@
     align-self: stretch;
 }
 
-.bottomModalChild{
+.bottomModalChild {
     max-height: 1000px;
     overflow: auto;
 }
 
-.modalInnerWrapper{
+.modalInnerWrapper {
     display: flex;
     /* padding: 40px 40px 20px 40px; */
     flex-direction: column;
@@ -177,33 +193,35 @@
     align-self: stretch;
 }
 
-.modalTitle{
+.modalTitle {
     color: #1E1E1E;
     text-align: center;
     font-family: Poppins;
     font-size: 40px;
     font-style: normal;
     font-weight: 500;
-    line-height: 52px; /* 130% */
+    line-height: 52px;
+    /* 130% */
 }
 
-.modalTitleDivider{
+.modalTitleDivider {
     height: 2px;
     align-self: stretch;
     background: var(--Gray-200, #EAECF0);
 }
 
-.modalSubtitle{
+.modalSubtitle {
     color: #1E1E1E;
     text-align: center;
     font-family: Poppins;
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 52px; /* 162.5% */
+    line-height: 52px;
+    /* 162.5% */
 }
 
-.stepperInputWrapperMedium{
+.stepperInputWrapperMedium {
     display: flex;
     height: 100px;
     align-items: flex-start;
@@ -216,7 +234,7 @@
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
 }
 
-.stepperActionWrapperMedium{
+.stepperActionWrapperMedium {
     display: flex;
     width: 100px;
     height: 100px;
@@ -226,9 +244,14 @@
     border: 1px solid var(--Gray-300, #D0D5DD);
     background: var(--White, #FFF);
     cursor: pointer;
+    transition: background 1s ease;
 }
 
-.stepperValueMedium{
+.stepperActionWrapperMedium:hover {
+    background: rgba(220, 220, 220, 0.7);
+}
+
+.stepperValueMedium {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -238,17 +261,18 @@
     align-self: stretch;
 }
 
-.stepperValueMedium > span {
+.stepperValueMedium>span {
     color: #1E1E1E;
     text-align: center;
     font-family: Poppins;
     font-size: 32px;
     font-style: normal;
     font-weight: 600;
-    line-height: 32px; /* 100% */
+    line-height: 32px;
+    /* 100% */
 }
 
-.stepperInputWrapperSmall{
+.stepperInputWrapperSmall {
     display: flex;
     width: 300px;
     height: 68px;
@@ -264,7 +288,7 @@
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
 }
 
-.stepperActionWrapperSmall{
+.stepperActionWrapperSmall {
     display: flex;
     width: 68px;
     height: 68px;
@@ -276,7 +300,7 @@
     background: var(--White, #FFF);
 }
 
-.stepperValueSmall{
+.stepperValueSmall {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -288,14 +312,15 @@
     padding-right: 20px; */
 }
 
-.stepperValueSmall > span {
+.stepperValueSmall>span {
     color: #1E1E1E;
     text-align: center;
     font-family: Poppins;
     font-size: 32px;
     font-style: normal;
     font-weight: 600;
-    line-height: 32px; /* 100% */
+    line-height: 32px;
+    /* 100% */
 }
 
 .slideshowWrapper {

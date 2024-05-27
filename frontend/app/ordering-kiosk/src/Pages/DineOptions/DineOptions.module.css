@@ -96,8 +96,18 @@ input, select, textarea, button {
     box-shadow: 0 0 16px 0 rgba(16, 24, 40, 0.16);
     cursor: pointer;
     overflow: hidden;
-    cursor: pointer;
+    transition: all 1s ease;
 }
+
+.buttonOption:hover {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.666)
+}
+
+.buttonOption:hover>span, .buttonOption:hover>img {
+    transform: scale(1.2);
+    transition: transform 1s ease;
+}
+
 
 .buttonOption span {
     font-family: Poppins, var(--default-font-family);
