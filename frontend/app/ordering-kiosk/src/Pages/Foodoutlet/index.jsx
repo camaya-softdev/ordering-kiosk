@@ -1,5 +1,8 @@
 import style from "./Foodoutlet.module.css";
-import { previousStep, setSelectedCategory } from "../../store/order/orderSlice";
+import {
+  previousStep,
+  setSelectedCategory,
+} from "../../store/order/orderSlice";
 import { useDispatch } from "react-redux";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import CamayaLogoGray from "../../assets/camaya-logo-gray.svg";
@@ -30,9 +33,7 @@ function FoodOutlet() {
       <FooterLayout>
         <div className={style.footer}>
           <div className={style.backBtn}>
-            <Button onClick={goToPreviousStep}>
-              Go back
-            </Button>
+            <Button onClick={goToPreviousStep}>Go back</Button>
           </div>
         </div>
       </FooterLayout>

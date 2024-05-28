@@ -6,86 +6,100 @@ import gcashlogo from "../../assets/gcashlogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
-import { nextStep, previousStep, setCreatedTransaction, setGCashPaymentDetails, setOrderStep, setPaymentOption } from "../../store/order/orderSlice";
-import { CASH_PAYMENT, GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
+import {
+  nextStep,
+  previousStep,
+  setCreatedTransaction,
+  setGCashPaymentDetails,
+  setOrderStep,
+  setPaymentOption,
+} from "../../store/order/orderSlice";
+import {
+  CASH_PAYMENT,
+  GCASH_PAYMENT,
+} from "../../utils/Constants/PaymentOptions";
 import { useCreateTransaction } from "../../services/TransactionService";
 import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
-  const order = useSelector(state => state.order);
-  const selectedDiningOption = useSelector(state => state.order.diningOption);
-  const [openModal, setOpenModal] = useState({startOver: false});
+  const order = useSelector((state) => state.order);
+  const selectedDiningOption = useSelector((state) => state.order.diningOption);
+  const [openModal, setOpenModal] = useState({ startOver: false });
   const placeOrderQuery = useCreateTransaction();
-  const {paymentMethods, isPaymentMethodsLoading} = useFetchPaymentMethods();
+  const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
 
   useEffect(() => {
-    if (order.paymentOption === CASH_PAYMENT && order.gcashPaymentDetails === null) {
+    if (
+      order.paymentOption === CASH_PAYMENT &&
+      order.gcashPaymentDetails === null
+    ) {
       handleSaveCash();
     }
   }, [order.paymentOption, order.gcashPaymentDetails]);
-  
+
   const onSelectPayment = (paymentMethod) => {
-    if(paymentMethod === GCASH_PAYMENT) {
+    if (paymentMethod === GCASH_PAYMENT) {
       dispatch(setPaymentOption(GCASH_PAYMENT));
       dispatch(nextStep());
-    }
-    else if(paymentMethod === CASH_PAYMENT) {
+    } else if (paymentMethod === CASH_PAYMENT) {
       dispatch(setPaymentOption(CASH_PAYMENT));
       dispatch(setGCashPaymentDetails(null));
     }
-  }
+  };
 
   const handleSaveCash = async () => {
     try {
-        const response = await (await placeOrderQuery).mutateAsync(order);
-        dispatch(setCreatedTransaction(response.data.transaction));
-        dispatch(setOrderStep(8));
+      const response = await (await placeOrderQuery).mutateAsync(order);
+      dispatch(setCreatedTransaction(response.data.transaction));
+      dispatch(setOrderStep(8));
     } catch (error) {
-        alert("Cannot create transaction. Please try again.");
+      alert("Cannot create transaction. Please try again.");
     }
   };
 
   return (
     <>
       <div className={style.topContainer}>
-        <Progress width={80} />
+        <Progress />
       </div>
       <div className={style.mainContainer}>
         <div className={style.titleContainer}>Choose your payment method</div>
         <div className={style.buttonOptions}>
-          {
-            isPaymentMethodsLoading ? 
-            <BeatLoader 
-              color="#FD3C00"
-              size={35}
-              speedMultiplier={0.5}
-            />
-            :
+          {isPaymentMethodsLoading ? (
+            <BeatLoader color="#FD3C00" size={35} speedMultiplier={0.5} />
+          ) : (
             <>
-              {
-                Object.entries(paymentMethods?.payment_method).map(([key, paymentMethod]) => {
+              {Object.entries(paymentMethods?.payment_method).map(
+                ([key, paymentMethod]) => {
                   return (
-                    <div 
-                      key={paymentMethod.name} 
-                      className={`${style.btnWrapper} ${paymentMethod.status ? '' : 'disabled'}`} 
+                    <div
+                      key={paymentMethod.name}
+                      className={`${style.btnWrapper} ${
+                        paymentMethod.status ? "" : "disabled"
+                      }`}
                       onClick={() => {
                         if (paymentMethod.status) {
                           onSelectPayment(paymentMethod.name);
                         }
                       }}
                     >
-                      {
-                        paymentMethod.image ? <img src={`${import.meta.env.VITE_API}${paymentMethod.image}`} /> : <span>{paymentMethod.name}</span>
-                      }
+                      {paymentMethod.image ? (
+                        <img
+                          src={`${import.meta.env.VITE_API}${
+                            paymentMethod.image
+                          }`}
+                        />
+                      ) : (
+                        <span>{paymentMethod.name}</span>
+                      )}
                     </div>
                   );
-                })
-              }
+                }
+              )}
             </>
-          }
-          
+          )}
         </div>
       </div>
       <div className={style.circleBlur}></div>
@@ -96,12 +110,12 @@ const PaymentOptions = () => {
         showDiningDetails={true}
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
         backOnClick={() => dispatch(previousStep())}
-        startOverBtnOnClick={() => setOpenModal({startOver: true})}
+        startOverBtnOnClick={() => setOpenModal({ startOver: true })}
       />
 
       <StartOverConfirmation
         open={openModal.startOver}
-        onClose={() => setOpenModal({startOver: false})}
+        onClose={() => setOpenModal({ startOver: false })}
       />
     </>
   );
