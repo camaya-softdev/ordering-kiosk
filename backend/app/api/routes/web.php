@@ -58,7 +58,7 @@ Route::put('/users/{id}/update', [UserController::class, 'update'])->name('users
 Route::delete('/users/{id}/delete', [UserController::class, 'destroy'])->name('user.destroy');
 
 Route::post('/location', [LocationController::class, 'store'])->name('location.store');
-Route::put('/location/{id}/update', [LocationController::class, 'update'])->name('location.update');
+Route::put('/location/{location}', [LocationController::class, 'update'])->name('location.update');
 Route::delete('/location/{id}/delete', [LocationController::class, 'destroy'])->name('location.destroy');
 
 Route::post('/location-number', [LocationNumberController::class, 'store'])->name('locationNumber.store');

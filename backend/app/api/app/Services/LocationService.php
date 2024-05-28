@@ -17,6 +17,7 @@ class LocationService
             $location = Location::create([
                 'name' => $data['name'],
                 'location_code' => $data['location_code'],
+                'outlet_id' => $data['outlet_id'],
                 'status' => $data['status'],
             ]);
 
@@ -34,16 +35,15 @@ class LocationService
         }
     }
 
-    public function updateLocation($locationId, array $locationData)
+    public function updateLocation(Location $location, array $data)
     {
-        $location = Location::findOrFail($locationId);
 
         DB::beginTransaction();
 
         try {
             $oldLocation = $location->name;
 
-            $location->update($locationData);
+            $location->update($data);
 
             Log::create([
                 'user_id' => Auth::id(),
