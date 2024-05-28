@@ -132,6 +132,16 @@
             </div>
 
             <div class="form-group">
+                <label for="outlet">Outlet:</label>
+                <select class="form-control" id="outlet_id" name="outlet_id">
+                    <option value="0">No Outlet Selected</option>
+                    @foreach($outlets as $outlet)
+                        <option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label>Status:</label><br>
                 <div class="row">
                     <div class="col-lg-6">

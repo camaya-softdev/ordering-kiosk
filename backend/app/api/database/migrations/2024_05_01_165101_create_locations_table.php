@@ -12,6 +12,7 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('location_code')->unique();
+            $table->unsignedBigInteger('outlet_id');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

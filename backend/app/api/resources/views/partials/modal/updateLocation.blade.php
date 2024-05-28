@@ -37,6 +37,17 @@
             </div>
 
             <div class="form-group">
+                <label for="update_outlet_id">Outlet:</label>
+                <select class="form-control" id="update_outlet_id" name="update_outlet_id">
+                    @foreach($outlets as $outlet)
+                        <option id{{ $outlet->name }} value="{{ $outlet->id }}" {{ $outlet->id == $location->outlet_id ? 'selected' : '' }}>
+                            {{ $outlet->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label>Status:</label><br>
                 <div class="row">
                     <div class="col-lg-6">
