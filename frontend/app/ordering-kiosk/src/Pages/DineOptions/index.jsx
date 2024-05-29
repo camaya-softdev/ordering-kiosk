@@ -66,8 +66,12 @@ function DineOptions() {
           <div className={style.section}>
             <div className={style.wrapperOption}>
               <div
-                className={style.buttonOption}
-                onClick={() => selectDiningOption(DINE_IN)}
+                className={`${style.buttonOption} ${currentUser.auth.outlet_id === null ? "disabled" : ""}`}
+                onClick={() => {
+                  if(currentUser.auth.outlet_id !== null){
+                    selectDiningOption(DINE_IN);
+                  }
+                }}
               >
                 <span>DINE IN</span>
                 <img src={dineinlogo} alt="Dine In Logo" />
