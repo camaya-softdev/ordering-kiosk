@@ -10,6 +10,21 @@
     background: var(--Gray-100, #F2F4F7);
 }
 
+.wrapper {
+    position: relative;
+    animation: slideFromRight 1s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
 .mainWrapper {
     background-color: white;
     display: flex;

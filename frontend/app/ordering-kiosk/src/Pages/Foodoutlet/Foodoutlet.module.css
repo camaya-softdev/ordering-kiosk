@@ -43,8 +43,20 @@
 
 .wrapper {
     position: relative;
+    animation: slideFromRight 1s ease forwards;
+    background-color: white;
 }
 
 .backBtn {
     width: 300px;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
 }

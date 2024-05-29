@@ -7,36 +7,33 @@ const Progress = (props) => {
   const orderStep = useSelector((state) => state.order.orderStep);
 
   useEffect(() => {
-    let width;
     switch (orderStep) {
       case 3:
-        width = 20;
+        setProgressWidth(20);
         break;
       case 4:
-        width = 40;
+        setProgressWidth(40);
         break;
       case 5:
-        width = 60;
+        setProgressWidth(60);
         break;
       case 6:
-        width = 80;
+        setProgressWidth(80);
         break;
       case 7:
-        width = 100;
+        setProgressWidth(100);
         break;
       default:
-        width = 0;
+        setProgressWidth(0);
     }
-    setProgressWidth(width);
   }, [orderStep]);
-
-  const progressStyle = {
-    width: `${progressWidth}%`,
-  };
 
   return (
     <div className={style.progress} style={props.style}>
-      <div className={style.progressDone} style={progressStyle}></div>
+      <div
+        className={style.progressDone}
+        style={{ width: `${progressWidth}%` }}
+      ></div>
     </div>
   );
 };
