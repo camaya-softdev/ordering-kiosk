@@ -15,6 +15,7 @@ class LocationResource extends JsonResource
             'location_numbers' => LocationNumberResource::collection($this->whenLoaded('locationNumbers')),
             'status' => $this->status,
             'updated_at' => $this->updated_at,
+            'outlet_id' => $this->outlet_id,
         ];
     }
 }

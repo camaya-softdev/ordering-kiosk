@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
    Route::get('/category_products/{category_id}', [CategoryController::class, 'CategoryProducts']);
    Route::apiResource('products', ProductController::class);
 
-   Route::get('locations', [LocationController::class, 'index']);
+   // Route::get('locations', [LocationController::class, 'index']);
    Route::get('location-numbers', [LocationNumberController::class, 'index']);
    Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
    Route::post('create-transaction', [CreateTransactionController::class, 'store']);
@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
       return response()->json(['message' => 'Hello, world!']);
    });
   });
+  Route::get('locations', [LocationController::class, 'index']);
 
   Route::get('/latest-order-data', [OrderController::class, 'latestOrderId']);
 

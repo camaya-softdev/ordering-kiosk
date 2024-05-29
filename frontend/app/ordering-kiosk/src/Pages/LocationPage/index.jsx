@@ -14,10 +14,13 @@ import {
   setLocation,
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
+import { DINE_IN } from "../../utils/Constants/DiningOptions";
 
 const LocationPage = () => {
   const selectedLocation = useSelector((state) => state.order.location);
+  const currentUser = useSelector((state) => state.auth);
   const selectedArea = useSelector((state) => state.order.area);
+  const diningOption = useSelector((state) => state.order.diningOption);
   const [openModals, setOpenModals] = useState({ startOver: false });
   const dispatch = useDispatch();
 
@@ -61,7 +64,7 @@ const LocationPage = () => {
                   onSelect={handleDropdown1Select}
                   displayProperty="name"
                   loading={isLocationsLoading}
-                  disabled={isLocationsLoading}
+                  disabled={isLocationsLoading || (diningOption === DINE_IN && !!currentUser.auth.outlet_id)}
                 />
               </div>
               <div className={style.dropdownSelection}>
@@ -96,7 +99,13 @@ const LocationPage = () => {
         showStartOver={true}
         showDiningDetails={true}
         showLocationDetails={true}
-        backOnClick={() => dispatch(previousStep())}
+        backOnClick={() => {
+          dispatch(previousStep());
+          if(diningOption === DINE_IN && currentUser.auth.outlet_id !== null){
+            dispatch(setLocation(null));
+            dispatch(setArea(null));
+          }
+        }}
         startOverBtnOnClick={() => setOpenModals({ startOver: true })}
       />
 
