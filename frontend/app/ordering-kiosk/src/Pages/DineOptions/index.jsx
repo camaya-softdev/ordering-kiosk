@@ -7,30 +7,42 @@ import SummaryFooter from "../../components/Outletorder/SummaryFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { nextStep, previousStep, setArea, setDiningOption, setLocation, setOrderStep } from "../../store/order/orderSlice";
 import { DELIVERY, DINE_IN, PICK_UP } from "../../utils/Constants/DiningOptions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import useFetchLocations from "../../hooks/useFetchLocations";
 
 function DineOptions() {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({startOver: false});
-  const {locations, isLocationsLoading, setLocationsFilter} = useFetchLocations();
-  const currentUser = useSelector((state) => state.auth.auth);
+  const diningOption = useSelector((state) => state.order.diningOption);
+  const {locations, isLocationsLoading, setLocationsFilter, refetchLocations, locationsFilter} = useFetchLocations();
+  const currentUser = useSelector((state) => state.auth);
+  const location = useSelector((state) => state.order.location);
+  const [tempDiningOption, setTempDiningOption] = useState(null);
 
+  useEffect(() => {
+    if(diningOption === DINE_IN){
+      if(locationsFilter.outlet_id !== null && !isLocationsLoading && locations?.data?.length > 0){
+        dispatch(setLocation(locations.data[0]));
+        dispatch(setArea(null));
+      }
+    }
+  }, [locationsFilter, diningOption, locations]);
+
+  useEffect(() => {
+    if(diningOption === DINE_IN && location !== null && tempDiningOption !== null){
+      dispatch(nextStep());
+    }
+  }, [location]);
+  
   const selectDiningOption = (option) => {
     dispatch(setDiningOption(option));
+    setTempDiningOption(option);
     if(option === DINE_IN){
-      try{
-        setLocationsFilter((prev) => ({...prev, outlet_id: currentUser.outlet_id}));
-        if(!isLocationsLoading && locations.data.length > 0){
-          dispatch(setLocation(locations.data[0]));
-          dispatch(setArea(null));
-        }
+      if(currentUser.auth.outlet_id !== null){
+        setLocationsFilter({outlet_id: currentUser.auth.outlet_id});
       }
-      catch(e){
-        console.log(e);
-      }
-      finally{
+      else{
         dispatch(nextStep());
       }
     }
