@@ -7,21 +7,26 @@ import CustomDropdown from "../../components/Location/CustomDropdown";
 import useFetchLocations from "../../hooks/useFetchLocations";
 import useFetchAreas from "../../hooks/useFetchAreas";
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep, previousStep, setArea, setLocation } from "../../store/order/orderSlice";
+import {
+  nextStep,
+  previousStep,
+  setArea,
+  setLocation,
+} from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 
 const LocationPage = () => {
   const selectedLocation = useSelector((state) => state.order.location);
   const selectedArea = useSelector((state) => state.order.area);
-  const [openModals, setOpenModals] = useState({startOver: false});
+  const [openModals, setOpenModals] = useState({ startOver: false });
   const dispatch = useDispatch();
 
-  const {locations, isLocationsLoading} = useFetchLocations();
-  const {areas, isAreasLoading, setAreasFilter} = useFetchAreas();
+  const { locations, isLocationsLoading } = useFetchLocations();
+  const { areas, isAreasLoading, setAreasFilter } = useFetchAreas();
 
   const handleDropdown1Select = (option) => {
     dispatch(setLocation(option));
-    if(selectedLocation?.id !== option.id){
+    if (selectedLocation?.id !== option.id) {
       dispatch(setArea(null));
     }
   };
@@ -32,14 +37,14 @@ const LocationPage = () => {
 
   useEffect(() => {
     if (selectedLocation) {
-      setAreasFilter((prev) => ({...prev, location_id: selectedLocation.id}));
+      setAreasFilter((prev) => ({ ...prev, location_id: selectedLocation.id }));
     }
   }, [selectedLocation, selectedArea]);
 
   return (
     <>
       <div className={style.topContainer}>
-        <Progress width={40} />
+        <Progress />
       </div>
       <div className={style.mainContainer}>
         <div className={style.wrapper}>
@@ -50,11 +55,13 @@ const LocationPage = () => {
                 <label>Location</label>
                 <CustomDropdown
                   options={locations?.data}
-                  defaultOption={selectedLocation ? selectedLocation.name : "Select"}
+                  defaultOption={
+                    selectedLocation ? selectedLocation.name : "Select"
+                  }
                   onSelect={handleDropdown1Select}
                   displayProperty="name"
-                  loading={isLocationsLoading}    
-                  disabled={isLocationsLoading}            
+                  loading={isLocationsLoading}
+                  disabled={isLocationsLoading}
                 />
               </div>
               <div className={style.dropdownSelection}>
@@ -68,10 +75,13 @@ const LocationPage = () => {
                   disabled={!selectedLocation || isAreasLoading}
                 />
               </div>
-              <Button 
-                type="black" style={{ width: "100%" }}
+              <Button
+                type="black"
+                style={{ width: "100%" }}
                 disabled={!selectedLocation || !selectedArea}
-                className={`${!selectedLocation || !selectedArea ? 'disabled' : ''}`}
+                className={`${
+                  !selectedLocation || !selectedArea ? "disabled" : ""
+                }`}
                 onClick={() => dispatch(nextStep())}
               >
                 Proceed to checkout
@@ -87,12 +97,12 @@ const LocationPage = () => {
         showDiningDetails={true}
         showLocationDetails={true}
         backOnClick={() => dispatch(previousStep())}
-        startOverBtnOnClick={() => setOpenModals({startOver: true})}
+        startOverBtnOnClick={() => setOpenModals({ startOver: true })}
       />
 
       <StartOverConfirmation
         open={openModals.startOver}
-        onClose={() => setOpenModals({startOver: false})}
+        onClose={() => setOpenModals({ startOver: false })}
       />
     </>
   );

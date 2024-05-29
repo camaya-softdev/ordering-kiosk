@@ -1,4 +1,4 @@
-.modalFields{
+.modalFields {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -6,14 +6,14 @@
     align-self: stretch;
 }
 
-.fieldWrapper{
+.fieldWrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     align-self: stretch;
 }
 
-.fieldWrapper .labels{
+.fieldWrapper .labels {
     display: flex;
     padding: 40px 40px 20px 40px;
     flex-direction: column;
@@ -23,17 +23,18 @@
     align-self: stretch;
 }
 
-.fieldWrapper .labels label{
+.fieldWrapper .labels label {
     color: #1E1E1E;
     text-align: center;
     font-family: Poppins;
     font-size: 36px;
     font-style: normal;
     font-weight: 500;
-    line-height: 52px; /* 144.444% */
+    line-height: 52px;
+    /* 144.444% */
 }
 
-.fieldWrapper .labels hr{
+.fieldWrapper .labels hr {
     display: flex;
     padding: 40px 40px 20px 40px;
     flex-direction: column;
@@ -44,18 +45,17 @@
 }
 
 
-.fieldWrapper .fieldInput{
+.fieldWrapper .fieldInput {
     display: flex;
     padding: 0px 40px;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     /* gap: 40px; */
     align-self: stretch;
     flex-direction: column;
-    
 }
 
-.fieldWrapper .fieldInput input{
+.fieldWrapper .fieldInput input {
     display: flex;
     height: 100px;
     padding: 20px 20px;
@@ -69,12 +69,16 @@
     font-size: 36px;
     font-style: normal;
     font-weight: 400;
-    line-height: 52px; /* 144.444% */
+    line-height: 52px;
+    /* 144.444% */
     width: 100%;
 }
 
+.fieldInput input:hover, .fieldInput input:focus {
+    outline: 1px solid black;
+}
 
-.modalButtons{
+.modalButtons {
     display: flex;
     padding: 60px 40px;
     justify-content: flex-end;
@@ -83,7 +87,7 @@
     align-self: stretch;
 }
 
-.errorMessage{
+.errorMessage {
     display: flex;
     align-self: stretch;
     color: #f75656;
@@ -92,6 +96,7 @@
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
-    line-height: 52px; /* 144.444% */
+    line-height: 52px;
+    /* 144.444% */
     margin-top: 10px;
 }

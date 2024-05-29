@@ -34,7 +34,7 @@
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.16), 0px 0px 6px -2px rgba(16, 24, 40, 0.16);
 }
 
-.categoryCard:hover {
+.categoryCard:hover, .categoryCard:active {
     background-color: gainsboro;
 }
 
@@ -74,7 +74,7 @@
     font-weight: 600;
 }
 
-.selected:hover {
+.selected:hover, .selected:active {
     background: white !important;
 }
 
@@ -227,7 +227,7 @@
     /* Add transition for box-shadow */
 }
 
-.productCard:hover {
+.productCard:hover, .productCard:active {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 }
 

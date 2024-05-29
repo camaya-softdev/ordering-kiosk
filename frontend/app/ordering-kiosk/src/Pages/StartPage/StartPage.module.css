@@ -9,7 +9,7 @@
     /* 58.333% */
 }
 
-.title:hover {
+.title:hover, .title:active {
     transform: scale(1.3);
 }
 

@@ -10,6 +10,21 @@
     background: var(--Gray-100, #F2F4F7);
 }
 
+.wrapper {
+    position: relative;
+    animation: slideFromRight 1s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
 .mainWrapper {
     background-color: white;
     display: flex;
@@ -41,11 +56,11 @@
     transition: box-shadow 0.5s ease;
 }
 
-.outletLogo:hover {
+.outletLogo:hover, .outletLogo:active {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.outletLogo:hover .outletLogoImage {
+.outletLogo:hover .outletLogoImage, .outletLogo:active .outletLogoImage {
     transform: scale(1.5);
 }
 

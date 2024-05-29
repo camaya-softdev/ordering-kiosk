@@ -75,6 +75,6 @@
     transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.outletImage:hover {
-    transform: scale(1.2);
+.outletImage:hover, .outletImage:active {
+    transform: scale(1.1);
 }
