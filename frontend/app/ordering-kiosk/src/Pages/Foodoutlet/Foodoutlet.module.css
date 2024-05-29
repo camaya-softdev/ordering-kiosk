@@ -1,49 +1,62 @@
-.camayaLogo{
+.camayaLogo {
     width: 285px;
     height: 150px;
     margin: 56px 398px 150px 397px;
 }
 
-.title{
+.title {
     color: #1E1E1E;
     text-align: center;
     font-family: 'Poppins';
     font-size: 48px;
     font-style: normal;
     font-weight: 600;
-    line-height: 28px; /* 58.333% */
+    line-height: 28px;
+    /* 58.333% */
     margin-bottom: 100px;
 }
 
-.header{
+.header {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.outlets{
+.outlets {
     height: 1136px;
     overflow: auto;
 }
 
-.footer{
+.footer {
     height: 300px;
     display: flex;
     align-items: center;
 }
 
-.camayaLogoGray{
+.camayaLogoGray {
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: -1;
 }
 
-.wrapper{
+.wrapper {
     position: relative;
+    animation: slideFromRight 1s ease forwards;
+    background-color: white;
 }
 
-.backBtn{
+.backBtn {
     width: 300px;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
 }

@@ -7,59 +7,59 @@ import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import { previousStep } from "../../store/order/orderSlice";
 
-import style from './GCashScanPage.module.css';
+import style from "./GCashScanPage.module.css";
 import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
 
-function GCashScanPage(){
-    const dispatch = useDispatch();
-    const selectedDiningOption = useSelector(state => state.order.diningOption);
-    const [openModal, setOpenModal] = useState({
-      startOver: false,
-      confirmPayment: false
-    });
-  
-    return (
-      <>
-        <div className={style.topContainer}>
-          <Progress width={100} />
-        </div>
-        <div className={style.mainContainer}>
-          <div className={style.gcashWrapper}>
-            <div className={style.titleContainer}>GCASH Payment</div>
-            <div className={style.instructions}>
-              <p>
-                <span>1. Open GCASH APP then login.</span>
-                <span>2. Click “QR” then scan the QR code below.</span>
-              </p>
-            </div>
+function GCashScanPage() {
+  const dispatch = useDispatch();
+  const selectedDiningOption = useSelector((state) => state.order.diningOption);
+  const [openModal, setOpenModal] = useState({
+    startOver: false,
+    confirmPayment: false,
+  });
 
-            <img src={gCashAccount} alt="GCash Account"/>
+  return (
+    <>
+      <div className={style.topContainer}>
+        <Progress />
+      </div>
+      <div className={style.mainContainer}>
+        <div className={style.gcashWrapper}>
+          <div className={style.titleContainer}>GCASH Payment</div>
+          <div className={style.instructions}>
+            <p>
+              <span>1. Open GCASH APP then login.</span>
+              <span>2. Click “QR” then scan the QR code below.</span>
+            </p>
           </div>
-        </div>
-        <div className={style.circleBlur}></div>
-  
-        <SummaryFooter
-          showBackBtn={true}
-          showStartOver={true}
-          showDiningDetails={true}
-          showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
-          backOnClick={() => dispatch(previousStep())}
-          startOverBtnOnClick={() => setOpenModal({startOver: true})}
-          showConfirmPaymentBtn={true}
-          confirmPaymentOnClick={() => setOpenModal({confirmPayment: true})}
-        />
-  
-        <StartOverConfirmation
-          open={openModal.startOver}
-          onClose={() => setOpenModal({startOver: false})}
-        />
 
-        <ConfirmGCashPayment
-          open={openModal.confirmPayment}
-          onClose={() => setOpenModal({confirmPayment: false})}
-        />
-      </>
-    );
+          <img src={gCashAccount} alt="GCash Account" />
+        </div>
+      </div>
+      <div className={style.circleBlur}></div>
+
+      <SummaryFooter
+        showBackBtn={true}
+        showStartOver={true}
+        showDiningDetails={true}
+        showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
+        backOnClick={() => dispatch(previousStep())}
+        startOverBtnOnClick={() => setOpenModal({ startOver: true })}
+        showConfirmPaymentBtn={true}
+        confirmPaymentOnClick={() => setOpenModal({ confirmPayment: true })}
+      />
+
+      <StartOverConfirmation
+        open={openModal.startOver}
+        onClose={() => setOpenModal({ startOver: false })}
+      />
+
+      <ConfirmGCashPayment
+        open={openModal.confirmPayment}
+        onClose={() => setOpenModal({ confirmPayment: false })}
+      />
+    </>
+  );
 }
 
 export default GCashScanPage;

@@ -51,6 +51,7 @@ button {
     width: 75%;
     max-height: 1000px;
     overflow: auto;
+    height: 300px;
 }
 
 .btnWrapper {
@@ -62,11 +63,26 @@ button {
     border: 1px solid #EAECF0;
     border-radius: 16px;
     background: white;
-    
-  
+    transition: box-shadow 1s ease, transform 1s ease-in-out;
 }
 
-.btnWrapper span{
+.btnWrapper:hover, .btnWrapper:active {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.btnWrapper:hover>span,
+.btnWrapper:hover>img {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.btnWrapper:active>span,
+.btnWrapper:active>img {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.btnWrapper span {
     font-family: Poppins, var(--default-font-family);
     font-size: 32px;
     font-weight: 400;
@@ -80,7 +96,7 @@ button {
     max-height: 250px;
 }
 
-.circleBlur{
+.circleBlur {
     width: 500px;
     background: #ff9393;
     height: 500px;
@@ -92,7 +108,7 @@ button {
     z-index: -99;
 }
 
-.topContainer{
+.topContainer {
     width: 1080px;
     padding-top: 56px;
     display: flex;

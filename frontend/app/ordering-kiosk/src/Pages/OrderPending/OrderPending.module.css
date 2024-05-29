@@ -192,19 +192,20 @@
 
 @media print {
     .flexStyleScndChld, .flexStyle, .OrderContent, .mainContainer {
-      overflow: visible !important;
-      height: auto !important; 
-      max-height: none !important;
-    }
-    .mainContainer {
-      height: auto !important;
-      overflow: visible !important;
-      /* margin: 5px!important; */
-      padding: 0!important;
-      width: 100%!important;
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
     }
 
-    .paragraphMsg{
+    .mainContainer {
+        height: auto !important;
+        overflow: visible !important;
+        /* margin: 5px!important; */
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .paragraphMsg {
         display: none;
     }
 }

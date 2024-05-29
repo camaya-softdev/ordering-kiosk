@@ -35,39 +35,38 @@ function DineOptions() {
     }
     else if(option === DELIVERY){
       dispatch(nextStep());
-    }
-    else if(option === PICK_UP){
+    } else if (option === PICK_UP) {
       dispatch(setOrderStep(5));
       dispatch(setLocation(null));
       dispatch(setArea(null));
     }
-  }
+  };
 
   return (
     <>
       <div className={style.topContainer}>
-        <Progress width={20} />
+        <Progress />
       </div>
       <div className={style.mainContainer}>
         <div className={style.wrapper}>
           <span className={style.text}>Where would you like to eat?</span>
           <div className={style.section}>
             <div className={style.wrapperOption}>
-              <div 
-                className={style.buttonOption} 
+              <div
+                className={style.buttonOption}
                 onClick={() => selectDiningOption(DINE_IN)}
               >
                 <span>DINE IN</span>
                 <img src={dineinlogo} alt="Dine In Logo" />
               </div>
-              <div 
+              <div
                 className={style.buttonOption}
                 onClick={() => selectDiningOption(PICK_UP)}
               >
                 <span>PICKUP TAKEAWAY</span>
                 <img src={takeawaylogo} alt="Takeaway Logo" />
               </div>
-              <div 
+              <div
                 className={style.buttonOption}
                 onClick={() => selectDiningOption(DELIVERY)}
               >
@@ -83,13 +82,15 @@ function DineOptions() {
         showBackBtn={true}
         showStartOver={true}
         showDiningDetails={true}
-        startOverBtnOnClick={() => setOpenModal((prev) => ({...prev, startOver: true}))}
+        startOverBtnOnClick={() =>
+          setOpenModal((prev) => ({ ...prev, startOver: true }))
+        }
         backOnClick={() => dispatch(previousStep())}
       />
 
       <StartOverConfirmation
         open={openModal.startOver}
-        onClose={() => setOpenModal((prev) => ({...prev, startOver: false}))}
+        onClose={() => setOpenModal((prev) => ({ ...prev, startOver: false }))}
       />
     </>
   );

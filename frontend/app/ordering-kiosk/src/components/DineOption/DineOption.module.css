@@ -1,15 +1,15 @@
 .progress {
-	background-color: #f2f3f6;
-	border-radius: 16px;
-	position: relative;
-	margin: 15px 0;
-	height: 40px;
-	width: 95%;
+    background-color: #f2f3f6;
+    border-radius: 16px;
+    position: relative;
+    margin: 15px 0;
+    height: 40px;
+    width: 95%;
     overflow: hidden;
 }
 
 .progressDone {
-	background: linear-gradient(to right, #ffe598, #fd3c00);
+    background: linear-gradient(to right, #ffe598, #fd3c00);
     border-radius: 16px;
     color: #fff;
     display: flex;
