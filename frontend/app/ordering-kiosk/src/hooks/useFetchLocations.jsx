@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { getLocations } from "../services/LocationService";
 
-function useFetchLocations (initialFilters = {}){
+function useFetchLocations (initialFilters = {outlet_id: null}){
 
   const [locationsFilter, setLocationsFilter] = useState(initialFilters);
 

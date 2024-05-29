@@ -18,9 +18,12 @@ class LocationController extends Controller
         $this->locationService = $locationService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $locations = Location::all();
+        $locations = Location::when($request->has('outlet_id'), function($query) use ($request) {
+                return $query->where('outlet_id', $request->outlet_id);
+            })
+            ->get();
         return LocationResource::collection($locations);
     }
 
