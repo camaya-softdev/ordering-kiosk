@@ -12,12 +12,11 @@ import StartOverConfirmation from "../../components/Outletorder/StartOverConfirm
 
 const LocationPage = () => {
   const selectedLocation = useSelector((state) => state.order.location);
-  const currentUser = useSelector((state) => state.auth.auth);
   const selectedArea = useSelector((state) => state.order.area);
   const [openModals, setOpenModals] = useState({startOver: false});
   const dispatch = useDispatch();
 
-  const {locations, isLocationsLoading, setLocationsFilter} = useFetchLocations();
+  const {locations, isLocationsLoading} = useFetchLocations();
   const {areas, isAreasLoading, setAreasFilter} = useFetchAreas();
 
   const handleDropdown1Select = (option) => {

@@ -4,19 +4,36 @@ import deliverlogo from "../../assets/dineoptionlogo/deliver.svg";
 import takeawaylogo from "../../assets/dineoptionlogo/takeaway.svg";
 import Progress from "../../components/DineOption/Progress";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { nextStep, previousStep, setArea, setDiningOption, setLocation, setOrderStep } from "../../store/order/orderSlice";
 import { DELIVERY, DINE_IN, PICK_UP } from "../../utils/Constants/DiningOptions";
 import { useState } from "react";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
+import useFetchLocations from "../../hooks/useFetchLocations";
 
 function DineOptions() {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({startOver: false});
+  const {locations, isLocationsLoading, setLocationsFilter} = useFetchLocations();
+  const currentUser = useSelector((state) => state.auth.auth);
 
   const selectDiningOption = (option) => {
     dispatch(setDiningOption(option));
-    if(option === DINE_IN || option === DELIVERY){
+    if(option === DINE_IN){
+      try{
+        setLocationsFilter((prev) => ({...prev, outlet_id: currentUser.outlet_id}));
+        if(!isLocationsLoading && locations.data.length > 0){
+          dispatch(setLocation(locations.data[0]));
+        }
+      }
+      catch(e){
+        console.log(e);
+      }
+      finally{
+        dispatch(nextStep());
+      }
+    }
+    else if(option === DELIVERY){
       dispatch(nextStep());
     }
     else if(option === PICK_UP){
