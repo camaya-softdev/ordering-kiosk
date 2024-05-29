@@ -14,10 +14,12 @@ import {
   setLocation,
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
+import { DINE_IN } from "../../utils/Constants/DiningOptions";
 
 const LocationPage = () => {
   const selectedLocation = useSelector((state) => state.order.location);
   const selectedArea = useSelector((state) => state.order.area);
+  const diningOption = useSelector((state) => state.order.diningOption);
   const [openModals, setOpenModals] = useState({ startOver: false });
   const dispatch = useDispatch();
 
@@ -61,7 +63,7 @@ const LocationPage = () => {
                   onSelect={handleDropdown1Select}
                   displayProperty="name"
                   loading={isLocationsLoading}
-                  disabled={isLocationsLoading}
+                  disabled={isLocationsLoading || diningOption === DINE_IN}
                 />
               </div>
               <div className={style.dropdownSelection}>

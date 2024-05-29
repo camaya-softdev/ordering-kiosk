@@ -24,6 +24,7 @@ function DineOptions() {
         setLocationsFilter((prev) => ({...prev, outlet_id: currentUser.outlet_id}));
         if(!isLocationsLoading && locations.data.length > 0){
           dispatch(setLocation(locations.data[0]));
+          dispatch(setArea(null));
         }
       }
       catch(e){
