@@ -24,7 +24,6 @@ function StartOverConfirmation ({open, onClose}){
                     width: "100%",
                     gap: "40px",
                     margin: "40px",
-                    paddingBottom: "80px"
                 }}>
                     <Button type='white' onClick={onClose}>
                         Cancel
