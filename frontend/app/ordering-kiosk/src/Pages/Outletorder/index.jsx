@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 
 const Outletorder = () => {
   const selectedOutlet = useSelector((state) => state.order.selectedOutlet);
+  const classAnimate = useSelector((state) => state.order.classAnimate);
 
   return (
-    <div className={style.wrapper}>
+    <div className={`${style[classAnimate]}`}>
       <div className={style.mainWrapper}>
         <div className={style.categoriesWrapper}>
           <div className={style.outletLogo}>

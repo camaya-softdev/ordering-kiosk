@@ -21,7 +21,7 @@ input, select, textarea, button {
     flex-wrap: nowrap;
     position: relative;
     width: 1080px;
-    height: 1338px;
+    height: 1265px;
     margin: 0 auto;
     padding: 120px 120px 0 120px;
 }
@@ -231,4 +231,35 @@ input, select, textarea, button {
     font-size: 40px;
     font-family: Poppins, var(--default-font-family);
     font-weight: 600;
+}
+
+.backwardAnimation {
+    position: relative;
+    animation: slideFromRight 0.5s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
 }

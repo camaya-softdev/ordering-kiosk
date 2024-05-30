@@ -9,12 +9,14 @@ import {
   nextStep,
   previousStep,
   setOrderStep,
+  setClassAnimate,
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 
 const OrderSummary = () => {
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
   const selectedOutlet = useSelector((state) => state.order.selectedOutlet);
+  const classAnimate = useSelector((state) => state.order.classAnimate);
   const selectedProducts = useSelector((state) => state.order.selectedProducts);
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({ startOver: false });
@@ -22,13 +24,18 @@ const OrderSummary = () => {
   const onBackClick = () => {
     if (selectedDiningOption === PICK_UP) {
       dispatch(setOrderStep(3));
+      dispatch(setClassAnimate("forwardAnimation"));
     } else {
       dispatch(previousStep());
+      dispatch(setClassAnimate("forwardAnimation"));
     }
   };
-
+  const onProceedClick = () => {
+    dispatch(nextStep());
+    dispatch(setClassAnimate("backwardAnimation"));
+  };
   return (
-    <>
+    <div className={`${style[classAnimate]}`}>
       <div className={style.topContainer}>
         <Progress />
       </div>
@@ -85,14 +92,14 @@ const OrderSummary = () => {
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
         backOnClick={onBackClick}
         startOverBtnOnClick={() => setOpenModal({ startOver: true })}
-        choosePaymentOnClick={() => dispatch(nextStep())}
+        choosePaymentOnClick={onProceedClick}
       />
 
       <StartOverConfirmation
         open={openModal.startOver}
         onClose={() => setOpenModal({ startOver: false })}
       />
-    </>
+    </div>
   );
 };
 

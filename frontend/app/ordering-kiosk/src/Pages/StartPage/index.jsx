@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep } from "../../store/order/orderSlice";
+import { nextStep, setClassAnimate } from "../../store/order/orderSlice";
 import style from "./StartPage.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import CamayaLogo from "../../assets/camaya-logo.svg";
@@ -18,6 +18,7 @@ function StartPage() {
 
   const goToNextStep = () => {
     dispatch(nextStep());
+    dispatch(setClassAnimate("backwardAnimation"));
   };
 
   useEffect(() => {
@@ -31,8 +32,10 @@ function StartPage() {
     setLoginModal(false);
   };
 
+  const classAnimate = useSelector((state) => state.order.classAnimate);
+
   return (
-    <div>
+    <div className={`${style[classAnimate]}`}>
       <div className={style.imageWrapper}>
         <Slideshow items={[pic1, vid1]} />
       </div>

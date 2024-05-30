@@ -41,14 +41,14 @@
     z-index: -1;
 }
 
-.wrapper {
-    position: relative;
-    animation: slideFromRight 1s ease forwards;
-    background-color: white;
-}
-
 .backBtn {
     width: 300px;
+}
+
+.backwardAnimation {
+    position: relative;
+    animation: slideFromRight 0.5s ease forwards;
+    background-color: white;
 }
 
 @keyframes slideFromRight {
@@ -58,5 +58,21 @@
 
     to {
         right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
     }
 }

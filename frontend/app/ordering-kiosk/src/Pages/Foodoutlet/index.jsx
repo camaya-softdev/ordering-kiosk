@@ -2,8 +2,9 @@ import style from "./Foodoutlet.module.css";
 import {
   previousStep,
   setSelectedCategory,
+  setClassAnimate,
 } from "../../store/order/orderSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import CamayaLogoGray from "../../assets/camaya-logo-gray.svg";
 import FooterLayout from "../../layout/FooterLayout";
@@ -17,10 +18,13 @@ function FoodOutlet() {
   // Function to move to the previous step of the order process
   const goToPreviousStep = () => {
     dispatch(previousStep());
+    dispatch(setClassAnimate("forwardAnimation"));
   };
 
+  const classAnimate = useSelector((state) => state.order.classAnimate);
+
   return (
-    <div className={style.wrapper}>
+    <div className={`${style[classAnimate]}`}>
       <div className={style.header}>
         <img src={CamayaLogo} className={style.camayaLogo} />
         <span className={style.title}>Choose a food outlet</span>

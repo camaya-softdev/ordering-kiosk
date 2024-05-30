@@ -53,9 +53,6 @@
     z-index: 1;
 }
 
-
-
-
 .footer:hover::before {
     transform: translateX(0);
     animation: gradientSlide 5s infinite linear;
@@ -76,10 +73,6 @@
         background-position: 100% 50%;
     }
 }
-
-
-
-
 
 
 @keyframes moveShine {
@@ -121,4 +114,20 @@
     height: 100%;
     object-fit: fill;
     object-position: center;
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
 }

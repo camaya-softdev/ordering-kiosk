@@ -5,16 +5,6 @@
         "Source Han Sans CN", sans-serif;
 }
 
-.main-container {
-    overflow: hidden;
-    height: 1300px;
-}
-
-.main-container,
-.main-container * {
-    box-sizing: border-box;
-}
-
 input,
 select,
 textarea,
@@ -30,7 +20,8 @@ button {
     width: 1080px;
     margin: 0 auto;
     padding: 120px 0 0 0;
-    height: 1920px;
+    height: 1325px;
+    overflow: hidden;
 }
 
 .titleContainer {
@@ -101,11 +92,13 @@ button {
     background: #ff9393;
     height: 500px;
     position: absolute;
-    bottom: 1000px;
+    bottom: 850px;
     border-radius: 50%;
     opacity: 10%;
     box-shadow: 0 0 150px 200px #ff9393;
     z-index: -99;
+    left: 250px;
+    overflow: hidden;
 }
 
 .topContainer {
@@ -114,4 +107,36 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.backwardAnimation {
+    position: relative;
+    animation: slideFromRight 0.5s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
 }

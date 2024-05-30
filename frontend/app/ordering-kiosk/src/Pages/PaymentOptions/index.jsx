@@ -9,6 +9,7 @@ import StartOverConfirmation from "../../components/Outletorder/StartOverConfirm
 import {
   nextStep,
   previousStep,
+  setClassAnimate,
   setCreatedTransaction,
   setGCashPaymentDetails,
   setOrderStep,
@@ -26,6 +27,7 @@ const PaymentOptions = () => {
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
+  const classAnimate = useSelector((state) => state.order.classAnimate);
   const [openModal, setOpenModal] = useState({ startOver: false });
   const placeOrderQuery = useCreateTransaction();
   const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
@@ -43,6 +45,7 @@ const PaymentOptions = () => {
     if (paymentMethod === GCASH_PAYMENT) {
       dispatch(setPaymentOption(GCASH_PAYMENT));
       dispatch(nextStep());
+      dispatch(setClassAnimate("backwardAnimation"));
     } else if (paymentMethod === CASH_PAYMENT) {
       dispatch(setPaymentOption(CASH_PAYMENT));
       dispatch(setGCashPaymentDetails(null));
@@ -59,8 +62,13 @@ const PaymentOptions = () => {
     }
   };
 
+  const handleBackClick = () => {
+    dispatch(previousStep());
+    dispatch(setClassAnimate("forwardAnimation"));
+  };
+
   return (
-    <>
+    <div className={`${style[classAnimate]}`}>
       <div className={style.topContainer}>
         <Progress />
       </div>
@@ -109,7 +117,7 @@ const PaymentOptions = () => {
         showStartOver={true}
         showDiningDetails={true}
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
-        backOnClick={() => dispatch(previousStep())}
+        backOnClick={handleBackClick}
         startOverBtnOnClick={() => setOpenModal({ startOver: true })}
       />
 
@@ -117,7 +125,7 @@ const PaymentOptions = () => {
         open={openModal.startOver}
         onClose={() => setOpenModal({ startOver: false })}
       />
-    </>
+    </div>
   );
 };
 

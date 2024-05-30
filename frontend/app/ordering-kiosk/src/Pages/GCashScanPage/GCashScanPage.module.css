@@ -30,11 +30,11 @@ button {
     gap: 24px;
     width: 1080px;
     margin: auto;
-    height: 1920px;
-    justify-content: center; 
+    height: 1105px;
+    justify-content: center;
 }
 
-.parentWrapper{
+.parentWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,7 @@ button {
     line-height: 28px;
 }
 
-.circleBlur{
+.circleBlur {
     width: 500px;
     background: #ff9393;
     height: 500px;
@@ -60,7 +60,7 @@ button {
     z-index: -99;
 }
 
-.topContainer{
+.topContainer {
     width: 1080px;
     padding-top: 56px;
     display: flex;
@@ -68,7 +68,7 @@ button {
     justify-content: center;
 }
 
-.instructions{
+.instructions {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -86,25 +86,57 @@ button {
     gap: 16px;
 }
 
-.instructions p span{
+.instructions p span {
     flex: 1 0 0;
     color: #1E1E1E;
     font-family: Poppins;
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 52px; /* 162.5% */
+    line-height: 52px;
+    /* 162.5% */
 }
 
-.gcashWrapper{
+.gcashWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 40px;
 }
 
-.gcashWrapper img{
+.gcashWrapper img {
     width: 464px;
     height: 700px;
     object-fit: cover;
+}
+
+.backwardAnimation {
+    position: relative;
+    animation: slideFromRight 0.5s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
 }

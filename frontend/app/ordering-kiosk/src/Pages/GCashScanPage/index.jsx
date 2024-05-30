@@ -5,7 +5,7 @@ import gCashAccount from "../../assets/GCashAccount/account.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
-import { previousStep } from "../../store/order/orderSlice";
+import { previousStep, setClassAnimate } from "../../store/order/orderSlice";
 
 import style from "./GCashScanPage.module.css";
 import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
@@ -13,13 +13,19 @@ import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPaym
 function GCashScanPage() {
   const dispatch = useDispatch();
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
+  const classAnimate = useSelector((state) => state.order.classAnimate);
   const [openModal, setOpenModal] = useState({
     startOver: false,
     confirmPayment: false,
   });
 
+  const handleBackClick = () => {
+    dispatch(previousStep());
+    dispatch(setClassAnimate("forwardAnimation"));
+  };
+
   return (
-    <>
+    <div className={`${style[classAnimate]}`}>
       <div className={style.topContainer}>
         <Progress />
       </div>
@@ -43,7 +49,7 @@ function GCashScanPage() {
         showStartOver={true}
         showDiningDetails={true}
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
-        backOnClick={() => dispatch(previousStep())}
+        backOnClick={handleBackClick}
         startOverBtnOnClick={() => setOpenModal({ startOver: true })}
         showConfirmPaymentBtn={true}
         confirmPaymentOnClick={() => setOpenModal({ confirmPayment: true })}
@@ -58,7 +64,7 @@ function GCashScanPage() {
         open={openModal.confirmPayment}
         onClose={() => setOpenModal({ confirmPayment: false })}
       />
-    </>
+    </div>
   );
 }
 

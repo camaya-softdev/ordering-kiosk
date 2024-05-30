@@ -1,15 +1,19 @@
 :root {
     --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", "Source Han Sans CN", sans-serif;
 }
+
 .mainContainer {
     overflow: hidden;
 }
+
 .mainContainer, .mainContainer * {
     box-sizing: border-box;
 }
+
 input, select, textarea, button {
     outline: 0;
 }
+
 .mainContainer {
     display: flex;
     align-items: flex-start;
@@ -17,10 +21,11 @@ input, select, textarea, button {
     flex-wrap: nowrap;
     position: relative;
     width: 1080px;
-    height: 1338px;
+    height: 1145px;
     margin: 0 auto;
     padding: 120px 120px 0 120px;
 }
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -31,6 +36,7 @@ input, select, textarea, button {
     position: relative;
     width: 698px;
 }
+
 .text {
     display: flex;
     align-items: flex-start;
@@ -48,6 +54,7 @@ input, select, textarea, button {
     text-align: center;
     white-space: nowrap;
 }
+
 .section {
     display: flex;
     flex-direction: column;
@@ -59,6 +66,7 @@ input, select, textarea, button {
     position: relative;
     width: 682px;
 }
+
 .wrapperOption {
     display: flex;
     flex-direction: column;
@@ -67,12 +75,13 @@ input, select, textarea, button {
     gap: 50px;
     width: 85%;
 }
-.dropdownSelection{
+
+.dropdownSelection {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap:30px;
+    gap: 30px;
     font-family: Poppins, var(--default-font-family);
     font-size: 32px;
     font-weight: 500;
@@ -90,9 +99,9 @@ input, select, textarea, button {
     background: #eaecf0;
     border: none;
     border-radius: 16px;
-  }
+}
 
-.topContainer{
+.topContainer {
     width: 1080px;
     padding: 56px 0;
     display: flex;
@@ -100,7 +109,7 @@ input, select, textarea, button {
     justify-content: center;
 }
 
-.circleBlur{
+.circleBlur {
     width: 500px;
     background: #ff9393;
     height: 500px;
@@ -110,4 +119,36 @@ input, select, textarea, button {
     opacity: 10%;
     box-shadow: 0 0 150px 200px #ff9393;
     z-index: -99;
+}
+
+
+.backwardAnimation {
+    position: relative;
+    animation: slideFromRight 0.5s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
 }

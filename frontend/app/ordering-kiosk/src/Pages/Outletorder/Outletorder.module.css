@@ -10,9 +10,9 @@
     background: var(--Gray-100, #F2F4F7);
 }
 
-.wrapper {
+.backwardAnimation {
     position: relative;
-    animation: slideFromRight 1s ease forwards;
+    animation: slideFromRight 0.5s ease forwards;
 }
 
 @keyframes slideFromRight {
@@ -22,6 +22,22 @@
 
     to {
         right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
     }
 }
 

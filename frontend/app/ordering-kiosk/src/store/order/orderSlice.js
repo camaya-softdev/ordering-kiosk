@@ -7,6 +7,8 @@ const orderSlice = createSlice({
     orderStep: 0,
     selectedOutlet: null,
     selectedCategory: null,
+    classAnimate: null,
+    lastWidth: 0,
     selectedProducts: [],
     diningOption: null,
     location: null,
@@ -24,8 +26,16 @@ const orderSlice = createSlice({
         state.orderStep -= 1;
       }
     },
+    setClassAnimate: (state, action) => {
+      state.classAnimate = action.payload;
+    },
+    setLastWidth: (state, action) => {
+      state.lastWidth = action.payload;
+    },
     resetOrder: state => {
       state.orderStep = 0;
+      state.classAnimate = null;
+      state.lastWidth = 0;
       state.selectedOutlet = null;
       state.selectedCategory = null;
       state.selectedProducts = [];
@@ -119,9 +129,11 @@ const orderSlice = createSlice({
   },
 });
 
-export const { 
+export const {
   nextStep, 
   previousStep, 
+  setLastWidth,
+  setClassAnimate,
   resetOrder, 
   setOrderStep,
   setSelectedOutlet,

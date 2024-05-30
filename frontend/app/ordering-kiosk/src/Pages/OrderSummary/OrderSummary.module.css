@@ -106,14 +106,45 @@ input, select, textarea, button {
     text-align: right;
 }
 
-.progressBar{
+.progressBar {
     margin-top: 56px;
 }
 
-.topContainer{
+.topContainer {
     width: 1080px;
     padding-top: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.backwardAnimation {
+    position: relative;
+    animation: slideFromRight 0.5s ease forwards;
+}
+
+@keyframes slideFromRight {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+.forwardAnimation {
+    position: relative;
+    animation: slideFromLeft 0.5s ease forwards;
+    background-color: white;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
 }
