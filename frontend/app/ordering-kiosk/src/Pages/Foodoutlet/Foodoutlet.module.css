@@ -46,6 +46,10 @@
 }
 
 .backwardAnimation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 1920px;
     position: relative;
     animation: slideFromRight 0.5s ease forwards;
     background-color: white;
@@ -62,6 +66,10 @@
 }
 
 .forwardAnimation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 1920px;
     position: relative;
     animation: slideFromLeft 0.5s ease forwards;
     background-color: white;

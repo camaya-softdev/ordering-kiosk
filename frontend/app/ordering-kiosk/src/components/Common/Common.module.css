@@ -208,7 +208,7 @@
 
 .modalExtras {
     display: flex;
-    height: 100px;
+    height: 200px;
     /* padding: 0px 40px; */
     margin-top: 60px;
     justify-content: flex-end;
