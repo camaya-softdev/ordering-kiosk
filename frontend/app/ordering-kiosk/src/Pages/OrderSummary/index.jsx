@@ -95,6 +95,17 @@ const OrderSummary = () => {
           startOverBtnOnClick={() => setOpenModal({ startOver: true })}
           choosePaymentOnClick={onProceedClick}
         />
+      <SummaryFooter
+        className={style.summaryFooter}
+        showBackBtn={true}
+        showStartOver={true}
+        showDiningDetails={true}
+        showChoosePaymentBtn={true}
+        showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
+        backOnClick={onBackClick}
+        startOverBtnOnClick={() => setOpenModal({ startOver: true })}
+        choosePaymentOnClick={onProceedClick}
+      />
 
         <StartOverConfirmation
           open={openModal.startOver}

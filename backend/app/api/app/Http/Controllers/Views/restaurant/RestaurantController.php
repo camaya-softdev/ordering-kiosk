@@ -27,7 +27,7 @@ class RestaurantController extends Controller
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
             ->orderBy('transactions.created_at', 'desc');
             if ($username !== 'it_department') {
-                $query->where('outlet_id', '=', $outlet_id);
+                $query->where('transactions.outlet_id', '=', $outlet_id);
             }
 
             $query->with(['orders.product' => function ($query) {

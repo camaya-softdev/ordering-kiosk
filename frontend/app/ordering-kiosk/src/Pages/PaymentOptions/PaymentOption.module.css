@@ -20,7 +20,7 @@ button {
     width: 1080px;
     margin: 0 auto;
     padding: 120px 0 0 0;
-    height: 1325px;
+    height: 1200px;
     overflow: hidden;
 }
 
@@ -42,7 +42,7 @@ button {
     width: 75%;
     max-height: 1000px;
     overflow: auto;
-    height: 300px;
+    min-height: 300px;
 }
 
 .btnWrapper {

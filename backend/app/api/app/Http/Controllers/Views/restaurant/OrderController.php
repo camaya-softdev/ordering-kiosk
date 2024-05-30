@@ -38,7 +38,7 @@ class OrderController extends Controller
                 )
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
-            ->where('outlet_id','=',$outlet_id )
+            ->where('transactions.outlet_id','=',$outlet_id )
             ->with(['orders.product' => function ($query) {
                 $query->withTrashed(); // Include soft-deleted products
             }])

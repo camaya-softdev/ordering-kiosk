@@ -4,7 +4,7 @@
 
 .mainContainer {
     overflow: hidden;
-    height: 1300px;
+    height: 1100px;
 }
 
 .mainContainer, .mainContainer * {
@@ -84,6 +84,8 @@ input, select, textarea, button {
     align-items: center;
     gap: 40px;
 }
+
+
 
 .priceImg {
     display: flex;

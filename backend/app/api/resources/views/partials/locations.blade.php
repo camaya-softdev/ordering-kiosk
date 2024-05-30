@@ -67,6 +67,7 @@
         <tr>
             <th>Name</th>
             <th>Location Code</th>
+            <th>Outlet</th>
             <th>Status</th>
             <th>Date Created</th>
             <th>Action</th>
@@ -81,6 +82,13 @@
         </td>
         <td>
             {{ $location->location_code }}
+        </td>
+        <td>
+            @if ($location->outlet)
+                <img src="{{ asset($location->outlet->image ) }}" alt="Outlet Image" height="50px">
+            @else
+                No Outlet Assigned
+            @endif
         </td>
         <td class="{{ $location->status == 1 ? 'text-success' : 'text-danger' }}">
             {{ $location->status == 1 ? 'Active' : 'Inactive' }}

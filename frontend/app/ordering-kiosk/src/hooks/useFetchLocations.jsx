@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getLocations } from "../services/LocationService";
 
-function useFetchLocations (initialFilters = {}){
+function useFetchLocations (initialFilters = {outlet_id: null}){
 
   const [locationsFilter, setLocationsFilter] = useState(initialFilters);
 
@@ -10,6 +10,10 @@ function useFetchLocations (initialFilters = {}){
       ['locations', locationsFilter], 
       () => getLocations(locationsFilter) 
   );
+
+  useEffect(() => {
+    refetchLocations();
+  }, [locationsFilter, refetchLocations]);
 
   return {
     locations,
