@@ -5,6 +5,7 @@ const orderSlice = createSlice({
   name: 'order',
   initialState: { 
     orderStep: 0,
+    prevOrderStep: 0,
     selectedOutlet: null,
     selectedCategory: null,
     classAnimate: null,
@@ -19,10 +20,12 @@ const orderSlice = createSlice({
   },
   reducers: {
     nextStep: state => {
+      state.prevOrderStep = state.orderStep;
       state.orderStep += 1;
     },
     previousStep: state => {
       if (state.orderStep > 0) {
+        state.prevOrderStep = state.orderStep;
         state.orderStep -= 1;
       }
     },
@@ -47,6 +50,7 @@ const orderSlice = createSlice({
       state.createdTransaction = null;
     },
     setOrderStep: (state, action) => {
+      state.prevOrderStep = state.orderStep;
       state.orderStep = action.payload;
     },
     setSelectedOutlet: (state, action) => {
