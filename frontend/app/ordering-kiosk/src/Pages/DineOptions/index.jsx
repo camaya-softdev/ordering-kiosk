@@ -64,7 +64,7 @@ function DineOptions() {
     <>
       <div className={`${style[classAnimate]}`}>
         <div className={style.topContainer}>
-          <Progress width={20} start={0} />
+          <Progress/>
         </div>
         <div className={style.mainContainer}>
           <div className={style.wrapper}>

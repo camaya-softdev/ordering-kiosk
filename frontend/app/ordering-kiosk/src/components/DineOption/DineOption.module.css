@@ -17,5 +17,16 @@
     justify-content: center;
     height: 100%;
     opacity: 1;
-    transition: 1s ease 0.3s;
+    transition: width 1s ease-in-out;
+}
+
+.progressStart {
+    background: linear-gradient(to right, #ffe598, #fd3c00);
+    border-radius: 16px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    opacity: 1;
 }
