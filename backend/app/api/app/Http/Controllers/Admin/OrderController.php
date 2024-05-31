@@ -21,7 +21,7 @@ class OrderController extends Controller
                 )
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
-            ->where('outlet_id','=',$outlet_id )
+            ->where('trasactions.outlet_id','=',$outlet_id )
             ->where('transactions.id','=',$latestOrderId)
             ->with('customer')
             ->with(['orders.product' => function ($query) {
