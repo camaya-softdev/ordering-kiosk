@@ -2,15 +2,12 @@
 
 namespace App\Exports;
 
-
-use App\Models\Transaction;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
 
 class ReportExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
@@ -23,40 +20,30 @@ class ReportExport implements FromCollection, WithHeadings, ShouldAutoSize, With
 
     public function collection()
     {
-        return collect($this->orderReport)->map(function ($transaction) {
-            // Initialize an empty array to store product information
-            $orderDetails = [];
-
-            // Iterate over each order in the transaction
-            foreach ($transaction->orders as $order) {
-                // Format the product details (quantity and name)
-                $productDetails = $order->quantity . 'x ' . $order->product->name;
-
-                // Add the formatted product details to the array
-                $orderDetails[] = $productDetails;
-            }
-
-            // Convert the array of product details to a string separated by newlines
-            $orderString = implode("\n", $orderDetails);
-
+        return collect($this->orderReport)->map(function ($order) {
             return [
-                'Reference Number' => $transaction->reference_number,
-                'Order Number' => $transaction->id,
-                'Order' => $orderString, // Set the order column to the concatenated product details
-                'Payment Method' => $transaction->payment_method,
-                'Total' => $transaction->total,
-                'Status' => $transaction->status, // Change 'Pending' to 'Status'
+                'Reference Number' => $order->reference_number,
+                'Transaction Number' => $order->transaction_number,
+                'Quantity' => $order->quantity,
+                'Product Name' => $order->product_name,
+                'Customer Name' => $order->customer_name,
+                'Customer Mobile' => $order->mobile_number,
+                'Payment Method' => $order->payment_method,
+                'Total' => $order->total,
+                'Status' => $order->status,
             ];
         });
     }
-
 
     public function headings(): array
     {
         return [
             'Reference Number',
-            'Order Number',
-            'Order',
+            'Transaction Number',
+            'Quantity',
+            'Product Name',
+            'Customer Name',
+            'Customer Mobile',
             'Payment Method',
             'Total',
             'Status',
