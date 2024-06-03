@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views\restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Order;
 use App\Exports\ReportExport;
 use Illuminate\Support\Facades\Validator;
 // use App\Services\ProductService;
@@ -61,22 +62,25 @@ class OrderController extends Controller
         $selectedDate = $request->input('selectedDate');
 
         // Fetch specific data from transactions
-        $orderReport = Transaction::select(
+        $orderReport = Order::select(
             'transactions.reference_number',
-            'transactions.id',
+            'transactions.id as transaction_number',
+            'orders.quantity',
+            'products.name as product_name',
+            'customers.name as customer_name',
+            'customers.mobile_number',
             'transactions.payment_method',
-            'transactions.status',
-            DB::raw('GROUP_CONCAT(orders.quantity, "x ", products.name SEPARATOR "\n") as order_details'), // Concatenate order details
-            DB::raw('SUM(orders.quantity * products.price) AS total') // Calculate total
+            DB::raw('(orders.quantity * products.price) as total'),
+            'transactions.status'
         )
-        ->leftJoin('orders', 'orders.transaction_id', '=', 'transactions.id')
+        ->leftJoin('transactions', 'transactions.id', '=', 'orders.transaction_id')
+        ->leftJoin('customers', 'customers.id', '=', 'transactions.customer_id')
         ->leftJoin('products', 'products.id', '=', 'orders.product_id')
         ->where('transactions.outlet_id', '=', $outlet_id)
-        ->where('transactions.created_at', 'LIKE', '%' . $selectedDate . '%')
-        ->with(['orders.product' => function ($query) {
+        ->whereDate('transactions.created_at', '=', $selectedDate)
+        ->with(['product' => function ($query) {
             $query->withTrashed(); // Include soft-deleted products
         }])
-        ->groupBy('transactions.id')
         ->get();
 
     // return $orderReport;
