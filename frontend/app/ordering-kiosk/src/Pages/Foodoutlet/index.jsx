@@ -10,6 +10,7 @@ import CamayaLogoGray from "../../assets/camaya-logo-gray.svg";
 import FooterLayout from "../../layout/FooterLayout";
 import OutletList from "../../components/FoodOutlets/OutletList";
 import Button from "../../components/Common/Button";
+import LoginModal from "../../components/Login/LoginModal";
 
 function FoodOutlet() {
   // const orderStep = useSelector(state => state.order.orderStep);
@@ -43,6 +44,7 @@ function FoodOutlet() {
       </FooterLayout>
 
       <img src={CamayaLogoGray} className={style.camayaLogoGray} />
+      <LoginModal/>
     </div>
   );
 }

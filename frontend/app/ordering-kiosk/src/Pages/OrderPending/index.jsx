@@ -13,6 +13,7 @@ import {
   CASH_PAYMENT,
   GCASH_PAYMENT,
 } from "../../utils/Constants/PaymentOptions";
+import LoginModal from "../../components/Login/LoginModal";
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -297,6 +298,7 @@ class OrderPending extends React.Component {
             <span className={style.title}>Back to home</span>
           </div>
         </FooterLayout>
+        <LoginModal/>
       </div>
     );
   }

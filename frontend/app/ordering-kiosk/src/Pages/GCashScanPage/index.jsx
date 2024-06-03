@@ -9,6 +9,7 @@ import { previousStep, setClassAnimate } from "../../store/order/orderSlice";
 
 import style from "./GCashScanPage.module.css";
 import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
+import LoginModal from "../../components/Login/LoginModal";
 
 function GCashScanPage() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function GCashScanPage() {
         open={openModal.confirmPayment}
         onClose={() => setOpenModal({ confirmPayment: false })}
       />
+      <LoginModal/>
     </div>
   );
 }

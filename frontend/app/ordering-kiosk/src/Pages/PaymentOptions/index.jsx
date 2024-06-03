@@ -22,6 +22,7 @@ import {
 import { useCreateTransaction } from "../../services/TransactionService";
 import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
+import LoginModal from "../../components/Login/LoginModal";
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
@@ -126,6 +127,8 @@ const PaymentOptions = () => {
         open={openModal.startOver}
         onClose={() => setOpenModal({ startOver: false })}
       />
+
+      <LoginModal/>
     </div>
   );
 };

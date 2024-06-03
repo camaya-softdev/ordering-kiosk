@@ -13,7 +13,7 @@ import Slideshow from "../../components/Common/Slideshow";
 
 function StartPage() {
   const [loginModal, setLoginModal] = useState(true);
-  const [user, setUser] = useState(Cookies.get("user"));
+  // const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const goToNextStep = () => {
@@ -21,16 +21,16 @@ function StartPage() {
     dispatch(setClassAnimate("backwardAnimation"));
   };
 
-  useEffect(() => {
-    if (user !== undefined) {
-      setLoginModal(false);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user !== undefined) {
+  //     setLoginModal(false);
+  //   }
+  // }, [user]);
 
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-    setLoginModal(false);
-  };
+  // const handleLoginSuccess = (userData) => {
+  //   setUser(userData);
+  //   setLoginModal(false);
+  // };
 
   const classAnimate = useSelector((state) => state.order.classAnimate);
 
@@ -47,11 +47,7 @@ function StartPage() {
         <div className={style.shine} />
       </FooterLayout>
 
-      <LoginModal
-        open={loginModal}
-        onClose={() => setLoginModal(false)}
-        onLoginSuccess={handleLoginSuccess}
-      />
+      <LoginModal/>
     </div>
   );
 }

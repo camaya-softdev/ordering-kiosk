@@ -16,6 +16,7 @@ import {
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import { DINE_IN } from "../../utils/Constants/DiningOptions";
+import LoginModal from "../../components/Login/LoginModal";
 
 const LocationPage = () => {
   const selectedLocation = useSelector((state) => state.order.location);
@@ -124,6 +125,7 @@ const LocationPage = () => {
         open={openModals.startOver}
         onClose={() => setOpenModals({ startOver: false })}
       />
+      <LoginModal/>
     </>
   );
 };

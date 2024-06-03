@@ -12,6 +12,7 @@ import {
   setClassAnimate,
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
+import LoginModal from "../../components/Login/LoginModal";
 
 const OrderSummary = () => {
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
@@ -101,6 +102,7 @@ const OrderSummary = () => {
           open={openModal.startOver}
           onClose={() => setOpenModal({ startOver: false })}
         />
+        <LoginModal/>
       </div>
     </>
   );

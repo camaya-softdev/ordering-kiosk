@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../store/auth/authSlice';
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_API,
@@ -23,7 +25,9 @@ API.interceptors.response.use(
   response => response,
   error => {
     if (error.response && error.response.status === 401) {
-      Cookies.remove('user'); // remove the user cookie
+      Cookies.remove('user');
+      const dispatch = useDispatch();
+      dispatch(setAuth(null)); 
     }
     return Promise.reject(error);
   }

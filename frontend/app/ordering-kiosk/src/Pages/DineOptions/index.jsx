@@ -11,6 +11,7 @@ import { DELIVERY, DINE_IN, PICK_UP } from "../../utils/Constants/DiningOptions"
 import { useEffect, useState } from "react";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import useFetchLocations from "../../hooks/useFetchLocations";
+import LoginModal from "../../components/Login/LoginModal";
 
 function DineOptions() {
   const dispatch = useDispatch();
@@ -118,6 +119,7 @@ function DineOptions() {
           }
         />
       </div>
+      <LoginModal/>
     </>
   );
 }

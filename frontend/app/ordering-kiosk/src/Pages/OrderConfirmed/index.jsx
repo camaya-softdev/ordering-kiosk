@@ -3,6 +3,7 @@ import style from "./OrderConfirmed.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import CheckIcon from "../../assets/CheckIcon.svg";
+import LoginModal from "../../components/Login/LoginModal";
 const OrderConfirmed = () => {
   return (
     <div>
@@ -81,6 +82,8 @@ const OrderConfirmed = () => {
           <span className={style.title}>Back to home</span>
         </div>
       </FooterLayout>
+
+      <LoginModal/>
     </div>
   );
 };

@@ -4,24 +4,57 @@ import Button from "../Common/Button";
 import CustomInputField from "../GCashScanPage/CustomField";
 import styles from "./LoginModal.module.css";
 import { useLogin } from "../../services/AuthService";
+import { useSelector } from "react-redux";
+import Cookies from 'js-cookie';
 
-function LoginModal({open, onClose, onLoginSuccess}){
+function LoginModal(){
+    const [open, setOpen] = useState();
     const loginQuery = useLogin();
+    const auth = useSelector((state) => state.auth);
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
     });
     const [error, setError] = useState(null);
+    const [userCookie, setUserCookie] = useState(() => {
+        const cookie = Cookies.get('user');
+        return cookie ? JSON.parse(cookie) : null;
+    });
 
     const handleLogin = async () => {
         try {
             const response = await (loginQuery).mutateAsync(credentials);
-            onLoginSuccess(response.data);
-
+            onClose();
         } catch (error) {
             setError(error.response.data.message);
         }
     };
+
+    const onClose = () => {
+        setOpen(false);
+    }
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const currentUserCookie = Cookies.get('user');
+            if (currentUserCookie !== userCookie) {
+                setUserCookie(currentUserCookie);
+            }
+        }, 1000); // Check every second
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [userCookie]);
+
+    useEffect(() => {
+        if(userCookie === undefined || userCookie === null){
+            setOpen(true);
+        }
+        else{
+            setOpen(false);
+        }
+    }, [userCookie, auth]);
 
     return (
         <BottomModal
@@ -52,8 +85,6 @@ function LoginModal({open, onClose, onLoginSuccess}){
                     >
                         Login
                     </Button>
-
-                    
                 </div>
 
                 {error && <div className={styles.errorMessage}>{error}</div>}

@@ -3,6 +3,7 @@ import CategoryList from "../../components/Outletorder/CategoryList";
 import ProductList from "../../components/Outletorder/ProductList";
 import OrderFooter from "../../components/Outletorder/OrderFooter";
 import { useSelector } from "react-redux";
+import LoginModal from "../../components/Login/LoginModal";
 
 const Outletorder = () => {
   const selectedOutlet = useSelector((state) => state.order.selectedOutlet);
@@ -31,6 +32,7 @@ const Outletorder = () => {
       </div>
 
       <OrderFooter />
+      <LoginModal/>
     </div>
   );
 };
