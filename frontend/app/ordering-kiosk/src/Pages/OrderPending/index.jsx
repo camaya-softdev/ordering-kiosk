@@ -39,7 +39,7 @@ class OrderPending extends React.Component {
           }
         }
       );
-    }, 1000);
+    }, 100000);
 
     this.checkHeight();
   }
@@ -51,7 +51,7 @@ class OrderPending extends React.Component {
   checkHeight() {
     if (this.receiptComponentsRef.current) {
       const height = this.receiptComponentsRef.current.clientHeight;
-      if (height >= 1000) {
+      if (height >= 900) {
         this.setState({ showScrollDivs: true });
       }
     }
@@ -277,6 +277,9 @@ class OrderPending extends React.Component {
                 </div>
               </div>
             </div>
+            <p className={style.countdownTimer}>
+              Page will reset in {countdown}
+            </p>
           </div>
           {showScrollDivs && (
             <div className={style.scrollDivs}>
@@ -284,7 +287,6 @@ class OrderPending extends React.Component {
               <img src={ScrollGIF} />
             </div>
           )}
-          <p className={style.countdownTimer}>Page will reset in {countdown}</p>
         </div>
         <FooterLayout className={style.footer}>
           <img src={CamayaLogo} />
