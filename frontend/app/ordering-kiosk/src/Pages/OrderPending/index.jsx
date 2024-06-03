@@ -100,12 +100,12 @@ class OrderPending extends React.Component {
                   {order.paymentOption === CASH_PAYMENT ? (
                     <>
                       Kindly take your order slip for reference then proceed to{" "}
-                      <span>{order.selectedOutlet.name}</span> to pay.
+                      <span>{order.selectedOutlet.name}</span> counter to pay.
                     </>
                   ) : (
                     <>
-                      Army Navy is preparing your order. If there are any
-                      concerns, we will contact you.
+                      {order.selectedOutlet.name} is preparing your order. If
+                      there are any concerns, we will contact you.
                       <br></br>
                       <br></br>
                       Kindly take your order slip for reference.
