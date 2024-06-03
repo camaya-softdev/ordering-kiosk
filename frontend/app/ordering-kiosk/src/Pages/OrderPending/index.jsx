@@ -277,9 +277,6 @@ class OrderPending extends React.Component {
                 </div>
               </div>
             </div>
-            <p className={style.countdownTimer}>
-              Page will reset in {countdown}
-            </p>
           </div>
           {showScrollDivs && (
             <div className={style.scrollDivs}>
@@ -287,6 +284,7 @@ class OrderPending extends React.Component {
               <img src={ScrollGIF} />
             </div>
           )}
+          <p className={style.countdownTimer}>Page will reset in {countdown}</p>
         </div>
         <FooterLayout className={style.footer}>
           <img src={CamayaLogo} />
