@@ -39,7 +39,7 @@ class OrderPending extends React.Component {
           }
         }
       );
-    }, 100000);
+    }, 1000);
 
     this.checkHeight();
   }
