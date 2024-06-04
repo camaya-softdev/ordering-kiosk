@@ -24,18 +24,18 @@ function App() {
       }
     };
 
-    const handleUnload = () => {
+    const handleBeforeUnload = (e) => {
       Cookies.remove('user');
     };
 
     document.addEventListener("contextmenu", disableContextMenu);
     document.addEventListener("keydown", disableShortcuts);
-    window.addEventListener("unload", handleUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
       document.removeEventListener("contextmenu", disableContextMenu);
       document.removeEventListener("keydown", disableShortcuts);
-      window.removeEventListener("unload", handleUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [dispatch]);
 
