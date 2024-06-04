@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import "./index.css";
-import { MainLayout } from "./layout/MainLayout";
+import MainLayout from "./layout/MainLayout";
 import { checkCookieValidity } from "./utils/Common/CheckCookieValidity";
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie';
@@ -24,7 +24,7 @@ function App() {
       }
     };
 
-    const handleBeforeUnload = (e) => {
+    const handleBeforeUnload = () => {
       Cookies.remove('user');
     };
 

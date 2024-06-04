@@ -18,7 +18,7 @@ function DineOptions() {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({startOver: false});
   const diningOption = useSelector((state) => state.order.diningOption);
-  const {locations, isLocationsLoading, setLocationsFilter, refetchLocations, locationsFilter} = useFetchLocations();
+  const {locations, isLocationsLoading, setLocationsFilter, locationsFilter} = useFetchLocations();
   const currentUser = useSelector((state) => state.auth);
   const location = useSelector((state) => state.order.location);
   const [tempDiningOption, setTempDiningOption] = useState(null);
@@ -30,14 +30,15 @@ function DineOptions() {
         dispatch(setArea(null));
       }
     }
-  }, [locationsFilter, diningOption, locations]);
+  }, [locationsFilter, diningOption, locations, dispatch, isLocationsLoading]);
 
   useEffect(() => {
     if(diningOption === DINE_IN && location !== null && tempDiningOption !== null){
       dispatch(nextStep());
     }
-  }, [location]);
-    const classAnimate = useSelector((state) => state.order.classAnimate);
+  }, [location, diningOption, tempDiningOption, dispatch]);
+
+  const classAnimate = useSelector((state) => state.order.classAnimate);
   const selectDiningOption = (option) => {
     dispatch(setDiningOption(option));
     setTempDiningOption(option);

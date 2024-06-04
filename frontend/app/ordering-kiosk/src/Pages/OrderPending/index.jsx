@@ -11,10 +11,9 @@ import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ReactToPrint from "react-to-print";
 import {
   CASH_PAYMENT,
-  GCASH_PAYMENT,
 } from "../../utils/Constants/PaymentOptions";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -69,11 +68,6 @@ class OrderPending extends React.Component {
           trigger={() => <></>}
           content={() => this.componentRef}
           ref={this.printRef}
-          // onAfterPrint={() => {
-          //   setTimeout(() => {
-          //     dispatch(resetOrder());
-          //   }, 10000);
-          // }}
         />
         <div
           className={style.resultWrapper}
@@ -87,6 +81,7 @@ class OrderPending extends React.Component {
                   src={
                     order.paymentOption === CASH_PAYMENT ? ClockIcon : CheckIcon
                   }
+                  alt="icon"
                 />
                 <span className={style.orderStatus}>
                   {order.paymentOption === CASH_PAYMENT
@@ -283,7 +278,7 @@ class OrderPending extends React.Component {
           {showScrollDivs && (
             <div className={style.scrollDivs}>
               <p>Scroll Down</p>
-              <LazyLoadImage src={ScrollGIF} />
+              <LazyLoadImage src={ScrollGIF} alt="scroll icon"/>
             </div>
           )}
           <p className={style.countdownTimer}>Page will reset in {countdown}</p>

@@ -9,15 +9,6 @@ function Slideshow({items}) {
     const swipeRef = useRef(null);
     const touchStartPos = useRef(0);
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            if (!isVideo.current || (videoRef.current && videoRef.current.ended)) {
-                nextSlide();
-            }
-        }, 5000);
-        return () => clearInterval(timer);
-    }, [currentSlide]);
-
     const nextSlide = () => {
         setCurrentSlide((currentSlide + 1) % items.length);
     };
@@ -28,7 +19,7 @@ function Slideshow({items}) {
 
     useEffect(() => {
         isVideo.current = items[currentSlide].includes('.mp4');
-    }, [currentSlide]);
+    }, [currentSlide, items]);
 
     const handleTouchStart = (e) => {
         touchStartPos.current = e.touches[0].clientX;
@@ -44,6 +35,15 @@ function Slideshow({items}) {
             prevSlide();
         }
     };
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (!isVideo.current || (videoRef.current && videoRef.current.ended)) {
+                nextSlide();
+            }
+        }, 5000);
+        return () => clearInterval(timer);
+    }, [currentSlide, nextSlide]);
 
     return (
         <div 
@@ -61,7 +61,12 @@ function Slideshow({items}) {
                     onEnded={nextSlide}
                 />
             ) : (
-                <LazyLoadImage src={items[currentSlide]} alt="current slide" />
+                <LazyLoadImage 
+                    src={items[currentSlide]} 
+                    alt="current slide" 
+                    height="100%" 
+                    width="100%"
+                />
             )}
         </div>
     );

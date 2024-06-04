@@ -33,14 +33,7 @@ const PaymentOptions = () => {
   const placeOrderQuery = useCreateTransaction();
   const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
 
-  useEffect(() => {
-    if (
-      order.paymentOption === CASH_PAYMENT &&
-      order.gcashPaymentDetails === null
-    ) {
-      handleSaveCash();
-    }
-  }, [order.paymentOption, order.gcashPaymentDetails]);
+  
 
   const onSelectPayment = (paymentMethod) => {
     if (paymentMethod === GCASH_PAYMENT) {
@@ -68,6 +61,14 @@ const PaymentOptions = () => {
     dispatch(setClassAnimate("forwardAnimation"));
   };
 
+  useEffect(() => {
+    if (
+      order.paymentOption === CASH_PAYMENT &&
+      order.gcashPaymentDetails === null
+    ) {
+      handleSaveCash();
+    }
+  }, [order.paymentOption, order.gcashPaymentDetails]);
   return (
     <div className={`${style[classAnimate]}`}>
       <div className={style.topContainer}>

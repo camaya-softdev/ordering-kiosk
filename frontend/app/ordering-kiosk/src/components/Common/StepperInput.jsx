@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./Common.module.css";
 import minusIcon from "../../assets/minus_icon.svg";
 import plusIcon from "../../assets/plus_icon.svg";

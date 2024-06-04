@@ -13,23 +13,23 @@ function CategoryList() {
     const {categories, isCategoriesLoading, setCategoriesFilter} = useFetchCategories();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if(selectedOutletId) {
-            setCategoriesFilter((prev) => ({...prev, outlet_id: selectedOutletId}));
-        }
-    }, [selectedOutletId]);
-
-    useEffect(() => {
-        if(categories?.data?.length > 0 && !selectedCategory) {
-            selectCategory(categories.data[0]);
-        }
-    }, [categories]);
-
     const selectCategory = (category) => {
         if(category.status) {
             dispatch(setSelectedCategory(category));
         }
     }
+
+    useEffect(() => {
+        if(selectedOutletId) {
+            setCategoriesFilter((prev) => ({...prev, outlet_id: selectedOutletId}));
+        }
+    }, [selectedOutletId, setCategoriesFilter]);
+
+    useEffect(() => {
+        if(categories?.data?.length > 0 && !selectedCategory) {
+            selectCategory(categories.data[0]);
+        }
+    }, [categories, selectCategory]);
 
     const renderCategoryCard = (category, isSelected) => (
         <div 

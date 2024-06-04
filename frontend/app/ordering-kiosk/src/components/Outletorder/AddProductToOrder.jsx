@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import BottomModal from "../Common/BottomModal";
 import styles from "./OutletOrder.module.css";
 import Button from "../Common/Button";
