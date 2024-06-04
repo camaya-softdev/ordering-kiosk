@@ -13,6 +13,7 @@ use App\Http\Controllers\Views\restaurant\CategoryController;
 
 use App\Http\Controllers\Views\restaurant\ProductController;
 use App\Http\Controllers\Views\ActivitylogController;
+use App\Http\Controllers\Views\GcashDetailsController;
 use App\Http\Controllers\Views\restaurant\OrderController;
 
 use App\Http\Controllers\Views\PaymentMethodController;
@@ -69,6 +70,9 @@ Route::delete('/location-number/{id}/delete', [LocationNumberController::class, 
 
 
 Route::get('/restaurants-view', [RestaurantController::class, 'index'])->name('resto.view');
+
+Route::get('/kitchen-view', [RestaurantController::class, 'kitchen_view'])->name('kitchen.view');
+
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::post('/create-category', [CategoryController::class, 'store'])->name('category.store');
 Route::put('/update-category/{id}', [CategoryController::class, 'update'])->name('category.update');
@@ -93,6 +97,11 @@ Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('ord
 Route::post('/payment-method', [PaymentMethodController::class, 'store'])->name('payment.store');
 Route::put('/payment-method/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('payment.update');
 Route::delete('/payment-method/{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('payment.destroy');
+
+Route::post('/gcash-details', [GcashDetailsController::class, 'store'])->name('gcash.store');
+Route::put('/gcash-details/{gcashDetails}', [GcashDetailsController::class, 'update'])->name('gcash.update');
+Route::delete('/gcash-details/{gcashDetails}', [GcashDetailsController::class, 'destroy'])->name('gcash.destroy');
+
 
 
 

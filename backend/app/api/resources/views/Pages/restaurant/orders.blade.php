@@ -15,6 +15,15 @@
     left: 0;
     border-radius: 2px;
 }
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.flicker {
+    animation: flicker 1s infinite;
+}
 </style>
 <table id="orderTable" class="orderTable table table-bordered table-hover custom-table">
     <thead>
@@ -82,7 +91,7 @@
             </td>
             @else
             <td>
-                <button class="btn btn-secondary text-light" data-toggle="modal" data-target="#changeStatusModal{{ $order_details->id }}">Change Status</button>
+                <button id="changeStatusButton-{{ $order_details->id }}" class="btn btn-secondary text-light" data-toggle="modal" data-target="#changeStatusModal{{ $order_details->id }}">Change Status</button>
                 @include('partials.modal.restaurant.updateOrderStatus')
             </td>
             @endif
@@ -160,6 +169,32 @@
 
 
 <script>
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Function to start the timers
+    function startOrderTimers() {
+        const orderTimers = document.querySelectorAll('.order-timer');
+
+        orderTimers.forEach(timer => {
+            const createdAt = new Date(timer.getAttribute('data-created-at'));
+            const orderId = timer.getAttribute('id').split('-')[1];
+            const changeStatusButton = document.querySelector(`#changeStatusButton-${orderId}`);
+
+            setInterval(() => {
+                const now = new Date();
+                const timeDiff = now - createdAt;
+                const minutesDiff = Math.floor(timeDiff / 1000 / 60);
+
+                if (minutesDiff > 10) {
+                    // Add flicker class if more than 10 minutes
+                    changeStatusButton.classList.add('flicker');
+                }
+            }, 1000);
+        });
+    }
+
+    startOrderTimers();
+});
 
     let existingOrderIds = new Set($('tr[data-order-id]').map(function() { return $(this).data('order-id'); }).get());
 
