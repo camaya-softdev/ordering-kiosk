@@ -23,7 +23,7 @@ function LoginModal(){
 
     const handleLogin = async () => {
         try {
-            await (loginQuery).mutateAsync(credentials);
+            const response = await (loginQuery).mutateAsync(credentials);
             onClose();
         } catch (error) {
             setError(error.response.data.message);

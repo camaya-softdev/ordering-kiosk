@@ -12,13 +12,12 @@ import { useEffect, useState } from "react";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import useFetchLocations from "../../hooks/useFetchLocations";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function DineOptions() {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({startOver: false});
   const diningOption = useSelector((state) => state.order.diningOption);
-  const {locations, isLocationsLoading, setLocationsFilter, locationsFilter} = useFetchLocations();
+  const {locations, isLocationsLoading, setLocationsFilter, refetchLocations, locationsFilter} = useFetchLocations();
   const currentUser = useSelector((state) => state.auth);
   const location = useSelector((state) => state.order.location);
   const [tempDiningOption, setTempDiningOption] = useState(null);
@@ -30,15 +29,14 @@ function DineOptions() {
         dispatch(setArea(null));
       }
     }
-  }, [locationsFilter, diningOption, locations, dispatch, isLocationsLoading]);
+  }, [locationsFilter, diningOption, locations]);
 
   useEffect(() => {
     if(diningOption === DINE_IN && location !== null && tempDiningOption !== null){
       dispatch(nextStep());
     }
-  }, [location, diningOption, tempDiningOption, dispatch]);
-
-  const classAnimate = useSelector((state) => state.order.classAnimate);
+  }, [location]);
+    const classAnimate = useSelector((state) => state.order.classAnimate);
   const selectDiningOption = (option) => {
     dispatch(setDiningOption(option));
     setTempDiningOption(option);
@@ -83,21 +81,21 @@ function DineOptions() {
                 }}
                 >
                   <span>DINE IN</span>
-                  <LazyLoadImage src={dineinlogo} alt="Dine In Logo" />
+                  <img src={dineinlogo} alt="Dine In Logo" />
                 </div>
                 <div
                   className={style.buttonOption}
                   onClick={() => selectDiningOption(PICK_UP)}
                 >
                   <span>PICKUP TAKEAWAY</span>
-                  <LazyLoadImage src={takeawaylogo} alt="Takeaway Logo" />
+                  <img src={takeawaylogo} alt="Takeaway Logo" />
                 </div>
                 <div
                   className={style.buttonOption}
                   onClick={() => selectDiningOption(DELIVERY)}
                 >
                   <span>DELIVERY</span>
-                  <LazyLoadImage src={deliverlogo} alt="Delivery Logo" />
+                  <img src={deliverlogo} alt="Delivery Logo" />
                 </div>
               </div>
             </div>

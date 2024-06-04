@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import BottomModal from "../Common/BottomModal";
 import styles from "./OutletOrder.module.css";
 import Button from "../Common/Button";
@@ -6,7 +6,6 @@ import StepperInput from "../Common/StepperInput";
 import { useDispatch } from 'react-redux';
 import { addSelectedProduct } from '../../store/order/orderSlice';
 import { formatNumber } from '../../utils/Common/Price';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function AddProductToOrder({product, open, onClose}){
     const [quantity, setQuantity] = useState(0);
@@ -35,7 +34,7 @@ function AddProductToOrder({product, open, onClose}){
         >
             <div className={styles.addProductModalBody}>
                 <div className={styles.addModalImageWrapper}>
-                    <LazyLoadImage src={`${import.meta.env.VITE_API}/${product.image}`} alt="product"/>
+                    <img src={`${import.meta.env.VITE_API}/${product.image}`} alt="product"/>
                 </div>
 
                 <div className={styles.addModalFields}>

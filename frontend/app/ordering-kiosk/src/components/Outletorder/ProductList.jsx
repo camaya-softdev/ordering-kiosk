@@ -4,6 +4,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import useGroupedProducts from "../../hooks/useFetchGroupedProducts";
 import { useLayoutEffect, useRef } from "react";
 import ProductCard from "./ProductCard";
+import BottomModal from "../Common/BottomModal";
 
 function ProductList(){
     const selectedOutletId = useSelector(state => state.order.selectedOutlet.id);
