@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BottomModal from "../Common/BottomModal";
 import Button from "../Common/Button";
 import { removeProduct } from "../../store/order/orderSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function RemoveProductConfirmation({open, onClose, product, viewOrderOnClose}){
     const dispatch = useDispatch();

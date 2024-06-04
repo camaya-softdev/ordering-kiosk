@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import categoryIcon from "../../assets/categories.svg";
 import BeatLoader from 'react-spinners/BeatLoader';
 import { setSelectedCategory } from '../../store/order/orderSlice';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CategoryList() {
     const selectedOutletId = useSelector(state => state.order.selectedOutlet.id);
@@ -12,23 +13,23 @@ function CategoryList() {
     const {categories, isCategoriesLoading, setCategoriesFilter} = useFetchCategories();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if(selectedOutletId) {
-            setCategoriesFilter((prev) => ({...prev, outlet_id: selectedOutletId}));
-        }
-    }, [selectedOutletId]);
-
-    useEffect(() => {
-        if(categories?.data?.length > 0 && !selectedCategory) {
-            selectCategory(categories.data[0]);
-        }
-    }, [categories]);
-
     const selectCategory = (category) => {
         if(category.status) {
             dispatch(setSelectedCategory(category));
         }
     }
+
+    useEffect(() => {
+        if(selectedOutletId) {
+            setCategoriesFilter((prev) => ({...prev, outlet_id: selectedOutletId}));
+        }
+    }, [selectedOutletId, setCategoriesFilter]);
+
+    useEffect(() => {
+        if(categories?.data?.length > 0 && !selectedCategory) {
+            selectCategory(categories.data[0]);
+        }
+    }, [categories, selectCategory]);
 
     const renderCategoryCard = (category, isSelected) => (
         <div 
@@ -36,7 +37,7 @@ function CategoryList() {
             key={category.name} 
             className={`${styles.categoryCard} ${isSelected ? styles.selected : ''} ${category.status ? '': 'disabled'}`}
         >
-            <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
+            <LazyLoadImage src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
             <span className={styles.categoryName}>
                 <p>{category.name}</p>
             </span>

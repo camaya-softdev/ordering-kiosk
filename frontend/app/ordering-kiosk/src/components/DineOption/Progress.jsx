@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import style from "./DineOption.module.css";
 
@@ -40,7 +40,7 @@ const Progress = (props) => {
 
     setInitialWidth(newInitialWidth);
     setSucceedingWidth(newSucceedingWidth);
-  }, [orderStep]);
+  }, [orderStep, prevOrderStep]);
 
   useEffect(() => {
     setProgressWidth(prevOrderStep < orderStep ? initialWidth : succeedingWidth);
