@@ -86,6 +86,7 @@ class OrderPending extends React.Component {
                   src={
                     order.paymentOption === CASH_PAYMENT ? ClockIcon : CheckIcon
                   }
+                  alt="icon"
                 />
                 <span className={style.orderStatus}>
                   {order.paymentOption === CASH_PAYMENT
@@ -282,13 +283,13 @@ class OrderPending extends React.Component {
           {showScrollDivs && (
             <div className={style.scrollDivs}>
               <p>Scroll Down</p>
-              <img src={ScrollGIF} />
+              <img src={ScrollGIF} alt="scroll gif"/>
             </div>
           )}
           <p className={style.countdownTimer}>Page will reset in {countdown}</p>
         </div>
         <FooterLayout className={style.footer}>
-          <img src={CamayaLogo} />
+          <img src={CamayaLogo} alt="camaya logo"/>
           <div
             className={style.backButton}
             onClick={() => dispatch(resetOrder())}

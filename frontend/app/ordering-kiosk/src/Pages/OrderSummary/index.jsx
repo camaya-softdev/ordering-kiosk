@@ -47,7 +47,7 @@ const OrderSummary = () => {
             <div className={style.outletNameLogo}>
               <img
                 src={`${import.meta.env.VITE_API}/${selectedOutlet.image}`}
-                alt=""
+                alt="outlet image"
               />
               <span>{selectedOutlet.name}</span>
             </div>

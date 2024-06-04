@@ -30,7 +30,7 @@ function StartPage() {
         <Slideshow items={[pic1, vid1]} />
       </div>
       <FooterLayout className={style.footer}>
-        <img src={CamayaLogo} />
+        <img src={CamayaLogo} alt="camaya logo"/>
         <div className={style.startButton} onClick={goToNextStep}>
           <span className={style.title}>Start order</span>
         </div>

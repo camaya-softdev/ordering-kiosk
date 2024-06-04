@@ -99,6 +99,7 @@ const PaymentOptions = () => {
                           src={`${import.meta.env.VITE_API}${
                             paymentMethod.image
                           }`}
+                          alt="payment method"
                         />
                       ) : (
                         <span>{paymentMethod.name}</span>
