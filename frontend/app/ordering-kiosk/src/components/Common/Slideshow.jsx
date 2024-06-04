@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './Common.module.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function Slideshow({items}) {
     const [currentSlide, setCurrentSlide] = useState(0);
