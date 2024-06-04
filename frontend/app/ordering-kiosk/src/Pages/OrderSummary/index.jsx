@@ -13,6 +13,7 @@ import {
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const OrderSummary = () => {
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
@@ -45,7 +46,7 @@ const OrderSummary = () => {
           <p className={style.title}>Order Summary</p>
           <div className={style.content}>
             <div className={style.outletNameLogo}>
-              <img
+              <La
                 src={`${import.meta.env.VITE_API}/${selectedOutlet.image}`}
                 alt="outlet image"
               />
@@ -57,7 +58,7 @@ const OrderSummary = () => {
                   <div className={style.leftDetails}>
                     <p className={style.countList}>{index + 1}.</p>
                     <div className={style.priceImg}>
-                      <img
+                      <LazyLoadImage
                         src={`${import.meta.env.VITE_API}/${
                           product.details.image
                         }`}

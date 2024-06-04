@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import useFetchLocations from "../../hooks/useFetchLocations";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function DineOptions() {
   const dispatch = useDispatch();
@@ -81,21 +82,21 @@ function DineOptions() {
                 }}
                 >
                   <span>DINE IN</span>
-                  <img src={dineinlogo} alt="Dine In Logo" />
+                  <LazyLoadImage src={dineinlogo} alt="Dine In Logo" />
                 </div>
                 <div
                   className={style.buttonOption}
                   onClick={() => selectDiningOption(PICK_UP)}
                 >
                   <span>PICKUP TAKEAWAY</span>
-                  <img src={takeawaylogo} alt="Takeaway Logo" />
+                  <LazyLoadImage src={takeawaylogo} alt="Takeaway Logo" />
                 </div>
                 <div
                   className={style.buttonOption}
                   onClick={() => selectDiningOption(DELIVERY)}
                 >
                   <span>DELIVERY</span>
-                  <img src={deliverlogo} alt="Delivery Logo" />
+                  <LazyLoadImage src={deliverlogo} alt="Delivery Logo" />
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './Common.module.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function Slideshow({items}) {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -60,7 +61,12 @@ function Slideshow({items}) {
                     onEnded={nextSlide}
                 />
             ) : (
-                <img src={items[currentSlide]} alt="current slide" />
+                <LazyLoadImage 
+                    src={items[currentSlide]} 
+                    alt="current slide" 
+                    height="100%" 
+                    width="100%"
+                />
             )}
         </div>
     );

@@ -23,6 +23,7 @@ import { useCreateTransaction } from "../../services/TransactionService";
 import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,7 @@ const PaymentOptions = () => {
                       }}
                     >
                       {paymentMethod.image ? (
-                        <img
+                        <LazyLoadImage
                           src={`${import.meta.env.VITE_API}${
                             paymentMethod.image
                           }`}

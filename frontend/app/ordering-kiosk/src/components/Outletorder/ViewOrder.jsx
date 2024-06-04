@@ -13,6 +13,7 @@ import { useState } from "react";
 import RemoveProductConfirmation from "./RemoveProductConfirmation";
 import SummaryFooter from "./SummaryFooter";
 import { formatNumber } from "../../utils/Common/Price";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function ViewOrder({ open, onClose }) {
   const selectedProducts = useSelector((state) => state.order.selectedProducts);
@@ -39,7 +40,7 @@ function ViewOrder({ open, onClose }) {
 
               <div className={styles.viewOrderItemDetails}>
                 <div className={styles.viewOrderImage}>
-                  <img
+                  <LazyLoadImage
                     src={`${import.meta.env.VITE_API}${product.details.image}`}
                     alt={product.details.name}
                   />
