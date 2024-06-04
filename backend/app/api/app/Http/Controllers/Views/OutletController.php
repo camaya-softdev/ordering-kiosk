@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
+use App\Models\GcashDetails;
 use App\Models\Outlet;
 use App\Models\User;
 use App\Models\PaymentMethod;
@@ -34,9 +35,15 @@ class OutletController extends Controller
             $paymentMethod = PaymentMethod::get();
             $users = User::with('outlet')->get();
 
-            // return  $paymentMethod ;
 
-            return view('outlet', ['users' => $users,'outlets' => $outlets, 'loginData' => $loginData, 'paymentMethod' => $paymentMethod]);
+            $gcash = GcashDetails::leftJoin('outlets','outlets.id','gcash_details.outlet_id')
+            ->select('gcash_details.*','outlets.name as outlet_name')
+            ->get();
+
+            // return  $paymentMethod ;
+            // return $gcash;
+
+            return view('outlet', ['gcash' => $gcash,'users' => $users,'outlets' => $outlets, 'loginData' => $loginData, 'paymentMethod' => $paymentMethod]);
 
         } else {
             return redirect()->route('login')->with('error', 'Invalid username or password');

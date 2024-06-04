@@ -94,6 +94,8 @@
                                 <a class="nav-link text-dark active" id="vert-tabs-account-tab" data-toggle="pill" href="#vert-tabs-account" role="tab" aria-controls="vert-tabs-account" aria-selected="true">Users</a>
                                 <a class="nav-link text-dark" id="vert-tabs-restaurant-tab" data-toggle="pill" href="#vert-tabs-restaurant" role="tab" aria-controls="vert-tabs-restaurant" aria-selected="false">Restaurant</a>
                                 <a class="nav-link text-dark" id="vert-tabs-payment-tab" data-toggle="pill" href="#vert-tabs-payment" role="tab" aria-controls="vert-tabs-payment" aria-selected="false">Payment Method</a>
+                                <a class="nav-link text-dark" id="vert-tabs-gcash-tab" data-toggle="pill" href="#vert-tabs-gcash" role="tab" aria-controls="vert-tabs-gcash" aria-selected="false">Gcash Settings</a>
+
                             </div>
                         </div>
 
@@ -111,6 +113,8 @@
                                         <div class="tab-pane fade" id="vert-tabs-payment" role="tabpanel" aria-labelledby="vert-tabs-payment-tab">
                                             @include('partials.payment')
                                         </div>
+                                        <div class="tab-pane fade" id="vert-tabs-gcash" role="tabpanel" aria-labelledby="vert-tabs-gcash-tab">
+                                            @include('partials.gcash')
                                     </div>
 
                         </div>

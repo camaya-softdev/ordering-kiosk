@@ -16,7 +16,8 @@
   }
 
 </style>
-@if($loginData['user']['username'] == "it_department")
+@if($loginData['user']['username'] == "it_department" || Route::currentRouteName() == 'kitchen.view')
+
 
 @else
 <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4" style="background-color: #344054">
@@ -97,6 +98,18 @@
               </i>
               <p>
                 Menu
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('kitchen.view') }}" class="nav-link {{ request()->is('menu') ? 'active bg-primary text-white' : '' }}" style="color:white!important">
+              <i class="nav-icon">
+                <i class="fa-solid fa-kitchen-set"></i>
+
+              </i>
+              <p>
+                Kitchen
               </p>
             </a>
           </li>
