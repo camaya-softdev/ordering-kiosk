@@ -4,6 +4,7 @@ import "./index.css";
 import { MainLayout } from "./layout/MainLayout";
 import { checkCookieValidity } from "./utils/Common/CheckCookieValidity";
 import { useDispatch } from "react-redux";
+import Cookies from 'js-cookie';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,12 +24,18 @@ function App() {
       }
     };
 
+    const handleUnload = () => {
+      Cookies.remove('user');
+    };
+
     document.addEventListener("contextmenu", disableContextMenu);
     document.addEventListener("keydown", disableShortcuts);
+    window.addEventListener("unload", handleUnload);
 
     return () => {
       document.removeEventListener("contextmenu", disableContextMenu);
       document.removeEventListener("keydown", disableShortcuts);
+      window.removeEventListener("unload", handleUnload);
     };
   }, [dispatch]);
 
