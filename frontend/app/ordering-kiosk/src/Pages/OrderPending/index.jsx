@@ -11,7 +11,6 @@ import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ReactToPrint from "react-to-print";
 import {
   CASH_PAYMENT,
-  GCASH_PAYMENT,
 } from "../../utils/Constants/PaymentOptions";
 import LoginModal from "../../components/Login/LoginModal";
 
@@ -163,7 +162,7 @@ class OrderPending extends React.Component {
 
                       <div className={style.orderProducts}>
                         {Object.entries(order.selectedProducts).map(
-                          ([key, product]) => {
+                          ([product]) => {
                             return (
                               <div
                                 className={style.orderItem}

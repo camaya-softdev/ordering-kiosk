@@ -1,7 +1,6 @@
 import style from "./Foodoutlet.module.css";
 import {
   previousStep,
-  setSelectedCategory,
   setClassAnimate,
 } from "../../store/order/orderSlice";
 import { useDispatch, useSelector } from "react-redux";

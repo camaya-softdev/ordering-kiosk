@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import style from "./OrderSummary.module.css";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
 import Progress from "../../components/DineOption/Progress";
@@ -46,7 +46,7 @@ const OrderSummary = () => {
           <p className={style.title}>Order Summary</p>
           <div className={style.content}>
             <div className={style.outletNameLogo}>
-              <La
+              <LazyLoadImage
                 src={`${import.meta.env.VITE_API}/${selectedOutlet.image}`}
                 alt="outlet image"
               />

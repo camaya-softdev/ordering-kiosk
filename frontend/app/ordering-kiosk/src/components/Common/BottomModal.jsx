@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Common.module.css";
 
 function BottomModal({
   children,
   open,
-  onClose,
   extras,
   title,
   subtitle,

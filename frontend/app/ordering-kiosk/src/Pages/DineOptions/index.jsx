@@ -18,7 +18,7 @@ function DineOptions() {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState({startOver: false});
   const diningOption = useSelector((state) => state.order.diningOption);
-  const {locations, isLocationsLoading, setLocationsFilter, refetchLocations, locationsFilter} = useFetchLocations();
+  const {locations, isLocationsLoading, setLocationsFilter, locationsFilter} = useFetchLocations();
   const currentUser = useSelector((state) => state.auth);
   const location = useSelector((state) => state.order.location);
   const [tempDiningOption, setTempDiningOption] = useState(null);

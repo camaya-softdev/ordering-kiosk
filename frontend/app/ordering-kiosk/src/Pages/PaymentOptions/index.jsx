@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import style from "./PaymentOption.module.css";
 import Progress from "../../components/DineOption/Progress";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
-import gcashlogo from "../../assets/gcashlogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
@@ -82,7 +81,7 @@ const PaymentOptions = () => {
           ) : (
             <>
               {Object.entries(paymentMethods?.payment_method).map(
-                ([key, paymentMethod]) => {
+                ([paymentMethod]) => {
                   return (
                     <div
                       key={paymentMethod.name}

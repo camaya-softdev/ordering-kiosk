@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import styles from "./CustomDropdown.module.css"; // Import CSS module for styling
+import { useState, useRef, useEffect } from "react";
+import styles from "./CustomDropdown.module.css";
 import BeatLoader from "react-spinners/BeatLoader";
 import downIcon from "../../assets/chevron-down.svg";
 import upIcon from "../../assets/chevron-up.svg";

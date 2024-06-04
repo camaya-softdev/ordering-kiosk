@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import "./index.css";
-import { MainLayout } from "./layout/MainLayout";
+import MainLayout from "./layout/MainLayout";
 import { checkCookieValidity } from "./utils/Common/CheckCookieValidity";
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie';
@@ -30,12 +30,12 @@ function App() {
 
     document.addEventListener("contextmenu", disableContextMenu);
     document.addEventListener("keydown", disableShortcuts);
-    window.addEventListener("unload", handleUnload);
+    window.addEventListener("beforeunload", handleUnload);
 
     return () => {
       document.removeEventListener("contextmenu", disableContextMenu);
       document.removeEventListener("keydown", disableShortcuts);
-      window.removeEventListener("unload", handleUnload);
+      window.removeEventListener("beforeunload", handleUnload);
     };
   }, [dispatch]);
 
