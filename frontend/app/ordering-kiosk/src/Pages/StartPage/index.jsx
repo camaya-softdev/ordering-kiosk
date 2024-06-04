@@ -18,6 +18,7 @@ function StartPage() {
     dispatch(setClassAnimate("backwardAnimation"));
   };
   
+  
   const classAnimate = useSelector((state) => state.order.classAnimate);
 
   return (
