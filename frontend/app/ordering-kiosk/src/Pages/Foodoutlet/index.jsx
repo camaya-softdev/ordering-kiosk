@@ -11,6 +11,7 @@ import FooterLayout from "../../layout/FooterLayout";
 import OutletList from "../../components/FoodOutlets/OutletList";
 import Button from "../../components/Common/Button";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function FoodOutlet() {
   // const orderStep = useSelector(state => state.order.orderStep);
@@ -27,7 +28,7 @@ function FoodOutlet() {
   return (
     <div className={`${style[classAnimate]}`}>
       <div className={style.header}>
-        <img src={CamayaLogo} className={style.camayaLogo} alt="camaya logo"/>
+        <LazyLoadImage src={CamayaLogo} className={style.camayaLogo} alt="camaya logo"/>
         <span className={style.title}>Choose a food outlet</span>
       </div>
 
@@ -43,7 +44,7 @@ function FoodOutlet() {
         </div>
       </FooterLayout>
 
-      <img src={CamayaLogoGray} className={style.camayaLogoGray} alt="camaya logo"/>
+      <LazyLoadImage src={CamayaLogoGray} className={style.camayaLogoGray} alt="camaya logo"/>
       <LoginModal/>
     </div>
   );

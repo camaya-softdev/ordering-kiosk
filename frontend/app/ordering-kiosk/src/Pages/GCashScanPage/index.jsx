@@ -10,6 +10,7 @@ import { previousStep, setClassAnimate } from "../../store/order/orderSlice";
 import style from "./GCashScanPage.module.css";
 import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function GCashScanPage() {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function GCashScanPage() {
             </p>
           </div>
 
-          <img src={gCashAccount} alt="GCash Account" />
+          <LazyLoadImage src={gCashAccount} alt="GCash Account" />
         </div>
       </div>
       <div className={style.circleBlur}></div>

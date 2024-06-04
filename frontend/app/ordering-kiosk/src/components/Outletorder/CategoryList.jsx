@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import categoryIcon from "../../assets/categories.svg";
 import BeatLoader from 'react-spinners/BeatLoader';
 import { setSelectedCategory } from '../../store/order/orderSlice';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CategoryList() {
     const selectedOutletId = useSelector(state => state.order.selectedOutlet.id);
@@ -36,7 +37,7 @@ function CategoryList() {
             key={category.name} 
             className={`${styles.categoryCard} ${isSelected ? styles.selected : ''} ${category.status ? '': 'disabled'}`}
         >
-            <img src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
+            <LazyLoadImage src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
             <span className={styles.categoryName}>
                 <p>{category.name}</p>
             </span>
