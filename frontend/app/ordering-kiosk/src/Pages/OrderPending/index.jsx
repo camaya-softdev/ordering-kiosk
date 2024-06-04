@@ -13,7 +13,7 @@ import {
   CASH_PAYMENT,
 } from "../../utils/Constants/PaymentOptions";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -278,7 +278,7 @@ class OrderPending extends React.Component {
           {showScrollDivs && (
             <div className={style.scrollDivs}>
               <p>Scroll Down</p>
-              <LazyLoadImage src={ScrollGIF} alt="scroll icon"/>
+              <LazyLoadImage src={ScrollGIF} />
             </div>
           )}
           <p className={style.countdownTimer}>Page will reset in {countdown}</p>
