@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
-
+import compression from 'vite-plugin-compression'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -35,10 +35,15 @@ export default defineConfig({
           },
         ],
       }
-    })
+    }),
+    compression({ algorithm: 'gzip' }),
   ],
   server: {
     host: true,
     port: 8026, // This is the port which we will use in docker
-  }
+  },
+  build: {
+    minify: 'terser', // Minify the built files
+    brotliSize: true, // Enable brotli compression size reporting
+  },
 })
