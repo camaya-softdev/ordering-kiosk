@@ -1,20 +1,34 @@
-import { useSelector } from "react-redux";
-import StartPage from "../../Pages/StartPage";
+import React from "react";
+import { useSelector, Provider } from "react-redux";
+import { Suspense } from 'react';
 import style from "./MainLayout.module.css";
-import FoodOutlet from "../../Pages/Foodoutlet";
-import OutletOrder from "../../Pages/Outletorder";
-import DineOptions from "../../Pages/DineOptions";
-import LocationPage from "../../Pages/LocationPage";
-import OrderSummary from "../../Pages/OrderSummary";
-import PaymentOptions from "../../Pages/PaymentOptions";
-import GCashScanPage from "../../Pages/GCashScanPage";
-import OrderPending from "../../Pages/OrderPending";
+import BeatLoader from "react-spinners/BeatLoader";
+
+const StartPage = React.lazy(() => import("../../Pages/StartPage"));
+const FoodOutlet = React.lazy(() => import("../../Pages/Foodoutlet"));
+const OutletOrder = React.lazy(() => import("../../Pages/Outletorder"));
+const DineOptions = React.lazy(() => import("../../Pages/DineOptions"));
+const LocationPage = React.lazy(() => import("../../Pages/LocationPage"));
+const OrderSummary = React.lazy(() => import("../../Pages/OrderSummary"));
+const PaymentOptions = React.lazy(() => import("../../Pages/PaymentOptions"));
+const GCashScanPage = React.lazy(() => import("../../Pages/GCashScanPage"));
+const OrderPending = React.lazy(() => import("../../Pages/OrderPending"));
 
 function stylized(WrappedComponent) {
   const StylizedComponent = function (props) {
     return (
       <div className={style.mainLayout}>
-        <WrappedComponent {...props} />
+        <Suspense fallback={
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <BeatLoader 
+              color="#FD3C00"
+              size={35}
+              speedMultiplier={0.5}
+            />
+          </div>
+        }>
+          <WrappedComponent {...props} />
+        </Suspense>
       </div>
     );
   };
