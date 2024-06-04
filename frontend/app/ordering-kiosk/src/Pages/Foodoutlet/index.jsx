@@ -27,7 +27,7 @@ function FoodOutlet() {
   return (
     <div className={`${style[classAnimate]}`}>
       <div className={style.header}>
-        <img src={CamayaLogo} className={style.camayaLogo} />
+        <img src={CamayaLogo} className={style.camayaLogo} alt="camaya logo"/>
         <span className={style.title}>Choose a food outlet</span>
       </div>
 
@@ -43,7 +43,7 @@ function FoodOutlet() {
         </div>
       </FooterLayout>
 
-      <img src={CamayaLogoGray} className={style.camayaLogoGray} />
+      <img src={CamayaLogoGray} className={style.camayaLogoGray} alt="camaya logo"/>
       <LoginModal/>
     </div>
   );

@@ -77,7 +77,7 @@ const OrderConfirmed = () => {
         </div>
       </div>
       <FooterLayout className={style.footer}>
-        <img src={CamayaLogo} />
+        <img src={CamayaLogo} alt="camaya logo" />
         <div className={style.backButton}>
           <span className={style.title}>Back to home</span>
         </div>

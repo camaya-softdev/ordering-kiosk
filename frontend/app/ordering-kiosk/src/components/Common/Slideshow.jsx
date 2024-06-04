@@ -60,7 +60,7 @@ function Slideshow({items}) {
                     onEnded={nextSlide}
                 />
             ) : (
-                <img src={items[currentSlide]} alt="" />
+                <img src={items[currentSlide]} alt="current slide" />
             )}
         </div>
     );

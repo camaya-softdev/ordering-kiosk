@@ -288,7 +288,7 @@ class OrderPending extends React.Component {
           <p className={style.countdownTimer}>Page will reset in {countdown}</p>
         </div>
         <FooterLayout className={style.footer}>
-          <img src={CamayaLogo} />
+          <img src={CamayaLogo} alt="camaya logo"/>
           <div
             className={style.backButton}
             onClick={() => dispatch(resetOrder())}
