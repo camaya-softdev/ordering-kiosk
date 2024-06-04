@@ -1,6 +1,7 @@
 import style from "./Foodoutlet.module.css";
 import {
   previousStep,
+  setSelectedCategory,
   setClassAnimate,
 } from "../../store/order/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,6 @@ import FooterLayout from "../../layout/FooterLayout";
 import OutletList from "../../components/FoodOutlets/OutletList";
 import Button from "../../components/Common/Button";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function FoodOutlet() {
   // const orderStep = useSelector(state => state.order.orderStep);
@@ -27,7 +27,7 @@ function FoodOutlet() {
   return (
     <div className={`${style[classAnimate]}`}>
       <div className={style.header}>
-        <LazyLoadImage src={CamayaLogo} className={style.camayaLogo} alt="camaya logo"/>
+        <img src={CamayaLogo} className={style.camayaLogo} />
         <span className={style.title}>Choose a food outlet</span>
       </div>
 
@@ -43,7 +43,7 @@ function FoodOutlet() {
         </div>
       </FooterLayout>
 
-      <LazyLoadImage src={CamayaLogoGray} className={style.camayaLogoGray} alt="camaya logo"/>
+      <img src={CamayaLogoGray} className={style.camayaLogoGray} />
       <LoginModal/>
     </div>
   );

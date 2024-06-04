@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "./OutletOrder.module.css";
 import AddProductToOrder from "./AddProductToOrder";
 import { formatNumber } from "../../utils/Common/Price";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function ProductCard({ product }){
     const [addProduct, setAddProduct] = useState(false);
@@ -22,7 +21,7 @@ function ProductCard({ product }){
                 onClick={selectProduct}
             >
                 <div className={styles.productImageWrapper}>
-                    <LazyLoadImage src={`${import.meta.env.VITE_API}/${product.image}`} alt="product" className={styles.productImage}/>
+                    <img src={`${import.meta.env.VITE_API}/${product.image}`} alt="product" className={styles.productImage}/>
                 </div>
 
                 <div className={styles.productDetails}>

@@ -1,9 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import styles from "./CustomDropdown.module.css";
+import React, { useState, useRef, useEffect } from "react";
+import styles from "./CustomDropdown.module.css"; // Import CSS module for styling
 import BeatLoader from "react-spinners/BeatLoader";
 import downIcon from "../../assets/chevron-down.svg";
 import upIcon from "../../assets/chevron-up.svg";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CustomDropdown({ options, defaultOption, onSelect, displayProperty = "name", loading, disabled}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +47,7 @@ function CustomDropdown({ options, defaultOption, onSelect, displayProperty = "n
         {
           loading ? <BeatLoader/> : selectedOption || defaultOption
         }
-        <LazyLoadImage src={isOpen ? upIcon : downIcon} alt="dropdown icon" />
+        <img src={isOpen ? upIcon : downIcon} alt="dropdown icon" />
       </div>
       {
         loading ? null : (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./LocationPage.module.css";
 import Progress from "../../components/DineOption/Progress";
 import Button from "../../components/Common/Button";
@@ -45,7 +45,7 @@ const LocationPage = () => {
     if (selectedLocation) {
       setAreasFilter((prev) => ({ ...prev, location_id: selectedLocation.id }));
     }
-  }, [selectedLocation, selectedArea, setAreasFilter]);
+  }, [selectedLocation, selectedArea]);
 
   const handleBackClick = () => {
     dispatch(previousStep());
@@ -57,7 +57,7 @@ const LocationPage = () => {
   };
 
   return (
-    <div className={`${style[classAnimate]}`}>
+    <>
       <div className={style.topContainer}>
         <Progress />
       </div>
@@ -97,7 +97,7 @@ const LocationPage = () => {
                 className={`${
                   !selectedLocation || !selectedArea ? "disabled" : ""
                 }`}
-                onClick={handleProceedClick}
+                onClick={() => dispatch(nextStep())}
               >
                 Proceed to checkout
               </Button>
@@ -112,7 +112,7 @@ const LocationPage = () => {
         showDiningDetails={true}
         showLocationDetails={true}
         backOnClick={() => {
-          handleBackClick();
+          dispatch(previousStep());
           if(diningOption === DINE_IN && currentUser.auth.outlet_id !== null){
             dispatch(setLocation(null));
             dispatch(setArea(null));
@@ -126,7 +126,7 @@ const LocationPage = () => {
         onClose={() => setOpenModals({ startOver: false })}
       />
       <LoginModal/>
-    </div>
+    </>
   );
 };
 

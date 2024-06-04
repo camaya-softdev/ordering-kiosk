@@ -1,8 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./Common.module.css";
 import minusIcon from "../../assets/minus_icon.svg";
 import plusIcon from "../../assets/plus_icon.svg";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function StepperInput({
   initialValue = 0,
@@ -52,7 +51,7 @@ function StepperInput({
   return (
     <div className={classes.wrapper}>
       <div className={classes.action} onClick={decrement}>
-        <LazyLoadImage src={minusIcon} alt="minus" />
+        <img src={minusIcon} alt="minus" />
       </div>
 
       <div className={classes.value}>
@@ -60,7 +59,7 @@ function StepperInput({
       </div>
 
       <div className={classes.action} onClick={increment}>
-        <LazyLoadImage src={plusIcon} alt="plus" />
+        <img src={plusIcon} alt="plus" />
       </div>
     </div>
   );

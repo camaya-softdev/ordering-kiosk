@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import "./index.css";
-import MainLayout from "./layout/MainLayout";
+import { MainLayout } from "./layout/MainLayout";
 import { checkCookieValidity } from "./utils/Common/CheckCookieValidity";
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie';
@@ -24,18 +24,18 @@ function App() {
       }
     };
 
-    const handleBeforeUnload = () => {
+    const handleUnload = () => {
       Cookies.remove('user');
     };
 
     document.addEventListener("contextmenu", disableContextMenu);
     document.addEventListener("keydown", disableShortcuts);
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("unload", handleUnload);
 
     return () => {
       document.removeEventListener("contextmenu", disableContextMenu);
       document.removeEventListener("keydown", disableShortcuts);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("unload", handleUnload);
     };
   }, [dispatch]);
 
