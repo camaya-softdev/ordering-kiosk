@@ -20,18 +20,8 @@ function StartPage() {
     dispatch(nextStep());
     dispatch(setClassAnimate("backwardAnimation"));
   };
-
-  // useEffect(() => {
-  //   if (user !== undefined) {
-  //     setLoginModal(false);
-  //   }
-  // }, [user]);
-
-  // const handleLoginSuccess = (userData) => {
-  //   setUser(userData);
-  //   setLoginModal(false);
-  // };
-
+  
+  
   const classAnimate = useSelector((state) => state.order.classAnimate);
 
   return (

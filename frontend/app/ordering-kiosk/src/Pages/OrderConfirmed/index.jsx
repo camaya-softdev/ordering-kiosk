@@ -4,12 +4,14 @@ import FooterLayout from "../../layout/FooterLayout";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import CheckIcon from "../../assets/CheckIcon.svg";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 const OrderConfirmed = () => {
   return (
     <div>
       <div className={style.mainContainer}>
         <div>
-          <img src={CheckIcon} />
+          <LazyLoadImage src={CheckIcon} alt="check icon"/>
         </div>
         <div className={style.pOrderConfirm}>
           <p>Order Confirmed!</p>
@@ -77,7 +79,7 @@ const OrderConfirmed = () => {
         </div>
       </div>
       <FooterLayout className={style.footer}>
-        <img src={CamayaLogo} />
+        <LazyLoadImage src={CamayaLogo} alt="camaya logo" />
         <div className={style.backButton}>
           <span className={style.title}>Back to home</span>
         </div>
@@ -89,3 +91,4 @@ const OrderConfirmed = () => {
 };
 
 export default OrderConfirmed;
+
