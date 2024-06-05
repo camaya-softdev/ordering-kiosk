@@ -62,6 +62,7 @@ class OrderPending extends React.Component {
     const { order, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
 
+    console.log(order);
     return (
       <div>
         <ReactToPrint
@@ -157,41 +158,32 @@ class OrderPending extends React.Component {
                     <div className={style.orderList}>
                       <div className={style.orderOutlet}>
                         <p>
-                          <span>{order.selectedOutlet.name}</span>
+                          <span>{order.selectedOutlet ? order.selectedOutlet.name : "-"}</span>
                         </p>
                       </div>
 
                       <div className={style.orderProducts}>
-                        {Object.entries(order.selectedProducts).map(
-                          ([product]) => {
-                            return (
-                              <div
-                                className={style.orderItem}
-                                key={product.details.id}
-                              >
-                                <div className={style.itemDetails}>
-                                  <p>
-                                    <span>
-                                      {product.details.name}
-                                      {` (PHP ${formatNumber(
-                                        product.details.price
-                                      )})`}
-                                    </span>
-                                    <span>{`x${product.quantity}`}</span>
-                                  </p>
-                                </div>
-
-                                <div className={style.itemTotal}>
-                                  <p>
-                                    <span>{`PHP ${formatNumber(
-                                      product.details.price * product.quantity
-                                    )}`}</span>
-                                  </p>
-                                </div>
+                        {order.selectedProducts.map((product, index) => {
+                          return (
+                            <div className={style.orderItem} key={index}>
+                              <div className={style.itemDetails}>
+                                <p>
+                                  <span>
+                                    {product.details ? product.details.name : "-"}
+                                    {` (PHP ${formatNumber(product.details.price)})`}
+                                  </span>
+                                  <span>{`x${product.quantity}`}</span>
+                                </p>
                               </div>
-                            );
-                          }
-                        )}
+
+                              <div className={style.itemTotal}>
+                                <p>
+                                  <span>{`PHP ${formatNumber(product.details.price * product.quantity)}`}</span>
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
 
