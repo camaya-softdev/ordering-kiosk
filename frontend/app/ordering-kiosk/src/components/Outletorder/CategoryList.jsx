@@ -34,7 +34,7 @@ function CategoryList() {
     const renderCategoryCard = (category, isSelected) => (
         <div 
             onClick={() => selectCategory(category)}
-            key={category.name} 
+            key={category.id} 
             className={`${styles.categoryCard} ${isSelected ? styles.selected : ''} ${category.status ? '': 'disabled'}`}
         >
             <LazyLoadImage src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>

@@ -39,7 +39,7 @@ function ProductList(){
                     })
                     .map(([category, products], index) => (
                         <div  
-                            key={category}
+                            key={index}
                             ref={el => categoryRefs.current[category] = el}
                             className={`${styles.byCategoryWrapper} ${index === 0 ? styles.first : ''}`}
                         >

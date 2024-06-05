@@ -104,10 +104,10 @@ button {
     gap: 40px;
 }
 
-.gcashWrapper img {
+.gcash_qr {
     width: 464px;
     height: 700px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .backwardAnimation {

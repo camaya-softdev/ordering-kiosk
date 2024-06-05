@@ -67,7 +67,7 @@ function GCashScanPage() {
             <>
             {
               gcashImage ?
-              <LazyLoadImage src={`${import.meta.env.VITE_API}/${gcashImage}`} alt="GCash Account" />
+              <LazyLoadImage src={`${import.meta.env.VITE_API}/${gcashImage}`} alt="GCash Account" className={style.gcash_qr}/>
               :
               <span >No GCash details found.</span>
             }
