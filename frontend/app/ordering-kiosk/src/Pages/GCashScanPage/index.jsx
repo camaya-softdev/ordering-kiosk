@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Progress from "../../components/DineOption/Progress";
 import SummaryFooter from "../../components/Outletorder/SummaryFooter";
-import gCashAccount from "../../assets/GCashAccount/account.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import { previousStep, setClassAnimate } from "../../store/order/orderSlice";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import style from "./GCashScanPage.module.css";
 import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
 import LoginModal from "../../components/Login/LoginModal";
+import useFetchGCashDetails from "../../hooks/useFetchGCashDetails";
+import BeatLoader from "react-spinners/BeatLoader";
 
 function GCashScanPage() {
   const dispatch = useDispatch();
+  const selectedOutlet = useSelector((state) => state.order.selectedOutlet);
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
   const classAnimate = useSelector((state) => state.order.classAnimate);
+  const [gcashImage, setGcashImage] = useState(null);
   const [openModal, setOpenModal] = useState({
     startOver: false,
     confirmPayment: false,
@@ -24,6 +27,17 @@ function GCashScanPage() {
     dispatch(previousStep());
     dispatch(setClassAnimate("forwardAnimation"));
   };
+
+  const {gcashDetails, isGcashDetailsLoading} = useFetchGCashDetails({outlet_id: selectedOutlet.id});
+
+  useEffect(() => {
+    if(gcashDetails?.data?.length > 0){
+      setGcashImage(gcashDetails.data[0].image);
+    }
+    else{
+      setGcashImage(null);
+    }
+  }, [gcashDetails]);
 
   return (
     <div className={`${style[classAnimate]}`}>
@@ -40,7 +54,26 @@ function GCashScanPage() {
             </p>
           </div>
 
-          <img src={gCashAccount} alt="GCash Account" />
+          {
+            isGcashDetailsLoading ?
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <BeatLoader
+                color="#FD3C00"
+                size={35}
+                speedMultiplier={0.5}
+              />
+            </div>
+            :
+            <>
+            {
+              gcashImage ?
+              <LazyLoadImage src={`${import.meta.env.VITE_API}/${gcashImage}`} alt="GCash Account" />
+              :
+              <span >No GCash details found.</span>
+            }
+            </>
+          }
+          
         </div>
       </div>
       <div className={style.circleBlur}></div>

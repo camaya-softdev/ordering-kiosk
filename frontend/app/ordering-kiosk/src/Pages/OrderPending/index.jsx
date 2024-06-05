@@ -13,6 +13,7 @@ import {
   CASH_PAYMENT,
 } from "../../utils/Constants/PaymentOptions";
 import LoginModal from "../../components/Login/LoginModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
@@ -81,7 +82,7 @@ class OrderPending extends React.Component {
           <div className={style.innerWrapper}>
             <div className={style.iconWrapper}>
               <div className={style.iconDetails}>
-                <img
+                <LazyLoadImage
                   src={
                     order.paymentOption === CASH_PAYMENT ? ClockIcon : CheckIcon
                   }
@@ -282,13 +283,13 @@ class OrderPending extends React.Component {
           {showScrollDivs && (
             <div className={style.scrollDivs}>
               <p>Scroll Down</p>
-              <img src={ScrollGIF} alt="scroll gif"/>
+              <LazyLoadImage src={ScrollGIF} alt="scroll gif"/>
             </div>
           )}
           <p className={style.countdownTimer}>Page will reset in {countdown}</p>
         </div>
         <FooterLayout className={style.footer}>
-          <img src={CamayaLogo} alt="camaya logo"/>
+          <LazyLoadImage src={CamayaLogo} alt="camaya logo"/>
           <div
             className={style.backButton}
             onClick={() => dispatch(resetOrder())}
