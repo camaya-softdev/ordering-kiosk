@@ -7,6 +7,7 @@ import LoginModal from "../../components/Login/LoginModal";
 import pic1 from "../../assets/Slideshow/pic1.webp";
 import vid1 from "../../assets/Slideshow/vid1.mp4";
 import Slideshow from "../../components/Common/Slideshow";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function StartPage() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function StartPage() {
         <Slideshow items={[pic1, vid1]} />
       </div>
       <FooterLayout className={style.footer}>
-        <img src={CamayaLogo} alt="camaya logo"/>
+        <LazyLoadImage src={CamayaLogo} alt="camaya logo"/>
         <div className={style.startButton} onClick={goToNextStep}>
           <span className={style.title}>Start order</span>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\OutletController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CreateTransactionController;
+use App\Http\Controllers\Admin\GCashDetailsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\LocationNumberController;
@@ -67,7 +68,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
    Route::get('/category_products/{category_id}', [CategoryController::class, 'CategoryProducts']);
    Route::apiResource('products', ProductController::class);
 
-   // Route::get('locations', [LocationController::class, 'index']);
+   Route::get('locations', [LocationController::class, 'index']);
    Route::get('location-numbers', [LocationNumberController::class, 'index']);
    Route::get('locations/location-numbers', [LocationController::class, 'locationNumbers']);
    Route::post('create-transaction', [CreateTransactionController::class, 'store']);
@@ -77,8 +78,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
    Route::get('auth-test', function() {
       return response()->json(['message' => 'Hello, world!']);
    });
+
+   Route::get('gcash-details', [GCashDetailsController::class, 'index']);
   });
-  Route::get('locations', [LocationController::class, 'index']);
 
   Route::get('/latest-order-data', [OrderController::class, 'latestOrderId']);
 

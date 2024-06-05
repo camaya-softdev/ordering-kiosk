@@ -81,10 +81,10 @@ const PaymentOptions = () => {
           ) : (
             <>
               {Object.entries(paymentMethods?.payment_method).map(
-                ([paymentMethod]) => {
+                ([index, paymentMethod]) => {
                   return (
                     <div
-                      key={paymentMethod.name}
+                      key={index}
                       className={`${style.btnWrapper} ${
                         paymentMethod.status ? "" : "disabled"
                       }`}
