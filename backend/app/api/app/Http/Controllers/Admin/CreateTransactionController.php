@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,10 +22,10 @@ class CreateTransactionController extends Controller
 
         try {
             $newCustomer = null;
-            if($request->gcashPaymentDetails){
+            if ($request->gcashPaymentDetails) {
                 $newCustomer = Customer::create([
                     'name' => $request->gcashPaymentDetails['name'],
-                    'mobile_number' => $request->gcashPaymentDetails['phoneNumber']
+                    'mobile_number' => $request->gcashPaymentDetails['phoneNumber'],
                 ]);
             }
 
@@ -36,7 +37,7 @@ class CreateTransactionController extends Controller
                 'dining_option' => $request->diningOption,
                 'payment_method' => $request->paymentOption,
                 'outlet_id' => $request->selectedOutlet['id'],
-                'location_number_id' => $request->area['id'] ?? null
+                'location_number_id' => $request->area['id'] ?? null,
             ]);
 
             foreach ($request->selectedProducts as $product) {
@@ -46,6 +47,12 @@ class CreateTransactionController extends Controller
                     'product_id' => $product['details']['id'],
                     'quantity' => $product['quantity'],
                 ]);
+
+                $productToUpdate = Product::where('id', $product['details']['id'])->first();
+                if ($productToUpdate) {
+                    $productToUpdate->stock -= $product['quantity'];
+                    $productToUpdate->save();
+                }
             }
 
             broadcast(new NewOrder($newTransaction))->toOthers();
