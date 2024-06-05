@@ -62,7 +62,6 @@ class OrderPending extends React.Component {
     const { order, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
 
-    console.log(order);
     return (
       <div>
         <ReactToPrint
