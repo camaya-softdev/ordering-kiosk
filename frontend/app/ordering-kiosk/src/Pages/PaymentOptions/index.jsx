@@ -14,7 +14,10 @@ import {
   setOrderStep,
   setPaymentOption,
 } from "../../store/order/orderSlice";
-import { GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
+import {
+  CASH_PAYMENT,
+  GCASH_PAYMENT,
+} from "../../utils/Constants/PaymentOptions";
 import { useCreateTransaction } from "../../services/TransactionService";
 import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
@@ -29,17 +32,6 @@ const PaymentOptions = () => {
   const [openModal, setOpenModal] = useState({ startOver: false });
   const placeOrderQuery = useCreateTransaction();
   const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
-
-  let CASH_PAYMENT;
-
-  if (!isPaymentMethodsLoading && paymentMethods) {
-    Object.entries(paymentMethods.payment_method).forEach(([key, method]) => {
-      if (method.image == null) {
-        CASH_PAYMENT = method.name;
-      }
-      console.log(method.name);
-    });
-  }
 
   useEffect(() => {
     if (
