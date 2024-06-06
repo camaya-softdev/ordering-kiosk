@@ -22,7 +22,7 @@ import { useCreateTransaction } from "../../services/TransactionService";
 import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
@@ -108,7 +108,6 @@ const PaymentOptions = () => {
                   );
                 }
               )}
-              
             </>
           )}
         </div>
@@ -129,7 +128,7 @@ const PaymentOptions = () => {
         onClose={() => setOpenModal({ startOver: false })}
       />
 
-      <LoginModal/>
+      <LoginModal />
     </div>
   );
 };
