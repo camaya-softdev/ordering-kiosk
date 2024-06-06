@@ -130,7 +130,7 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-
+{{--
                <div style="display: flex; gap: 20px; padding:5px">
                 <div class="toggle-btn-wrapper">
                     <div class="toggle-btn" id="cashFilterToggle" data-filter="cash"></div>
@@ -148,7 +148,7 @@
                     <div class="toggle-btn" id="confirmedFilterToggle" data-filter="confirmed"></div>
                     <label class="text-dark" for="confirmedFilterToggle">Confirmed Order</label>
                 </div>
-               </div>
+               </div> --}}
 
 
 

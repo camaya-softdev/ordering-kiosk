@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 
 
@@ -107,7 +108,7 @@ class OrderController extends Controller
                 $productIncrease = Order::select('product_id', 'quantity')
                     ->where('transaction_id', $orderId)
                     ->get();
-                    
+
                 foreach ($productIncrease as $product) {
                     $productToUpdate = Product::find($product->product_id);
                     if ($productToUpdate) {
