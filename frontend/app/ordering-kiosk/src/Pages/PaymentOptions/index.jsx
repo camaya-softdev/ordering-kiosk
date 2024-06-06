@@ -14,15 +14,12 @@ import {
   setOrderStep,
   setPaymentOption,
 } from "../../store/order/orderSlice";
-import {
-  CASH_PAYMENT,
-  GCASH_PAYMENT,
-} from "../../utils/Constants/PaymentOptions";
+import { GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 import { useCreateTransaction } from "../../services/TransactionService";
 import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
@@ -32,6 +29,17 @@ const PaymentOptions = () => {
   const [openModal, setOpenModal] = useState({ startOver: false });
   const placeOrderQuery = useCreateTransaction();
   const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
+
+  let CASH_PAYMENT;
+
+  if (!isPaymentMethodsLoading && paymentMethods) {
+    Object.entries(paymentMethods.payment_method).forEach(([key, method]) => {
+      if (method.image == null) {
+        CASH_PAYMENT = method.name;
+      }
+      console.log(method.name);
+    });
+  }
 
   useEffect(() => {
     if (
@@ -108,7 +116,6 @@ const PaymentOptions = () => {
                   );
                 }
               )}
-              
             </>
           )}
         </div>
@@ -129,7 +136,7 @@ const PaymentOptions = () => {
         onClose={() => setOpenModal({ startOver: false })}
       />
 
-      <LoginModal/>
+      <LoginModal />
     </div>
   );
 };
