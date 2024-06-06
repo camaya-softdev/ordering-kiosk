@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Order;
+use App\Models\Product;
 use App\Exports\ReportExport;
 use Illuminate\Support\Facades\Validator;
 // use App\Services\ProductService;
@@ -100,6 +101,21 @@ class OrderController extends Controller
             // Update the status of the order
             $order->status = $newStatus;
             $order->save();
+
+            if ($newStatus == "cancelled") {
+                // Retrieve the order details related to the given transaction
+                $productIncrease = Order::select('product_id', 'quantity')
+                    ->where('transaction_id', $orderId)
+                    ->get();
+                    
+                foreach ($productIncrease as $product) {
+                    $productToUpdate = Product::find($product->product_id);
+                    if ($productToUpdate) {
+                        $productToUpdate->stock += $product->quantity;
+                        $productToUpdate->save();
+                    }
+                }
+            }
 
             return redirect()->route('resto.view')->with('success', 'Status Updated successfully');
         } else {
