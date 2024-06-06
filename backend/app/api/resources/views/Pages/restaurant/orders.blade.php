@@ -91,7 +91,15 @@
             </td>
             @else
             <td>
-                <button id="changeStatusButton-{{ $order_details->id }}" class="btn btn-secondary text-light" data-toggle="modal" data-target="#changeStatusModal{{ $order_details->id }}">Change Status</button>
+                <button
+                id="changeStatusButton-{{ $order_details->id }}"
+                class="btn btn-secondary text-light"
+                data-toggle="modal"
+                data-target="#changeStatusModal{{ $order_details->id }}"
+                @if($order_details->status == 'cancelled' || $order_details->status == 'delivered')
+                disabled
+            @endif>
+                Change Status</button>
                 @include('partials.modal.restaurant.updateOrderStatus')
             </td>
             @endif

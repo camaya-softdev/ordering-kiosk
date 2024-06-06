@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views\restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Carbon\Carbon;
 
 
 class RestaurantController extends Controller
@@ -25,6 +26,7 @@ class RestaurantController extends Controller
             )->with('customer')->with('outlet')
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
+            ->whereDate('transactions.created_at', '=', Carbon::today())
             ->orderBy('transactions.created_at', 'desc');
             if ($username !== 'it_department') {
                 $query->where('transactions.outlet_id', '=', $outlet_id);
@@ -63,6 +65,7 @@ class RestaurantController extends Controller
             )->with('customer')->with('outlet')
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
+            ->whereDate('transactions.created_at', '=', Carbon::today())
             ->orderBy('transactions.created_at', 'desc');
             if ($username !== 'it_department') {
                 $query->where('transactions.outlet_id', '=', $outlet_id);
