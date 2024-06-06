@@ -16,7 +16,11 @@
 }
 
 .grayBtn:hover, .grayBtn:active {
-    background: var(--Gray-200, #b4b6b8);
+    background: var(--Gray-200, #1E1E1E);
+}
+
+.grayBtn:hover>span>p, .grayBtn:active>span>p {
+    color: white;
 }
 
 .grayBtn>span>p {
@@ -27,6 +31,7 @@
     font-weight: 600;
     line-height: normal;
 }
+
 
 
 
@@ -72,7 +77,7 @@
 }
 
 
-.blackBtn {
+.redBtn {
     cursor: pointer;
     display: flex;
     height: 100px;
@@ -82,27 +87,27 @@
     gap: 12px;
     flex: 1 0 0;
     border-radius: 16px;
-    background: #1E1E1E;
+    background: #B60202;
 
     /* shadow-2 */
     box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
     transition: background 1s ease;
 }
 
-.blackBtn:hover, .blackBtn:active {
-    background: #030523cb
+.redBtn:hover, .redBtn:active {
+    background: #f41515
 }
 
-.blackBtnDisabled {
-    background: #8E8E8E;
+.redBtnDisabled {
+    background: #b34d4d;
     cursor: not-allowed;
 }
 
-.blackBtnDisabled:hover {
-    background: #8E8E8E !important;
+.redBtnDisabled:hover {
+    background: #b34d4d !important;
 }
 
-.blackBtn>span,
+.redBtn>span,
 .whiteBtn>span,
 .grayBtn>span {
     display: flex;
@@ -111,7 +116,7 @@
     align-items: flex-start;
 }
 
-.blackBtn>span>p {
+.redBtn>span>p {
     color: #FFF;
     font-family: Poppins;
     font-size: 28px;
@@ -120,25 +125,6 @@
     line-height: normal;
 }
 
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeOutContent {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
 
 .modalWrapper {
     display: flex;
@@ -159,10 +145,21 @@
     transition: visibility 0.8s, opacity 0.5s ease-out 0.5s;
 }
 
+.fullModalWrapper {
+    display: flex;
+    width: 1080px;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #FFF;
+    max-height: 1920px;
+    overflow: hidden;
+    height: 1920px;
+}
+
 .modalWrapper.show {
     visibility: visible;
     opacity: 1;
-    transition: opacity 0.5s ease-out;
+    transition: opacity 0.3s ease-out;
 }
 
 .modalContent {
@@ -178,8 +175,57 @@
     animation: slideUp 0.5s ease-out forwards;
 }
 
+.modalCenterContent {
+    display: flex;
+    width: 80%;
+    position: absolute;
+    top: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 48px;
+    background: white;
+    max-height: 1920px;
+    overflow: hidden;
+    transform: translateY(-100%);
+    animation: slideDown 0.5s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+
+
+@keyframes fadeOutContent {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+
 .modalContent.fadeOut {
-    animation: fadeOutContent 0.5s forwards;
+    animation: fadeOutContent 0.3s forwards;
 }
 
 

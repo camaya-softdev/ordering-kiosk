@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { nextStep, setClassAnimate } from "../../store/order/orderSlice";
 import style from "./StartPage.module.css";
 import FooterLayout from "../../layout/FooterLayout";
-import CamayaLogo from "../../assets/camaya-logo.svg";
+import CamayaLogo from "../../assets/camayalogowhite.webp";
 import LoginModal from "../../components/Login/LoginModal";
 import pic1 from "../../assets/Slideshow/pic1.webp";
 import vid1 from "../../assets/Slideshow/vid1.mp4";
 import Slideshow from "../../components/Common/Slideshow";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function StartPage() {
   const dispatch = useDispatch();
@@ -16,8 +16,7 @@ function StartPage() {
     dispatch(nextStep());
     dispatch(setClassAnimate("backwardAnimation"));
   };
-  
-  
+
   const classAnimate = useSelector((state) => state.order.classAnimate);
 
   return (
@@ -26,14 +25,14 @@ function StartPage() {
         <Slideshow items={[pic1, vid1]} />
       </div>
       <FooterLayout className={style.footer}>
-        <LazyLoadImage src={CamayaLogo} alt="camaya logo"/>
+        {/* <LazyLoadImage src={CamayaLogo} alt="camaya logo" /> */}
         <div className={style.startButton} onClick={goToNextStep}>
-          <span className={style.title}>Start order</span>
+          <span className={style.title}>Tap here to order</span>
         </div>
         <div className={style.shine} />
       </FooterLayout>
 
-      <LoginModal/>
+      <LoginModal />
     </div>
   );
 }

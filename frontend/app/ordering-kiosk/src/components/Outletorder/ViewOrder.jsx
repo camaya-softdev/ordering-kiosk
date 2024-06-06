@@ -13,7 +13,7 @@ import { useState } from "react";
 import RemoveProductConfirmation from "./RemoveProductConfirmation";
 import SummaryFooter from "./SummaryFooter";
 import { formatNumber } from "../../utils/Common/Price";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ViewOrder({ open, onClose }) {
   const selectedProducts = useSelector((state) => state.order.selectedProducts);
@@ -32,6 +32,7 @@ function ViewOrder({ open, onClose }) {
         onClose={onClose}
         title="Your order"
         showTitleDivider={true}
+        fullViewModal={true}
       >
         <div className={styles.viewOrderDetails}>
           {selectedProducts.map((product, index) => (
@@ -94,6 +95,7 @@ function ViewOrder({ open, onClose }) {
             selectDineOptionOnClick={proceedToCheckout}
             showContinueToOrder={true}
             showSelectDineOption={true}
+            footerFullModal={true}
           />
         ) : null}
       </BottomModal>

@@ -86,15 +86,13 @@
 }
 
 .footer {
-    border-top: 1px solid #D0D5DD;
+    box-shadow: 0 0 20px rgb(187 187 187);
     background: #FFF;
 }
 
 .footerButtons {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
     gap: 16px;
     align-self: stretch;
 }
@@ -328,7 +326,7 @@
     justify-content: center;
     align-items: flex-start;
     gap: 40px;
-    flex: 1 0 0;
+    width: 60%;
 }
 
 .addModalProductDetails {
@@ -369,11 +367,10 @@
 
 .addModalButtons {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
     gap: 16px;
     align-self: stretch;
+    flex-direction: row-reverse;
 }
 
 .addModalButtons>div {
@@ -383,7 +380,6 @@
 .viewOrderDetails {
     display: flex;
     padding: 0px 40px 0 40px;
-    /* padding: 40px; */
     padding-top: 60px;
     padding-bottom: 60px;
     flex-direction: column;
@@ -392,7 +388,7 @@
     align-self: stretch;
     border-radius: 16px;
     background: #FFF;
-    max-height: 1300px;
+    max-height: 1470px;
     overflow: auto;
 }
 
@@ -497,16 +493,19 @@
     /* 100% */
 }
 
+.fullviewOrderFooter {
+    position: fixed !important;
+    bottom: 0 !important;
+}
+
 .viewOrderFooter {
-    border-top: 1px solid #D0D5DD;
+    box-shadow: 0 0 20px rgb(187 187 187);
     margin: 0;
     height: fit-content;
     display: flex;
-    /* flex-direction: column; */
     justify-content: flex-end;
     align-items: flex-end;
     align-self: flex-end;
-    /* box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.16), 0px 0px 6px -2px rgba(16, 24, 40, 0.16); */
 }
 
 .viewOrderFooter>.viewOrderFooterInner {

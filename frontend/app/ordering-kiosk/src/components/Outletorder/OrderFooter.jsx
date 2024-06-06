@@ -34,8 +34,6 @@ function OrderFooter() {
   return (
     <Footer className={styles.footer}>
       <div className={styles.footerButtons}>
-        <Button onClick={handlePreviousStep}>Back to Outlets</Button>
-
         <Button
           onClick={() => setOpenModal((prev) => ({ ...prev, startOver: true }))}
         >
@@ -66,7 +64,7 @@ function OrderFooter() {
           </Button>
 
           <Button
-            type="black"
+            type="Red"
             disabled={!selectedProducts.length}
             onClick={proceedToCheckout}
           >
