@@ -9,17 +9,15 @@ import { connect } from "react-redux";
 import { resetOrder } from "../../store/order/orderSlice";
 import { calculateTotalPrice, formatNumber } from "../../utils/Common/Price";
 import ReactToPrint from "react-to-print";
-import {
-  CASH_PAYMENT,
-} from "../../utils/Constants/PaymentOptions";
+import { CASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 class OrderPending extends React.Component {
   printRef = React.createRef();
   receiptComponentsRef = React.createRef();
   state = {
-    countdown: 10,
+    countdown: 30000,
     showScrollDivs: false,
   };
 
@@ -101,13 +99,14 @@ class OrderPending extends React.Component {
                 <p>
                   {order.paymentOption === CASH_PAYMENT ? (
                     <>
-                      Kindly take your order slip for reference then proceed to{" "}
-                      <span>{order.selectedOutlet.name}</span> counter to pay.
+                      Kindly take your order slip for reference then proceed and
+                      pay at any Ordering Booth available on any food outlet to
+                      process your order.
                     </>
                   ) : (
                     <>
-                      {order.selectedOutlet.name} is preparing your order. If
-                      there are any concerns, we will contact you.
+                      We are now preparing your order. If there are any
+                      concerns, we will contact you.
                       <br></br>
                       <br></br>
                       Kindly take your order slip for reference.
@@ -116,7 +115,6 @@ class OrderPending extends React.Component {
                 </p>
               </div>
             </div>
-
             <div className={style.orderDetails}>
               <div
                 className={style.receiptComponents}
@@ -126,8 +124,15 @@ class OrderPending extends React.Component {
                   <div className={style.innerSummary}>
                     <div className={style.summaryTitle}>
                       <span>Order details</span>
+                      {order.paymentOption === CASH_PAYMENT ? (
+                        <p>Official Receipt will be provided upon payment.</p>
+                      ) : (
+                        <p>
+                          Official Receipt will be provided upon serving your
+                          food.
+                        </p>
+                      )}
                     </div>
-
                     <div className={style.summaryRow}>
                       <div>
                         <span>ORDER NUMBER</span>
@@ -157,7 +162,11 @@ class OrderPending extends React.Component {
                     <div className={style.orderList}>
                       <div className={style.orderOutlet}>
                         <p>
-                          <span>{order.selectedOutlet ? order.selectedOutlet.name : "-"}</span>
+                          <span>
+                            {order.selectedOutlet
+                              ? order.selectedOutlet.name
+                              : "-"}
+                          </span>
                         </p>
                       </div>
 
@@ -168,8 +177,12 @@ class OrderPending extends React.Component {
                               <div className={style.itemDetails}>
                                 <p>
                                   <span>
-                                    {product.details ? product.details.name : "-"}
-                                    {` (PHP ${formatNumber(product.details.price)})`}
+                                    {product.details
+                                      ? product.details.name
+                                      : "-"}
+                                    {` (PHP ${formatNumber(
+                                      product.details.price
+                                    )})`}
                                   </span>
                                   <span>{`x${product.quantity}`}</span>
                                 </p>
@@ -177,7 +190,9 @@ class OrderPending extends React.Component {
 
                               <div className={style.itemTotal}>
                                 <p>
-                                  <span>{`PHP ${formatNumber(product.details.price * product.quantity)}`}</span>
+                                  <span>{`PHP ${formatNumber(
+                                    product.details.price * product.quantity
+                                  )}`}</span>
                                 </p>
                               </div>
                             </div>
@@ -274,13 +289,12 @@ class OrderPending extends React.Component {
           {showScrollDivs && (
             <div className={style.scrollDivs}>
               <p>Scroll Down</p>
-              <LazyLoadImage src={ScrollGIF} alt="scroll gif"/>
+              <LazyLoadImage src={ScrollGIF} alt="scroll gif" />
             </div>
           )}
           <p className={style.countdownTimer}>Page will reset in {countdown}</p>
         </div>
         <FooterLayout className={style.footer}>
-          <LazyLoadImage src={CamayaLogo} alt="camaya logo"/>
           <div
             className={style.backButton}
             onClick={() => dispatch(resetOrder())}
@@ -288,7 +302,7 @@ class OrderPending extends React.Component {
             <span className={style.title}>Back to home</span>
           </div>
         </FooterLayout>
-        <LoginModal/>
+        <LoginModal />
       </div>
     );
   }
