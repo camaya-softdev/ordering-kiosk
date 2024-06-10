@@ -42,6 +42,8 @@ class RestaurantController extends Controller
 
             $orderReport = $query->get();
 
+            // return  $orderReport;
+
             return view('Pages.restaurant.restaurant', [
                 'latestOrderId' => $latestOrderId,
                 'loginData' => $loginData,

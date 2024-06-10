@@ -103,7 +103,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('kitchen.view') }}" class="nav-link {{ request()->is('menu') ? 'active bg-primary text-white' : '' }}" style="color:white!important">
+            <a href="{{ route('kitchen.view') }}" class="nav-link {{ request()->is('kitchen-view') ? 'active bg-primary text-white' : '' }}" style="color:white!important">
               <i class="nav-icon">
                 <i class="fa-solid fa-kitchen-set"></i>
 
