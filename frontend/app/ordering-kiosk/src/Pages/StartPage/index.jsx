@@ -6,13 +6,11 @@ import LoginModal from "../../components/Login/LoginModal";
 import pic1 from "../../assets/Slideshow/pic1.webp";
 import vid1 from "../../assets/Slideshow/vid1.mp4";
 import Slideshow from "../../components/Common/Slideshow";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import useFetchOutlets from "../../hooks/useFetchOutlets";
 import { useEffect } from "react";
 
 function StartPage() {
   const dispatch = useDispatch();
-  const selectedOutlet = useSelector((state) => state.order.selectedOutlet);
   const user = useSelector((state) => state.auth.auth);
   const {outlets, setOuletFilter} = useFetchOutlets();
   
