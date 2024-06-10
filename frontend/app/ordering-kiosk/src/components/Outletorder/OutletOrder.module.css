@@ -90,9 +90,12 @@
     background: #FFF;
 }
 
+
 .footerButtons {
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     gap: 16px;
     align-self: stretch;
 }

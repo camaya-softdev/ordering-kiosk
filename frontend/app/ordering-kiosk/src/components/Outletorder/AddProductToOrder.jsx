@@ -3,7 +3,7 @@ import BottomModal from "../Common/BottomModal";
 import styles from "./OutletOrder.module.css";
 import Button from "../Common/Button";
 import StepperInput from "../Common/StepperInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addSelectedProduct } from "../../store/order/orderSlice";
 import { formatNumber } from "../../utils/Common/Price";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -11,6 +11,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 function AddProductToOrder({ product, open, onClose }) {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
+  const outlet = useSelector(state => state.order.selectedOutlet);
 
   const handleQuantityChange = (value) => {
     setQuantity(value);
@@ -18,7 +19,7 @@ function AddProductToOrder({ product, open, onClose }) {
 
   const handleAddProduct = () => {
     if (quantity > 0) {
-      dispatch(addSelectedProduct({ product, quantity }));
+      dispatch(addSelectedProduct({ product, quantity, outlet }));
       handleClose();
     }
   };
