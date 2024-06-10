@@ -15,7 +15,7 @@
     width: 100%;
     align-self: stretch;
     overflow: auto;
-    height: 1230px;
+    height: 1255px;
 }
 
 .categoryCard {
@@ -308,8 +308,6 @@
 
 .addModalImageWrapper {
     display: flex;
-    width: 350px;
-    height: 350px;
     align-items: center;
     gap: 10px;
 }
