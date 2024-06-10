@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('reference_number')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'voided', 'completed'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'voided', 'completed','delivered','No Show','preparing'])->default('pending');
             $table->string('remarks')->nullable();
             $table->enum('dining_option', ['dine-in', 'pick-up', 'delivery'])->default('dine-in');
             $table->string('payment_method')->default('cash');

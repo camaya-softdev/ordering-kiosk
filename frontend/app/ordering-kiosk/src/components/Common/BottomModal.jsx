@@ -9,14 +9,18 @@ function BottomModal({
   subtitle,
   showTitleDivider = false,
   style,
+  addProductOrder,
+  fullViewModal,
 }) {
   const [visible, setVisible] = useState(false);
   const [fadeContent, setFadeContent] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0); // Add animationKey state
 
   useEffect(() => {
     if (open) {
       setVisible(true);
       setFadeContent(false);
+      setAnimationKey((prevKey) => prevKey + 1); // Increment animationKey to trigger animation
     } else {
       setFadeContent(true);
       const timer = setTimeout(() => {
@@ -27,6 +31,15 @@ function BottomModal({
     }
   }, [open]);
 
+  let modalContentClass = styles.modalContent;
+  if (!addProductOrder && !fullViewModal) {
+    modalContentClass = styles.modalContent;
+  } else if (addProductOrder) {
+    modalContentClass = styles.modalCenterContent;
+  } else if (fullViewModal) {
+    modalContentClass = styles.fullModalWrapper;
+  }
+
   return (
     visible && (
       <div
@@ -34,9 +47,10 @@ function BottomModal({
         style={style}
       >
         <div
-          className={`${styles.modalContent} ${
+          className={`${modalContentClass} ${
             fadeContent ? styles.fadeOut : ""
           }`}
+          key={animationKey}
         >
           {title && (
             <div className={styles.modalTitleWrapper}>

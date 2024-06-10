@@ -129,7 +129,7 @@ function ConfirmGCashPayment({ open, onClose }) {
         </Button>
 
         <Button
-          type="black"
+          type="Red"
           onClick={handleConfirm}
           loading={placeOrderQuery.isLoading}
           disabled={

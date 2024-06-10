@@ -76,7 +76,10 @@ const LocationPage = () => {
                   onSelect={handleDropdown1Select}
                   displayProperty="name"
                   loading={isLocationsLoading}
-                  disabled={isLocationsLoading || (diningOption === DINE_IN && !!currentUser.auth.outlet_id)}
+                  disabled={
+                    isLocationsLoading ||
+                    (diningOption === DINE_IN && !!currentUser.auth.outlet_id)
+                  }
                 />
               </div>
               <div className={style.dropdownSelection}>
@@ -91,7 +94,7 @@ const LocationPage = () => {
                 />
               </div>
               <Button
-                type="black"
+                type="Red"
                 style={{ width: "100%" }}
                 disabled={!selectedLocation || !selectedArea}
                 className={`${
@@ -113,7 +116,7 @@ const LocationPage = () => {
         showLocationDetails={true}
         backOnClick={() => {
           handleBackClick();
-          if(diningOption === DINE_IN && currentUser.auth.outlet_id !== null){
+          if (diningOption === DINE_IN && currentUser.auth.outlet_id !== null) {
             dispatch(setLocation(null));
             dispatch(setArea(null));
           }
@@ -125,7 +128,7 @@ const LocationPage = () => {
         open={openModals.startOver}
         onClose={() => setOpenModals({ startOver: false })}
       />
-      <LoginModal/>
+      <LoginModal />
     </div>
   );
 };

@@ -9,7 +9,7 @@ function Button({
   className: customClassName,
   type = "gray",
   disabled = false,
-  loading = false
+  loading = false,
 }) {
   const [typeCss, setTypeCss] = useState(type);
   const [disabledCss, setDisabledCss] = useState("");
@@ -18,9 +18,9 @@ function Button({
     if (type === "gray") {
       setTypeCss(style.grayBtn);
       setDisabledCss(style.grayBtnDisabled);
-    } else if (type === "black") {
-      setTypeCss(style.blackBtn);
-      setDisabledCss(style.blackBtnDisabled);
+    } else if (type === "Red") {
+      setTypeCss(style.redBtn);
+      setDisabledCss(style.redBtnDisabled);
     } else if (type === "white") {
       setTypeCss(style.whiteBtn);
       setDisabledCss(style.whiteBtnDisabled);
@@ -49,11 +49,7 @@ function Button({
       onClick={handleClick}
     >
       <span>
-        {
-          loading ? 
-          <BeatLoader color="white" size={20} />
-          : <p>{children}</p>
-        }
+        {loading ? <BeatLoader color="white" size={20} /> : <p>{children}</p>}
       </span>
     </div>
   );
