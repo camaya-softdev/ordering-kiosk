@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\NewOrder;
+use Illuminate\Support\Facades\Log;
 
 class CreateTransactionController extends Controller
 {
@@ -36,16 +37,17 @@ class CreateTransactionController extends Controller
                 'remarks' => $request->remarks ?? null,
                 'dining_option' => $request->diningOption,
                 'payment_method' => $request->paymentOption,
-                'outlet_id' => $request->selectedOutlet['id'],
                 'location_number_id' => $request->area['id'] ?? null,
             ]);
 
             foreach ($request->selectedProducts as $product) {
+                Log::info('Outlet ID: ' . $product['outlet']['id']);
                 // Create a new order for each product
                 Order::create([
                     'transaction_id' => $newTransaction->id,
                     'product_id' => $product['details']['id'],
                     'quantity' => $product['quantity'],
+                    'outlet_id' => $product['outlet']['id'],
                 ]);
 
                 $productToUpdate = Product::where('id', $product['details']['id'])->first();
