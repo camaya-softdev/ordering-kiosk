@@ -1,5 +1,5 @@
 import style from "./Foodoutlet.module.css";
-import { previousStep, setClassAnimate } from "../../store/order/orderSlice";
+import { setClassAnimate, setOrderStep } from "../../store/order/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CamayaLogo from "../../assets/camaya-logo.svg";
 import CamayaLogoGray from "../../assets/camaya-logo-gray.svg";
@@ -15,7 +15,7 @@ function FoodOutlet() {
 
   // Function to move to the previous step of the order process
   const goToPreviousStep = () => {
-    dispatch(previousStep());
+    dispatch(setOrderStep(0));
     dispatch(setClassAnimate("forwardAnimation"));
   };
 
