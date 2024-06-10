@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { nextStep, setClassAnimate } from "../../store/order/orderSlice";
 import style from "./StartPage.module.css";
 import FooterLayout from "../../layout/FooterLayout";
-import CamayaLogo from "../../assets/camayalogowhite.webp";
 import LoginModal from "../../components/Login/LoginModal";
 import pic1 from "../../assets/Slideshow/pic1.webp";
 import vid1 from "../../assets/Slideshow/vid1.mp4";
@@ -25,7 +24,6 @@ function StartPage() {
         <Slideshow items={[pic1, vid1]} />
       </div>
       <FooterLayout className={style.footer}>
-        {/* <LazyLoadImage src={CamayaLogo} alt="camaya logo" /> */}
         <div className={style.startButton} onClick={goToNextStep}>
           <span className={style.title}>Tap here to order</span>
         </div>
