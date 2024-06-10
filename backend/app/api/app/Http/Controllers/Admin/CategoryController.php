@@ -22,9 +22,11 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        
         $categories = Category::when($request->has('outlet_id'), function($query) use ($request) {
             return $query->where('outlet_id', $request->outlet_id);
         })
+        ->whereHas('products')
         ->get();
 
         if($request->include_new_added){

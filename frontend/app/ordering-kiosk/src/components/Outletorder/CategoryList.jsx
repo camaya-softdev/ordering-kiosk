@@ -1,80 +1,88 @@
-import { useEffect } from 'react';
-import useFetchCategories from '../../hooks/useFetchCategories';
-import styles from './OutletOrder.module.css';
+import { useEffect } from "react";
+import useFetchCategories from "../../hooks/useFetchCategories";
+import styles from "./OutletOrder.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import categoryIcon from "../../assets/categories.svg";
-import BeatLoader from 'react-spinners/BeatLoader';
-import { setSelectedCategory } from '../../store/order/orderSlice';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import BeatLoader from "react-spinners/BeatLoader";
+import { setSelectedCategory } from "../../store/order/orderSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function CategoryList() {
-    const selectedOutletId = useSelector(state => state.order.selectedOutlet.id);
-    const selectedCategory = useSelector(state => state.order.selectedCategory);
-    const {categories, isCategoriesLoading, setCategoriesFilter} = useFetchCategories();
-    const dispatch = useDispatch();
+  const selectedOutletId = useSelector(
+    (state) => state.order.selectedOutlet.id
+  );
+  const selectedCategory = useSelector((state) => state.order.selectedCategory);
+  const { categories, isCategoriesLoading, setCategoriesFilter } =
+    useFetchCategories();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        if(selectedOutletId) {
-            setCategoriesFilter((prev) => ({...prev, outlet_id: selectedOutletId}));
-        }
-    }, [selectedOutletId]);
-
-    useEffect(() => {
-        if(categories?.data?.length > 0 && !selectedCategory) {
-            selectCategory(categories.data[0]);
-        }
-    }, [categories]);
-
-    const selectCategory = (category) => {
-        if(category.status) {
-            dispatch(setSelectedCategory(category));
-        }
+  useEffect(() => {
+    if (selectedOutletId) {
+      setCategoriesFilter((prev) => ({ ...prev, outlet_id: selectedOutletId }));
     }
+  }, [selectedOutletId]);
 
-    const renderCategoryCard = (category, isSelected) => (
-        <div 
-            onClick={() => selectCategory(category)}
-            key={category.id} 
-            className={`${styles.categoryCard} ${isSelected ? styles.selected : ''} ${category.status ? '': 'disabled'}`}
-        >
-            <LazyLoadImage src={categoryIcon} alt='categoryIcon' className={styles.categoryIcon}/>
-            <span className={styles.categoryName}>
-                <p>{category.name}</p>
-            </span>
-            {isSelected && <div className={styles.circle}></div>}
-        </div>
-    );
+  useEffect(() => {
+    console.log(categories); // Log categories to console
+    if (categories?.data?.length > 0 && !selectedCategory) {
+      selectCategory(categories.data[0]);
+    }
+  }, [categories]);
 
-    return(
-        <div className={styles.categoryWrapper}>
-            {
-                isCategoriesLoading ?
-                <div className={styles.loadingIcon}>
-                    <BeatLoader
-                        color="#FD3C00"
-                        size={35}
-                        speedMultiplier={0.5}
-                    />
-                </div>
-                :
-                <>
-                {
-                    categories?.data?.length > 0 ?
-                    <div className={styles.categoryButtons}>
-                        {categories.data
-                            .sort((a, b) => {
-                                if (a.name === "Newly Added") return -1;
-                                if (b.name === "Newly Added") return 1;
-                                return a.name.localeCompare(b.name);
-                            })
-                            .map((category) => renderCategoryCard(category, selectedCategory && selectedCategory.name === category.name))}
-                    </div>
-                    : null
-                }
-                </>
-            }
+  const selectCategory = (category) => {
+    if (category.status) {
+      dispatch(setSelectedCategory(category));
+    }
+  };
+
+  const renderCategoryCard = (category, isSelected) => (
+    <div
+      onClick={() => selectCategory(category)}
+      key={category.id}
+      className={`${styles.categoryCard} ${isSelected ? styles.selected : ""} ${
+        category.status ? "" : "disabled"
+      }`}
+    >
+      <LazyLoadImage
+        src={categoryIcon}
+        alt="categoryIcon"
+        className={styles.categoryIcon}
+      />
+      <span className={styles.categoryName}>
+        <p>{category.name}</p>
+      </span>
+      {isSelected && <div className={styles.circle}></div>}
+    </div>
+  );
+
+  return (
+    <div className={styles.categoryWrapper}>
+      {isCategoriesLoading ? (
+        <div className={styles.loadingIcon}>
+          <BeatLoader color="#FD3C00" size={35} speedMultiplier={0.5} />
         </div>
-    );
+      ) : (
+        <>
+          {categories?.data?.length > 0 ? (
+            <div className={styles.categoryButtons}>
+              {categories.data
+                .sort((a, b) => {
+                  if (a.name === "Newly Added") return -1;
+                  if (b.name === "Newly Added") return 1;
+                  return a.name.localeCompare(b.name);
+                })
+                .map((category) =>
+                  renderCategoryCard(
+                    category,
+                    selectedCategory && selectedCategory.name === category.name
+                  )
+                )}
+            </div>
+          ) : null}
+        </>
+      )}
+    </div>
+  );
 }
 
 export default CategoryList;
