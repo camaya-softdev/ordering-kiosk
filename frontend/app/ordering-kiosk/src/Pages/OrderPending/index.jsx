@@ -17,7 +17,7 @@ class OrderPending extends React.Component {
   printRef = React.createRef();
   receiptComponentsRef = React.createRef();
   state = {
-    countdown: 30000,
+    countdown: 30,
     showScrollDivs: false,
   };
 
@@ -168,45 +168,45 @@ class OrderPending extends React.Component {
                       </div>
                     ) : null}
                     <hr className={style.line} />
-                    {Object.entries(groupedProducts).map(([outletId, products]) => (
-                      <div key={outletId} className={style.orderList}>
-                        <div className={style.orderOutlet}>
-                          <p>
-                            <span>
-                              {products[0].outlet.name}
-                            </span>
-                          </p>
-                        </div>
+                    {Object.entries(groupedProducts).map(
+                      ([outletId, products]) => (
+                        <div key={outletId} className={style.orderList}>
+                          <div className={style.orderOutlet}>
+                            <p>
+                              <span>{products[0].outlet.name}</span>
+                            </p>
+                          </div>
 
-                        <div className={style.orderProducts}>
-                          {products.map((product, index) => (
-                            <div className={style.orderItem} key={index}>
-                              <div className={style.itemDetails}>
-                                <p>
-                                  <span>
-                                    {product.details
-                                      ? product.details.name
-                                      : "-"}
-                                    {` (PHP ${formatNumber(
-                                      product.details.price
-                                    )})`}
-                                  </span>
-                                  <span>{`x${product.quantity}`}</span>
-                                </p>
-                              </div>
+                          <div className={style.orderProducts}>
+                            {products.map((product, index) => (
+                              <div className={style.orderItem} key={index}>
+                                <div className={style.itemDetails}>
+                                  <p>
+                                    <span>
+                                      {product.details
+                                        ? product.details.name
+                                        : "-"}
+                                      {` (PHP ${formatNumber(
+                                        product.details.price
+                                      )})`}
+                                    </span>
+                                    <span>{`x${product.quantity}`}</span>
+                                  </p>
+                                </div>
 
-                              <div className={style.itemTotal}>
-                                <p>
-                                  <span>{`PHP ${formatNumber(
-                                    product.details.price * product.quantity
-                                  )}`}</span>
-                                </p>
+                                <div className={style.itemTotal}>
+                                  <p>
+                                    <span>{`PHP ${formatNumber(
+                                      product.details.price * product.quantity
+                                    )}`}</span>
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
 
                     <hr className={style.line} />
                     <div className={style.ordersFooter}>
@@ -281,6 +281,24 @@ class OrderPending extends React.Component {
                                 </span>
                                 <span className={style.bold}>
                                   {order.gcashPaymentDetails.referenceNumber}
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>NAME</span>
+                                <span>{order.gcashPaymentDetails.name}</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>CONTACT NUMBER</span>
+                                <span>
+                                  {order.gcashPaymentDetails.phoneNumber}
                                 </span>
                               </p>
                             </div>
