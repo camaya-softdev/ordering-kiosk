@@ -8,7 +8,7 @@ export const useLogin = () => {
     const dispatch = useDispatch();
 
     return useMutation(async formData => {
-        const response = await axios.post('http://127.0.0.1:8084/api/login', formData, {
+        const response = await axios.post(import.meta.env.VITE_API + 'api/login', formData, {
             headers: {
                 'Content-Type': 'application/json'
             }
