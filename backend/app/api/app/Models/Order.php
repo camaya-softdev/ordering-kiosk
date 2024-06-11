@@ -20,4 +20,9 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function Outlet()
+    {
+        return $this->belongsTo(Outlet::class);
+    }
+
 }

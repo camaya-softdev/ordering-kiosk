@@ -47,7 +47,7 @@
                    <span class="csm-ribbon"></span>
                        <span class="order-timer" id="timer-{{ $order_details->id }}" data-created-at="{{ $order_details->created_at }}"></span>
                    @else
-                       {{ $order_details->created_at }}
+                        {{ $order_details->created_at->format('F jS, \a\t h:i A') }}
                    @endif
                </td>
 
@@ -120,7 +120,7 @@
                </div>
                <div class="modal-body">
                    <div class="order-details-content">
-                       <!-- Order details will be displayed here -->
+                       <h1>testing</h1>
                    </div>
                </div>
                <div class="modal-footer">
@@ -277,10 +277,11 @@
     }
 
 
-
     function createOrderDetailsModal(orderDetails) {
         // Clone the template
         var outlet_id = {{ $loginData['user']['assign_to_outlet'] }};
+        var fnb = "{{ $loginData['user']['username'] }}";
+
         var filteredOrders = orderDetails.orders.filter(order => order.outlet_id === outlet_id);
 
         const modalTemplate = $('#orderDetailsModalTemplate').clone();
@@ -292,7 +293,8 @@
         // Populate the modal with order details
         let modalContent = '';
 
-    if (filteredOrders.length > 0) {
+    if (filteredOrders.length > 0)
+    {
         const diningOption = orderDetails.dining_option;
         const location = `${orderDetails.location} - ${orderDetails.number}`;
         const customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
@@ -319,7 +321,37 @@
         });
 
         modalContent += '</tbody></table>';
-    } else {
+    }
+    else if(filteredOrders.length == 0)
+    {
+        const diningOption = orderDetails.dining_option;
+        const location = `${orderDetails.location} - ${orderDetails.number}`;
+        const customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
+
+        // Add customer name, dining option, and location above the table
+        modalContent += `<p><strong>Customer Name:</strong> ${customerName}</p>`;
+        modalContent += `<p><strong>Dining Option:</strong> ${diningOption}</p>`;
+        modalContent += `<p><strong>Location:</strong> ${location}</p>`;
+
+        // Generate the table for order details
+        modalContent += '<table class="table">';
+        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
+        modalContent += '<tbody>';
+
+        // Loop through each order and display its details
+        orderDetails.orders.forEach(function(order) {
+            modalContent += '<tr>';
+            modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
+            modalContent += '<td>' + order.quantity + '</td>';
+            modalContent += '<td>' + order.product.name + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
+            modalContent += '</tr>';
+        });
+
+        modalContent += '</tbody></table>';
+    }
+    else {
                 modalContent += '<p>No orders available for this outlet.</p>';
             }
         // Set the modal content
@@ -327,10 +359,7 @@
 
         // Append the new modal to the body
         $('body').append(modalTemplate);
-    }
-
-
-
+}
 
 
     function createChangeStatusModal(orderDetails) {
