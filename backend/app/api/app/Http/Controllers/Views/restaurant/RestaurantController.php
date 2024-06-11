@@ -31,7 +31,7 @@ class RestaurantController extends Controller
             ->orderBy('transactions.created_at', 'desc');
 
             // Apply conditional outlet filter based on orders
-            if ($username !== 'it_department') {
+            if ($username !== 'it_department' && $username !== 'fnb_admin') {
                 $query->whereHas('orders', function ($query) use ($outlet_id) {
                     $query->where('outlet_id', $outlet_id);
                 });

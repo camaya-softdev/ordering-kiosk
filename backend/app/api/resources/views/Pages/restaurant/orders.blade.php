@@ -73,12 +73,22 @@
             </td>
 
             <td>
+              @if($loginData['user']['username'] != "fnb_admin")
                 @php
                     $total = $order_details->orders->where('outlet_id', $loginData['user']['assign_to_outlet'])->sum(function ($order) {
                         return $order->product->price * $order->quantity;
                     });
                 @endphp
                 ₱{{ $total }}
+            @else
+            @php
+            $total = $order_details->orders->sum(function ($order) {
+                return $order->product->price * $order->quantity;
+            });
+            @endphp
+            ₱{{ $total }}
+
+            @endif
             </td>
 
             <td>
@@ -87,7 +97,7 @@
 
             @if($loginData['user']['username'] === "it_department")
             <td>
-                <img src="{{ asset($order_details->outlet->image) }}" alt="Outlet Image" height="50px">
+                {{-- <img src="{{ asset($order_details->outlet->image) }}" alt="Outlet Image" height="50px"> --}}
             </td>
             @else
             <td>
@@ -286,6 +296,8 @@
     function createOrderDetailsModal(orderDetails) {
         // Clone the template
         var outlet_id = {{ $loginData['user']['assign_to_outlet'] }};
+        var fnb = "{{ $loginData['user']['username'] }}";
+
         var filteredOrders = orderDetails.orders.filter(order => order.outlet_id === outlet_id);
 
         const modalTemplate = $('#orderDetailsModalTemplate').clone();
@@ -297,7 +309,8 @@
         // Populate the modal with order details
         let modalContent = '';
 
-    if (filteredOrders.length > 0) {
+    if (filteredOrders.length > 0)
+    {
         const diningOption = orderDetails.dining_option;
         const location = `${orderDetails.location} - ${orderDetails.number}`;
         const customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
@@ -324,7 +337,37 @@
         });
 
         modalContent += '</tbody></table>';
-    } else {
+    }
+    else if(filteredOrders.length == 0)
+    {
+        const diningOption = orderDetails.dining_option;
+        const location = `${orderDetails.location} - ${orderDetails.number}`;
+        const customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
+
+        // Add customer name, dining option, and location above the table
+        modalContent += `<p><strong>Customer Name:</strong> ${customerName}</p>`;
+        modalContent += `<p><strong>Dining Option:</strong> ${diningOption}</p>`;
+        modalContent += `<p><strong>Location:</strong> ${location}</p>`;
+
+        // Generate the table for order details
+        modalContent += '<table class="table">';
+        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
+        modalContent += '<tbody>';
+
+        // Loop through each order and display its details
+        orderDetails.orders.forEach(function(order) {
+            modalContent += '<tr>';
+            modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
+            modalContent += '<td>' + order.quantity + '</td>';
+            modalContent += '<td>' + order.product.name + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
+            modalContent += '</tr>';
+        });
+
+        modalContent += '</tbody></table>';
+    }
+    else {
                 modalContent += '<p>No orders available for this outlet.</p>';
             }
         // Set the modal content

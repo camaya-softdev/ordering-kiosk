@@ -79,7 +79,7 @@ class OrderController extends Controller
         ->leftJoin('transactions', 'transactions.id', '=', 'orders.transaction_id')
         ->leftJoin('customers', 'customers.id', '=', 'transactions.customer_id')
         ->leftJoin('products', 'products.id', '=', 'orders.product_id')
-        ->where('transactions.outlet_id', '=', $outlet_id)
+        // ->where('orders.outlet_id', '=', $outlet_id)
         ->whereDate('transactions.created_at', '=', $selectedDate)
         ->with(['product' => function ($query) {
             $query->withTrashed(); // Include soft-deleted products
