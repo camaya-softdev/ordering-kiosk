@@ -16,4 +16,8 @@ class Outlet extends Model
     {
         return $this->hasMany(Location::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

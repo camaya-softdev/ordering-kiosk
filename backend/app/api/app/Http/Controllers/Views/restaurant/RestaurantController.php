@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views\restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Outlet;
 use Carbon\Carbon;
 
 
@@ -36,9 +37,12 @@ class RestaurantController extends Controller
                     $query->where('outlet_id', $outlet_id);
                 });
             }
-            $query->with(['orders.product' => function ($query) {
-                $query->withTrashed();
-            }]);
+            $query->with([
+                'orders.product' => function ($query) {
+                    $query->withTrashed();
+                },
+                'orders.outlet'  // Eager load the outlet relationship for each order
+            ]);
 
             $orderReport = $query->get();
 
@@ -74,14 +78,17 @@ class RestaurantController extends Controller
             ->orderBy('transactions.created_at', 'desc');
 
             // Apply conditional outlet filter based on orders
-            if ($username !== 'it_department') {
+            if ($username !== 'it_department' && $username !== 'fnb_admin') {
                 $query->whereHas('orders', function ($query) use ($outlet_id) {
                     $query->where('outlet_id', $outlet_id);
                 });
             }
-            $query->with(['orders.product' => function ($query) {
-                $query->withTrashed();
-            }]);
+            $query->with([
+                'orders.product' => function ($query) {
+                    $query->withTrashed();
+                },
+                'orders.outlet'  // Eager load the outlet relationship for each order
+            ]);
 
             $orderReport = $query->get();
 

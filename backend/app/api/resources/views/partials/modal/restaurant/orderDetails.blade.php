@@ -1,5 +1,5 @@
 <div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
@@ -30,7 +30,6 @@
         $('.view-order-details').click(function() {
             var orderDetails = $(this).data('order');
             var filteredOrders = orderDetails.orders.filter(order => order.outlet_id === outlet_id);
-            console.log(filteredOrders,"eto yun gago");
             var modalContent = '';
 
             // Check if there are any orders for the current outlet
@@ -47,7 +46,7 @@
 
                 // Generate the table for order details
                 modalContent += '<table class="table">';
-                modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></tr></thead>';
+                modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Outlet</th><th>Product</th><th>Price</th><th>Total</th></tr></thead>';
                 modalContent += '<tbody>';
 
                 // Loop through each filtered order and display its details
@@ -55,6 +54,7 @@
                     modalContent += '<tr>';
                     modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
                     modalContent += '<td>' + order.quantity + '</td>';
+                    modalContent += '<td><img src="' + order.outlet.image + '" alt="' + order.outlet.name + '" style="max-width: 60px;"></td>';
                     modalContent += '<td>' + order.product.name + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
@@ -76,7 +76,7 @@
 
                 // Generate the table for order details
                 modalContent += '<table class="table">';
-                modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></tr></thead>';
+                modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Outlet</th><th>Product</th><th>Price</th><th>Total</th></tr></thead>';
                 modalContent += '<tbody>';
 
                 // Loop through each filtered order and display its details
@@ -84,6 +84,7 @@
                     modalContent += '<tr>';
                     modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
                     modalContent += '<td>' + order.quantity + '</td>';
+                    modalContent += '<td><img src="' + order.outlet.image + '" alt="' + order.outlet.name + '" style="max-width: 60px;"></td>';
                     modalContent += '<td>' + order.product.name + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';

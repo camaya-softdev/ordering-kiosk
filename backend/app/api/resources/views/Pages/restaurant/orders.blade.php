@@ -47,7 +47,7 @@
                 <span class="csm-ribbon"></span>
                     <span class="order-timer" id="timer-{{ $order_details->id }}" data-created-at="{{ $order_details->created_at }}"></span>
                 @else
-                    {{ $order_details->created_at }}
+                    {{ $order_details->created_at->format('F jS, \a\t h:i A') }}
                 @endif
             </td>
 
@@ -293,7 +293,7 @@
 
 
 
-    function createOrderDetailsModal(orderDetails) {
+function createOrderDetailsModal(orderDetails) {
         // Clone the template
         var outlet_id = {{ $loginData['user']['assign_to_outlet'] }};
         var fnb = "{{ $loginData['user']['username'] }}";
@@ -424,7 +424,6 @@
 
         // Fetch latest order data initially and set up polling
         const outletId = '{{ $loginData["user"]["assign_to_outlet"] ?? 0 }}';
-        console.log(outletId, "GG");
         fetchLatestOrderData(outletId);
         setInterval(function() {
             fetchLatestOrderData(outletId);
