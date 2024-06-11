@@ -22,7 +22,6 @@ class Transaction extends Model
         'remarks',
         'dining_option',
         'payment_method',
-        'outlet_id',
         'location_number_id',
     ];
 
@@ -34,11 +33,6 @@ class Transaction extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
-    }
-
-    public function outlet()
-    {
-        return $this->belongsTo(Outlet::class);
     }
 
     public function locationNumber()

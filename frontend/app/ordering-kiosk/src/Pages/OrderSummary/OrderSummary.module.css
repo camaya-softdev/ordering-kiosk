@@ -23,6 +23,8 @@ input, select, textarea, button {
     width: 1080px;
     margin: 0 auto;
     padding: 30px;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .title {
@@ -39,6 +41,7 @@ input, select, textarea, button {
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: scroll;
 }
 
 .outletNameLogo {
@@ -64,8 +67,8 @@ input, select, textarea, button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: 900px;
-    overflow: scroll;
+    /* max-height: 900px; */
+    /* overflow: scroll; */
     padding-bottom: 60px;
 }
 

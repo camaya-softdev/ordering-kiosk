@@ -73,12 +73,22 @@
             </td>
 
             <td>
+              @if($loginData['user']['username'] != "fnb_admin")
                 @php
-                    $total = $order_details->orders->sum(function ($order) {
+                    $total = $order_details->orders->where('outlet_id', $loginData['user']['assign_to_outlet'])->sum(function ($order) {
                         return $order->product->price * $order->quantity;
                     });
                 @endphp
                 ₱{{ $total }}
+            @else
+            @php
+            $total = $order_details->orders->sum(function ($order) {
+                return $order->product->price * $order->quantity;
+            });
+            @endphp
+            ₱{{ $total }}
+
+            @endif
             </td>
 
             <td>
@@ -87,7 +97,7 @@
 
             @if($loginData['user']['username'] === "it_department")
             <td>
-                <img src="{{ asset($order_details->outlet->image) }}" alt="Outlet Image" height="50px">
+                {{-- <img src="{{ asset($order_details->outlet->image) }}" alt="Outlet Image" height="50px"> --}}
             </td>
             @else
             <td>
@@ -178,112 +188,118 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Function to start the timers
-    function startOrderTimers() {
-        const orderTimers = document.querySelectorAll('.order-timer');
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Function to start the timers
+        function startOrderTimers() {
+            const orderTimers = document.querySelectorAll('.order-timer');
 
-        orderTimers.forEach(timer => {
-            const createdAt = new Date(timer.getAttribute('data-created-at'));
-            const orderId = timer.getAttribute('id').split('-')[1];
-            const changeStatusButton = document.querySelector(`#changeStatusButton-${orderId}`);
+            orderTimers.forEach(timer => {
+                const createdAt = new Date(timer.getAttribute('data-created-at'));
+                const orderId = timer.getAttribute('id').split('-')[1];
+                const changeStatusButton = document.querySelector(`#changeStatusButton-${orderId}`);
 
-            setInterval(() => {
-                const now = new Date();
-                const timeDiff = now - createdAt;
-                const minutesDiff = Math.floor(timeDiff / 1000 / 60);
+                setInterval(() => {
+                    const now = new Date();
+                    const timeDiff = now - createdAt;
+                    const minutesDiff = Math.floor(timeDiff / 1000 / 60);
 
-                if (minutesDiff > 10) {
-                    // Add flicker class if more than 10 minutes
-                    changeStatusButton.classList.add('flicker');
+                    if (minutesDiff > 10) {
+                        // Add flicker class if more than 10 minutes
+                        changeStatusButton.classList.add('flicker');
+                    }
+                }, 1000);
+            });
+        }
+
+        startOrderTimers();
+    });
+
+        let existingOrderIds = new Set($('tr[data-order-id]').map(function() { return $(this).data('order-id'); }).get());
+
+
+        function fetchLatestOrderData(outletId) {
+            $.ajax({
+                url: '/api/latest-order-data',
+                method: 'GET',
+                data: {
+                    outlet_id: outletId
+                },
+                success: function(response) {
+                    // Update the table with the latest order data
+                    updateTable(response.latestOrderId);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching latest order data:', error);
                 }
-            }, 1000);
-        });
-    }
+            });
+        }
 
-    startOrderTimers();
-});
+        function calculateTotal(orders) {
+            let total = 0;
+            orders.forEach(order => {
+                total += order.product.price * order.quantity;
+            });
+            return total.toFixed(2);
+        }
 
-    let existingOrderIds = new Set($('tr[data-order-id]').map(function() { return $(this).data('order-id'); }).get());
+        function updateTable(latestOrders) {
+        latestOrders.forEach(orderDetails => {
+            // Check if the order already exists
+            if (!existingOrderIds.has(orderDetails.id)) {
+                const total = calculateTotal(orderDetails.orders);
+                const newRow = `
+                    <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
+                        <td style="position: relative;">
 
+                            ${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending'
+                                ? `
+                                <span class="csm-ribbon"></span>
+                                <span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
+                                : orderDetails.created_at}
+                        </td>
+                        <td style="font-weight: bold;">
+                            #${orderDetails.id}
+                        </td>
+                        <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
+                        <td>
+                            ${orderDetails.customer ? orderDetails.customer.name : 'N/A'} <br>
+                            ${orderDetails.mobile_number ? orderDetails.customer.mobile_number : ''} <br>
 
-    function fetchLatestOrderData(outletId) {
-        $.ajax({
-            url: '/api/latest-order-data',
-            method: 'GET',
-            data: {
-                outlet_id: outletId
-            },
-            success: function(response) {
-                // Update the table with the latest order data
-                updateTable(response.latestOrderId);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching latest order data:', error);
+                        </td>
+
+                        <td>${orderDetails.payment_method}</td>
+                        <td>${orderDetails.status}</td>
+                        <td>₱${total}</td>
+                        <td>
+                            <button class="btn btn-warning text-light view-order-details" data-toggle="modal" data-target="#orderDetailsModal${orderDetails.id}" data-order='${JSON.stringify(orderDetails)}'>View Order Details</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-secondary text-light" data-toggle="modal" data-target="#changeStatusModal${orderDetails.id}">Change Status</button>
+                        </td>
+                    </tr>
+                `;
+
+                $('#orderTable tbody').prepend(newRow);
+
+                // Create a new modal for the new order
+                createOrderDetailsModal(orderDetails);
+                createChangeStatusModal(orderDetails);
+
+                // Add the new order ID to the set of existing order IDs
+                existingOrderIds.add(orderDetails.id);
             }
         });
     }
-
-    function calculateTotal(orders) {
-        let total = 0;
-        orders.forEach(order => {
-            total += order.product.price * order.quantity;
-        });
-        return total.toFixed(2);
-    }
-
-    function updateTable(latestOrders) {
-    latestOrders.forEach(orderDetails => {
-        // Check if the order already exists
-        if (!existingOrderIds.has(orderDetails.id)) {
-            const total = calculateTotal(orderDetails.orders);
-            const newRow = `
-                <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
-                    <td style="position: relative;">
-
-                        ${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending'
-                            ? `
-                            <span class="csm-ribbon"></span>
-                            <span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
-                            : orderDetails.created_at}
-                    </td>
-                    <td style="font-weight: bold;">
-                        #${orderDetails.id}
-                    </td>
-                    <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
-                    <td>
-                        ${orderDetails.customer.name ?? 'N/A'} <br>
-                        ${orderDetails.customer.mobile_number ?? ''}
-                    </td>
-
-                    <td>${orderDetails.payment_method}</td>
-                    <td>${orderDetails.status}</td>
-                    <td>₱${total}</td>
-                    <td>
-                        <button class="btn btn-warning text-light view-order-details" data-toggle="modal" data-target="#orderDetailsModal${orderDetails.id}" data-order='${JSON.stringify(orderDetails)}'>View Order Details</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-secondary text-light" data-toggle="modal" data-target="#changeStatusModal${orderDetails.id}">Change Status</button>
-                    </td>
-                </tr>
-            `;
-
-            $('#orderTable tbody').prepend(newRow);
-
-            // Create a new modal for the new order
-            createOrderDetailsModal(orderDetails);
-            createChangeStatusModal(orderDetails);
-
-            // Add the new order ID to the set of existing order IDs
-            existingOrderIds.add(orderDetails.id);
-        }
-    });
-}
 
 
 
     function createOrderDetailsModal(orderDetails) {
         // Clone the template
+        var outlet_id = {{ $loginData['user']['assign_to_outlet'] }};
+        var fnb = "{{ $loginData['user']['username'] }}";
+
+        var filteredOrders = orderDetails.orders.filter(order => order.outlet_id === outlet_id);
+
         const modalTemplate = $('#orderDetailsModalTemplate').clone();
         const modalId = `orderDetailsModal${orderDetails.id}`;
         modalTemplate.attr('id', modalId);
@@ -293,6 +309,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Populate the modal with order details
         let modalContent = '';
 
+    if (filteredOrders.length > 0)
+    {
+        const diningOption = orderDetails.dining_option;
+        const location = `${orderDetails.location} - ${orderDetails.number}`;
+        const customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
+
+        // Add customer name, dining option, and location above the table
+        modalContent += `<p><strong>Customer Name:</strong> ${customerName}</p>`;
+        modalContent += `<p><strong>Dining Option:</strong> ${diningOption}</p>`;
+        modalContent += `<p><strong>Location:</strong> ${location}</p>`;
+
+        // Generate the table for order details
+        modalContent += '<table class="table">';
+        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
+        modalContent += '<tbody>';
+
+        // Loop through each order and display its details
+        filteredOrders.forEach(function(order) {
+            modalContent += '<tr>';
+            modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
+            modalContent += '<td>' + order.quantity + '</td>';
+            modalContent += '<td>' + order.product.name + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
+            modalContent += '</tr>';
+        });
+
+        modalContent += '</tbody></table>';
+    }
+    else if(filteredOrders.length == 0)
+    {
         const diningOption = orderDetails.dining_option;
         const location = `${orderDetails.location} - ${orderDetails.number}`;
         const customerName = orderDetails.customer ? orderDetails.customer.name : 'No Name';
@@ -310,22 +357,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Loop through each order and display its details
         orderDetails.orders.forEach(function(order) {
             modalContent += '<tr>';
-            modalContent += `<td><img src="${order.product.image}" alt="${order.product.name}" style="max-width: 100px;"></td>`;
-            modalContent += `<td>${order.quantity}</td>`;
-            modalContent += `<td>${order.product.name}</td>`;
-            modalContent += `<td>₱${parseFloat(order.product.price).toFixed(2)}</td>`;
-            modalContent += `<td>₱${parseFloat(order.product.price * order.quantity).toFixed(2)}</td>`;
+            modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
+            modalContent += '<td>' + order.quantity + '</td>';
+            modalContent += '<td>' + order.product.name + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
+            modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
             modalContent += '</tr>';
         });
 
         modalContent += '</tbody></table>';
-
+    }
+    else {
+                modalContent += '<p>No orders available for this outlet.</p>';
+            }
         // Set the modal content
         modalTemplate.find('.order-details-content').html(modalContent);
 
         // Append the new modal to the body
         $('body').append(modalTemplate);
     }
+
+
+
+
 
     function createChangeStatusModal(orderDetails) {
         // Clone the template
@@ -365,16 +419,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-    $(document).ready(function() {
-    let existingOrderIds = new Set($('tr[data-order-id]').map(function() { return $(this).data('order-id'); }).get());
+        $(document).ready(function() {
+        let existingOrderIds = new Set($('tr[data-order-id]').map(function() { return $(this).data('order-id'); }).get());
 
-    // Fetch latest order data initially and set up polling
-    const outletId = '{{ $orders->first()->outlet_id ?? 0 }}';
-    fetchLatestOrderData(outletId);
-    setInterval(function() {
+        // Fetch latest order data initially and set up polling
+        const outletId = '{{ $loginData["user"]["assign_to_outlet"] ?? 0 }}';
+        console.log(outletId, "GG");
         fetchLatestOrderData(outletId);
-    }, 5000);
-});
+        setInterval(function() {
+            fetchLatestOrderData(outletId);
+        }, 5000);
+    });
 
 </script>
 

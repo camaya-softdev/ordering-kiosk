@@ -21,9 +21,12 @@ class OutletController extends Controller
     {
         $this->outletService = $outletService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $outlets = Outlet::all();
+        $outlets = Outlet::when($request->has('id'), function($query) use ($request) {
+                    return $query->where('id', $request->id);
+                })
+                ->get();
         return OutletResource::collection($outlets);
     }
     public function OutletCategory($outlet_id)

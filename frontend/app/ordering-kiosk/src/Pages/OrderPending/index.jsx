@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./OrderResult.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import CamayaLogo from "../../assets/camaya-logo.svg";
@@ -59,6 +59,15 @@ class OrderPending extends React.Component {
   render() {
     const { order, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
+
+    const groupedProducts = order.selectedProducts.reduce((acc, product) => {
+      const outletId = product.outlet.id;
+      if (!acc[outletId]) {
+        acc[outletId] = [];
+      }
+      acc[outletId].push(product);
+      return acc;
+    }, {});
 
     return (
       <div>
@@ -159,20 +168,18 @@ class OrderPending extends React.Component {
                       </div>
                     ) : null}
                     <hr className={style.line} />
-                    <div className={style.orderList}>
-                      <div className={style.orderOutlet}>
-                        <p>
-                          <span>
-                            {order.selectedOutlet
-                              ? order.selectedOutlet.name
-                              : "-"}
-                          </span>
-                        </p>
-                      </div>
+                    {Object.entries(groupedProducts).map(([outletId, products]) => (
+                      <div key={outletId} className={style.orderList}>
+                        <div className={style.orderOutlet}>
+                          <p>
+                            <span>
+                              {products[0].outlet.name}
+                            </span>
+                          </p>
+                        </div>
 
-                      <div className={style.orderProducts}>
-                        {order.selectedProducts.map((product, index) => {
-                          return (
+                        <div className={style.orderProducts}>
+                          {products.map((product, index) => (
                             <div className={style.orderItem} key={index}>
                               <div className={style.itemDetails}>
                                 <p>
@@ -196,10 +203,10 @@ class OrderPending extends React.Component {
                                 </p>
                               </div>
                             </div>
-                          );
-                        })}
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    ))}
 
                     <hr className={style.line} />
                     <div className={style.ordersFooter}>

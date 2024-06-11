@@ -56,9 +56,9 @@ const orderSlice = createSlice({
     setSelectedOutlet: (state, action) => {
       state.selectedOutlet = action.payload;
       state.selectedCategory = null;
-      if(state.selectedOutlet.id !== action.payload.id){
-        state.selectedProducts = [];
-      }
+      // if(state.selectedOutlet.id !== action.payload.id){
+      //   state.selectedProducts = [];
+      // }
     },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
@@ -75,7 +75,8 @@ const orderSlice = createSlice({
         // Product not found, add to array
         state.selectedProducts.push({
           details: action.payload.product,
-          quantity: action.payload.quantity
+          quantity: action.payload.quantity,
+          outlet: action.payload.outlet,
         });
       }
     },

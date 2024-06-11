@@ -23,7 +23,6 @@ function CategoryList() {
   }, [selectedOutletId]);
 
   useEffect(() => {
-    console.log(categories); // Log categories to console
     if (categories?.data?.length > 0 && !selectedCategory) {
       selectCategory(categories.data[0]);
     }
