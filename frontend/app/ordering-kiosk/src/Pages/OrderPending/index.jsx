@@ -57,9 +57,9 @@ class OrderPending extends React.Component {
   }
 
   render() {
-    const { order, dispatch } = this.props;
+    const { order, auth, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
-
+    console.log(auth);
     const groupedProducts = order.selectedProducts.reduce((acc, product) => {
       const outletId = product.outlet.id;
       if (!acc[outletId]) {
@@ -107,7 +107,7 @@ class OrderPending extends React.Component {
               <div className={style.logoText}>
                 <p>
                   {order.paymentOption === CASH_PAYMENT ? (
-                    currentUser.auth.outlet_id === null ? (
+                    auth.assign_to_outlet === null ? (
                       <>
                         Kindly take your order slip for reference then proceed
                         and pay at any Ordering Booth available on any food
@@ -117,7 +117,7 @@ class OrderPending extends React.Component {
                       <>
                         Kindly take your order slip for reference then proceed
                         and pay at
-                        <span>{order.selectedOutlet.name}</span> counter to
+                        <span> {order.selectedOutlet.name} </span> counter to
                         process your order.
                       </>
                     )
@@ -344,6 +344,7 @@ class OrderPending extends React.Component {
 
 const mapStateToProps = (state) => ({
   order: state.order,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(OrderPending);
