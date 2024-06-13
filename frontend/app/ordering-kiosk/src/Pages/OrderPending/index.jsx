@@ -107,17 +107,26 @@ class OrderPending extends React.Component {
               <div className={style.logoText}>
                 <p>
                   {order.paymentOption === CASH_PAYMENT ? (
-                    <>
-                      Kindly take your order slip for reference then proceed and
-                      pay at any Ordering Booth available on any food outlet to
-                      process your order.
-                    </>
+                    currentUser.auth.outlet_id === null ? (
+                      <>
+                        Kindly take your order slip for reference then proceed
+                        and pay at any Ordering Booth available on any food
+                        outlet to process your order.
+                      </>
+                    ) : (
+                      <>
+                        Kindly take your order slip for reference then proceed
+                        and pay at
+                        <span>{order.selectedOutlet.name}</span> counter to
+                        process your order.
+                      </>
+                    )
                   ) : (
                     <>
                       We are now preparing your order. If there are any
                       concerns, we will contact you.
-                      <br></br>
-                      <br></br>
+                      <br />
+                      <br />
                       Kindly take your order slip for reference.
                     </>
                   )}
