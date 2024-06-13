@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Carbon\Carbon;
 
 
 class OrderController extends Controller
@@ -22,6 +23,7 @@ class OrderController extends Controller
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
             ->leftJoin('orders','orders.transaction_id','transactions.id')
+            ->whereDate('transactions.created_at', Carbon::today())
             ->when($outlet_id != 0, function ($query) use ($outlet_id) {
                 return $query->where('orders.outlet_id', '=', $outlet_id);
             })
