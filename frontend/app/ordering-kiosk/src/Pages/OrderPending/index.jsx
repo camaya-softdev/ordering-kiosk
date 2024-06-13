@@ -59,7 +59,6 @@ class OrderPending extends React.Component {
   render() {
     const { order, auth, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
-    console.log(auth);
     const groupedProducts = order.selectedProducts.reduce((acc, product) => {
       const outletId = product.outlet.id;
       if (!acc[outletId]) {
