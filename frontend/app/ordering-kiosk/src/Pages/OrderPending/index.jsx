@@ -17,7 +17,7 @@ class OrderPending extends React.Component {
   printRef = React.createRef();
   receiptComponentsRef = React.createRef();
   state = {
-    countdown: 30000,
+    countdown: 30,
     showScrollDivs: false,
   };
 
@@ -57,9 +57,8 @@ class OrderPending extends React.Component {
   }
 
   render() {
-    const { order, dispatch } = this.props;
+    const { order, auth, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
-
     const groupedProducts = order.selectedProducts.reduce((acc, product) => {
       const outletId = product.outlet.id;
       if (!acc[outletId]) {
@@ -107,17 +106,26 @@ class OrderPending extends React.Component {
               <div className={style.logoText}>
                 <p>
                   {order.paymentOption === CASH_PAYMENT ? (
-                    <>
-                      Kindly take your order slip for reference then proceed and
-                      pay at any Ordering Booth available on any food outlet to
-                      process your order.
-                    </>
+                    auth.assign_to_outlet === null ? (
+                      <>
+                        Kindly take your order slip for reference then proceed
+                        and pay at any Ordering Booth available on any food
+                        outlet to process your order.
+                      </>
+                    ) : (
+                      <>
+                        Kindly take your order slip for reference then proceed
+                        and pay at
+                        <span> {order.selectedOutlet.name} </span> counter to
+                        process your order.
+                      </>
+                    )
                   ) : (
                     <>
                       We are now preparing your order. If there are any
                       concerns, we will contact you.
-                      <br></br>
-                      <br></br>
+                      <br />
+                      <br />
                       Kindly take your order slip for reference.
                     </>
                   )}
@@ -168,45 +176,45 @@ class OrderPending extends React.Component {
                       </div>
                     ) : null}
                     <hr className={style.line} />
-                    {Object.entries(groupedProducts).map(([outletId, products]) => (
-                      <div key={outletId} className={style.orderList}>
-                        <div className={style.orderOutlet}>
-                          <p>
-                            <span>
-                              {products[0].outlet.name}
-                            </span>
-                          </p>
-                        </div>
+                    {Object.entries(groupedProducts).map(
+                      ([outletId, products]) => (
+                        <div key={outletId} className={style.orderList}>
+                          <div className={style.orderOutlet}>
+                            <p>
+                              <span>{products[0].outlet.name}</span>
+                            </p>
+                          </div>
 
-                        <div className={style.orderProducts}>
-                          {products.map((product, index) => (
-                            <div className={style.orderItem} key={index}>
-                              <div className={style.itemDetails}>
-                                <p>
-                                  <span>
-                                    {product.details
-                                      ? product.details.name
-                                      : "-"}
-                                    {` (PHP ${formatNumber(
-                                      product.details.price
-                                    )})`}
-                                  </span>
-                                  <span>{`x${product.quantity}`}</span>
-                                </p>
-                              </div>
+                          <div className={style.orderProducts}>
+                            {products.map((product, index) => (
+                              <div className={style.orderItem} key={index}>
+                                <div className={style.itemDetails}>
+                                  <p>
+                                    <span>
+                                      {product.details
+                                        ? product.details.name
+                                        : "-"}
+                                      {` (PHP ${formatNumber(
+                                        product.details.price
+                                      )})`}
+                                    </span>
+                                    <span>{`x${product.quantity}`}</span>
+                                  </p>
+                                </div>
 
-                              <div className={style.itemTotal}>
-                                <p>
-                                  <span>{`PHP ${formatNumber(
-                                    product.details.price * product.quantity
-                                  )}`}</span>
-                                </p>
+                                <div className={style.itemTotal}>
+                                  <p>
+                                    <span>{`PHP ${formatNumber(
+                                      product.details.price * product.quantity
+                                    )}`}</span>
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
 
                     <hr className={style.line} />
                     <div className={style.ordersFooter}>
@@ -285,6 +293,24 @@ class OrderPending extends React.Component {
                               </p>
                             </div>
                           </div>
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>NAME</span>
+                                <span>{order.gcashPaymentDetails.name}</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>CONTACT NUMBER</span>
+                                <span>
+                                  {order.gcashPaymentDetails.phoneNumber}
+                                </span>
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ) : null}
@@ -317,6 +343,7 @@ class OrderPending extends React.Component {
 
 const mapStateToProps = (state) => ({
   order: state.order,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(OrderPending);
