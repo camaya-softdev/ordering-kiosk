@@ -104,7 +104,7 @@
                                     <label class="form-check-label" for="gcash">Gcash</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="actions[]" value="Cash" id="cash">
+                                    <input class="form-check-input" type="checkbox" name="actions[]" value="Pay at the counter" id="cash">
                                     <label class="form-check-label" for="update">Cash</label>
                                 </div>
                                 <div class="form-check">

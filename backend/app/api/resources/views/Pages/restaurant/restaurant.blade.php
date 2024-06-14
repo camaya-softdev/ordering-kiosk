@@ -115,7 +115,7 @@
 
                <div style="display: flex; gap: 20px; padding:5px">
                 <div class="toggle-btn-wrapper">
-                    <div class="toggle-btn" id="cashFilterToggle" data-filter="cash"></div>
+                    <div class="toggle-btn" id="cashFilterToggle" data-filter="Pay at the counter"></div>
                     <label class="text-dark" for="cashFilterToggle">For Cash Payment</label>
                 </div>
                 <div class="toggle-btn-wrapper">
@@ -179,7 +179,7 @@
                     rows[i].style.display = (confirmedChecked ? '' : 'none');
                 } else {
                     // Hide row if it doesn't match the selected filters
-                    if ((cashChecked && paymentMethod !== 'Cash') ||
+                    if ((cashChecked && paymentMethod !== 'Pay at the counter') ||
                         (gcashChecked && paymentMethod !== 'GCash') ||
                         (noShowChecked && status !== 'No Show')) {
                         rows[i].style.display = 'none';

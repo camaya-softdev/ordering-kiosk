@@ -36,7 +36,7 @@
                <th>Status</th>
                <th>Total</th>
                <th>Order Detail</th>
-               <th>{{ $loginData['user']['username'] === 'it_department' ? 'Outlets' : 'Action' }}</th>
+               {{-- <th>{{ $loginData['user']['username'] === 'it_department' ? 'Outlets' : 'Action' }}</th> --}}
        </thead>
        <tbody>
            @foreach($orders as $order_details)
@@ -85,7 +85,7 @@
                    <button class="btn btn-warning text-light view-order-details" data-toggle="modal" data-target="#orderDetailsModal" data-order="{{ $order_details }}">View Order Details</button>
                </td>
 
-               @if($loginData['user']['username'] === "it_department")
+               {{-- @if($loginData['user']['username'] === "it_department")
                <td>
                    <img src="{{ asset($order_details->outlet->image) }}" alt="Outlet Image" height="50px">
                </td>
@@ -97,7 +97,7 @@
                 @endif>Change Status</button>
                    @include('partials.modal.restaurant.updateOrderStatus')
                </td>
-               @endif
+               @endif --}}
 
 
 
