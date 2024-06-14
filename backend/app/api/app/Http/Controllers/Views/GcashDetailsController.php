@@ -25,7 +25,7 @@ class GcashDetailsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
             'number' => 'required|string|max:255',
             'outlet_id' => 'required',
         ]);

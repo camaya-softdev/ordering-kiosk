@@ -175,6 +175,7 @@
 
         // Event listeners for filter buttons
         document.getElementById('filterActiveLNumber').addEventListener('click', function() {
+            clearFilterLNumber();
             var isActiveFilter = this.classList.contains('active-filter-user');
             if (isActiveFilter) {
                 // Clear filter
@@ -191,6 +192,7 @@
         });
 
         document.getElementById('filterInactiveLNumber').addEventListener('click', function() {
+            clearFilterLNumber();
             var isInactiveFilter = this.classList.contains('active-filter-user');
             if (isInactiveFilter) {
                 // Clear filter

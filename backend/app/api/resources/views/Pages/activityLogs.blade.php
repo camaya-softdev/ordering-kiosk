@@ -151,6 +151,7 @@
             paging: true,
             searching: true,
             info: true,
+            sort: false,
             lengthChange: true,
         });
 
