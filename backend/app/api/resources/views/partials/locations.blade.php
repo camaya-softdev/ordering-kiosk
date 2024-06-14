@@ -141,7 +141,7 @@
             var tableRows = document.getElementById('locationTable').getElementsByTagName('tr');
 
             for (var i = 1; i < tableRows.length; i++) {
-                var statusCell = tableRows[i].getElementsByTagName('td')[2]; // Assuming status is in the third column
+                var statusCell = tableRows[i].getElementsByTagName('td')[3]; // Assuming status is in the third column
                 var status = statusCell.textContent.trim();
 
                 if (status === 'Active') {
@@ -170,7 +170,7 @@
             var tableRows = document.getElementById('locationTable').getElementsByTagName('tr');
 
             for (var i = 1; i < tableRows.length; i++) {
-                var rowData = tableRows[i].getElementsByTagName('td')[2].innerText;
+                var rowData = tableRows[i].getElementsByTagName('td')[3].innerText;
 
                 if ((status === 'Active' && rowData === 'Active') ||
                     (status === 'Inactive' && rowData === 'Inactive')) {
@@ -183,6 +183,7 @@
 
         // Event listeners for filter buttons
         document.getElementById('filterActiveUser').addEventListener('click', function() {
+            clearFilterUser();
             var isActiveFilter = this.classList.contains('active-filter-user');
             if (isActiveFilter) {
                 // Clear filter
@@ -199,6 +200,7 @@
         });
 
         document.getElementById('filterInactiveUser').addEventListener('click', function() {
+            clearFilterUser();
             var isInactiveFilter = this.classList.contains('active-filter-user');
             if (isInactiveFilter) {
                 // Clear filter

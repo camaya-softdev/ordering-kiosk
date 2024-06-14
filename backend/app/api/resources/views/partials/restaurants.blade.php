@@ -159,6 +159,7 @@ countStatus();
 
     // Event listeners for filter buttons
     document.getElementById('filterActiveResto').addEventListener('click', function() {
+        clearFilter();
         var isActiveFilter = this.classList.contains('active-filter');
         if (isActiveFilter) {
             // Clear filter
@@ -175,6 +176,7 @@ countStatus();
     });
 
     document.getElementById('filterInactiveResto').addEventListener('click', function() {
+        clearFilter();
         var isInactiveFilter = this.classList.contains('active-filter');
         if (isInactiveFilter) {
             // Clear filter
