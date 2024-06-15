@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { PICK_UP } from "../../utils/Constants/DiningOptions";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import { previousStep, setClassAnimate } from "../../store/order/orderSlice";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import style from "./GCashScanPage.module.css";
-import ConfirmGCashPayment from "../../components/GCashScanPage/ConfirmGCashPayment";
 import LoginModal from "../../components/Login/LoginModal";
 import useFetchGCashDetails from "../../hooks/useFetchGCashDetails";
 import BeatLoader from "react-spinners/BeatLoader";
+import PrivacyNote from "../../components/PrivacyNotice/PrivacyNote";
 
 function GCashScanPage() {
   const dispatch = useDispatch();
@@ -20,7 +20,8 @@ function GCashScanPage() {
   const [gcashImage, setGcashImage] = useState(null);
   const [openModal, setOpenModal] = useState({
     startOver: false,
-    confirmPayment: false,
+    // confirmPayment: false,
+    privacyNote: false,
   });
 
   const handleBackClick = () => {
@@ -28,13 +29,14 @@ function GCashScanPage() {
     dispatch(setClassAnimate("forwardAnimation"));
   };
 
-  const {gcashDetails, isGcashDetailsLoading} = useFetchGCashDetails({outlet_id: selectedOutlet.id});
+  const { gcashDetails, isGcashDetailsLoading } = useFetchGCashDetails({
+    outlet_id: selectedOutlet.id,
+  });
 
   useEffect(() => {
-    if(gcashDetails?.data?.length > 0){
+    if (gcashDetails?.data?.length > 0) {
       setGcashImage(gcashDetails.data[0].image);
-    }
-    else{
+    } else {
       setGcashImage(null);
     }
   }, [gcashDetails]);
@@ -54,26 +56,30 @@ function GCashScanPage() {
             </p>
           </div>
 
-          {
-            isGcashDetailsLoading ?
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-              <BeatLoader
-                color="#FD3C00"
-                size={35}
-                speedMultiplier={0.5}
-              />
+          {isGcashDetailsLoading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              <BeatLoader color="#FD3C00" size={35} speedMultiplier={0.5} />
             </div>
-            :
+          ) : (
             <>
-            {
-              gcashImage ?
-              <LazyLoadImage src={`${import.meta.env.VITE_API}/${gcashImage}`} alt="GCash Account" className={style.gcash_qr}/>
-              :
-              <span >No GCash details found.</span>
-            }
+              {gcashImage ? (
+                <LazyLoadImage
+                  src={`${import.meta.env.VITE_API}/${gcashImage}`}
+                  alt="GCash Account"
+                  className={style.gcash_qr}
+                />
+              ) : (
+                <span>No GCash details found.</span>
+              )}
             </>
-          }
-          
+          )}
         </div>
       </div>
       <div className={style.circleBlur}></div>
@@ -86,7 +92,7 @@ function GCashScanPage() {
         backOnClick={handleBackClick}
         startOverBtnOnClick={() => setOpenModal({ startOver: true })}
         showConfirmPaymentBtn={true}
-        confirmPaymentOnClick={() => setOpenModal({ confirmPayment: true })}
+        confirmPaymentOnClick={() => setOpenModal({ privacyNote: true })}
       />
 
       <StartOverConfirmation
@@ -94,11 +100,16 @@ function GCashScanPage() {
         onClose={() => setOpenModal({ startOver: false })}
       />
 
-      <ConfirmGCashPayment
+      {/* <ConfirmGCashPayment
         open={openModal.confirmPayment}
         onClose={() => setOpenModal({ confirmPayment: false })}
+      /> */}
+
+      <PrivacyNote
+        open={openModal.privacyNote}
+        onClose={() => setOpenModal({ privacyNote: false })}
       />
-      <LoginModal/>
+      <LoginModal />
     </div>
   );
 }

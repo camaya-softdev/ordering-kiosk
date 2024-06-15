@@ -16,7 +16,7 @@
 }
 
 .grayBtn:hover, .grayBtn:active {
-    background: var(--Gray-200, #1E1E1E);
+    background: var(--Gray-200, #555555);
 }
 
 .grayBtn:hover>span>p, .grayBtn:active>span>p {
@@ -107,6 +107,29 @@
     background: #b34d4d !important;
 }
 
+.blackBtn {
+    cursor: pointer;
+    display: flex;
+    height: 100px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 16px;
+    background: #1E1E1E;
+    ;
+
+    /* shadow-2 */
+    box-shadow: 0px 0px 16px -4px rgba(16, 24, 40, 0.04), 0px 0px 6px -2px rgba(16, 24, 40, 0.04);
+    transition: background 0.5s ease;
+}
+
+.blackBtn:hover, .blackBtn:active {
+    background: #282746
+}
+
+.blackBtn>span,
 .redBtn>span,
 .whiteBtn>span,
 .grayBtn>span {
@@ -125,6 +148,14 @@
     line-height: normal;
 }
 
+.blackBtn>span>p {
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
 
 .modalWrapper {
     display: flex;
@@ -185,6 +216,21 @@
     border-radius: 48px;
     background: white;
     max-height: 1920px;
+    overflow: hidden;
+    transform: translateY(-100%);
+    animation: slideDown 0.5s ease-out forwards;
+}
+
+.policyNotice {
+    display: flex;
+    width: 950px;
+    position: absolute;
+    top: -1400px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 16px;
+    background: white;
+    height: 1500px;
     overflow: hidden;
     transform: translateY(-100%);
     animation: slideDown 0.5s ease-out forwards;

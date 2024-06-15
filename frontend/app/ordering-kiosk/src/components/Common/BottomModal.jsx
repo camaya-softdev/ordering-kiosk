@@ -11,6 +11,7 @@ function BottomModal({
   style,
   addProductOrder,
   fullViewModal,
+  policyNotice,
 }) {
   const [visible, setVisible] = useState(false);
   const [fadeContent, setFadeContent] = useState(false);
@@ -32,12 +33,14 @@ function BottomModal({
   }, [open]);
 
   let modalContentClass = styles.modalContent;
-  if (!addProductOrder && !fullViewModal) {
+  if (!addProductOrder && !fullViewModal && !policyNotice) {
     modalContentClass = styles.modalContent;
   } else if (addProductOrder) {
     modalContentClass = styles.modalCenterContent;
   } else if (fullViewModal) {
     modalContentClass = styles.fullModalWrapper;
+  } else if (policyNotice) {
+    modalContentClass = styles.policyNotice;
   }
 
   return (

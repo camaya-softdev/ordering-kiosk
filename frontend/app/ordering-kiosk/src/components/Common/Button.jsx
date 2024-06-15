@@ -24,6 +24,9 @@ function Button({
     } else if (type === "white") {
       setTypeCss(style.whiteBtn);
       setDisabledCss(style.whiteBtnDisabled);
+    } else if (type === "black") {
+      setTypeCss(style.blackBtn);
+      setDisabledCss(style.blackBtnDisabled);
     } else {
       setTypeCss(style.grayBtn);
       setDisabledCss(style.grayBtnDisabled);
