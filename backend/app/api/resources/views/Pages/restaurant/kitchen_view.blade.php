@@ -105,7 +105,11 @@
 
                     </div>
                     <div class="col">
-                        <div style="display:flex; justify-content:right">
+                        <div style="display:flex; justify-content:right; gap:10px">
+                            <form method="GET" action="{{ route('resto.view') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-secondary">Back</button>
+                            </form>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="btn active logout-btn" style="width: 100%">Logout</button>

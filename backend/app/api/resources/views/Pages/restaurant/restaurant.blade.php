@@ -161,45 +161,48 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        var dataTable;
+
+        // Initialize DataTable
+        $(document).ready(function() {
+            dataTable = $('#orderTable').DataTable();
+        });
+
         // Function to filter table rows based on selected filters
         function filterTable() {
-            var cashChecked = document.getElementById('cashFilterToggle').classList.contains('active');
-            var gcashChecked = document.getElementById('gcashFilterToggle').classList.contains('active');
-            var noShowChecked = document.getElementById('noShowFilterToggle').classList.contains('active');
-            var confirmedChecked = document.getElementById('confirmedFilterToggle').classList.contains('active');
+            var cashChecked = $('#cashFilterToggle').hasClass('active');
+            var gcashChecked = $('#gcashFilterToggle').hasClass('active');
+            var noShowChecked = $('#noShowFilterToggle').hasClass('active');
+            var confirmedChecked = $('#confirmedFilterToggle').hasClass('active');
 
-            var rows = document.getElementById('orderTable').getElementsByTagName('tr');
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                var paymentMethod = data[4].trim(); // Use index based on your table structure
+                var status = data[5].trim(); // Use index based on your table structure
 
-            for (var i = 1; i < rows.length; i++) { // Start from index 1 to skip the header row
-                var paymentMethod = rows[i].getElementsByTagName('td')[4].innerText.trim();
-                var status = rows[i].getElementsByTagName('td')[5].innerText.trim();
-
-                // Hide row by default if it's "Confirmed"
-                if (status === 'confirmed') {
-                    rows[i].style.display = (confirmedChecked ? '' : 'none');
-                } else {
-                    // Hide row if it doesn't match the selected filters
-                    if ((cashChecked && paymentMethod !== 'Pay at the counter') ||
-                        (gcashChecked && paymentMethod !== 'GCash') ||
-                        (noShowChecked && status !== 'No Show')) {
-                        rows[i].style.display = 'none';
-                    } else {
-                        rows[i].style.display = ''; // Show the row
-                    }
+                if (confirmedChecked && status === 'confirmed') {
+                    return true;
                 }
-            }
+
+                if ((cashChecked && paymentMethod === 'Pay at the counter') ||
+                    (gcashChecked && paymentMethod === 'GCash') ||
+                    (noShowChecked && status === 'No Show')) {
+                    return true;
+                }
+
+                return !cashChecked && !gcashChecked && !noShowChecked && !confirmedChecked;
+            });
+
+            dataTable.draw();
         }
 
         // Attach event listeners to the toggle buttons to trigger the filtering
-        document.querySelectorAll('.toggle-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                this.classList.toggle('active');
-                filterTable();
-            });
+        $('.toggle-btn').on('click', function() {
+            $(this).toggleClass('active');
+            $.fn.dataTable.ext.search.length = 0; // Clear previous filters
+            filterTable();
         });
-
-        // Initially hide rows with status "Confirmed"
-        filterTable();
     </script>
+
+
 
 @endsection

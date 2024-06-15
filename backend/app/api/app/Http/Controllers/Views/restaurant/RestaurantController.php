@@ -74,7 +74,7 @@ class RestaurantController extends Controller
             ->with('customer')
             ->leftJoin('location_numbers', 'location_numbers.id', '=', 'transactions.location_number_id')
             ->leftJoin('locations', 'locations.id', '=', 'location_numbers.location_id')
-            ->whereDate('transactions.created_at', Carbon::today())
+            // ->whereDate('transactions.created_at', Carbon::today())
             ->orderBy('transactions.created_at', 'desc');
 
             // Apply conditional outlet filter based on orders

@@ -54,7 +54,8 @@
                     modalContent += '<tr>';
                     modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
                     modalContent += '<td>' + order.quantity + '</td>';
-                    modalContent += '<td><img src="' + order.outlet.image + '" alt="' + order.outlet.name + '" style="max-width: 60px;"></td>';
+                    // modalContent += '<td><img src="' + order.outlet.image + '" alt="' + order.outlet.name + '" style="max-width: 60px;"></td>';
+                    modalContent += '<td>' + order.outlet.name + '</td>';
                     modalContent += '<td>' + order.product.name + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
@@ -84,7 +85,8 @@
                     modalContent += '<tr>';
                     modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
                     modalContent += '<td>' + order.quantity + '</td>';
-                    modalContent += '<td><img src="' + order.outlet.image + '" alt="' + order.outlet.name + '" style="max-width: 60px;"></td>';
+                    modalContent += '<td>' + order.outlet.name + '</td>';
+                    // modalContent += '<td><img src="' + order.outlet.image + '" alt="' + order.outlet.name + '" style="max-width: 60px;"></td>';
                     modalContent += '<td>' + order.product.name + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
                     modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
