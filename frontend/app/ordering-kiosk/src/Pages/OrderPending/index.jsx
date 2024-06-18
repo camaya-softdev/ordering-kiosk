@@ -106,19 +106,24 @@ class OrderPending extends React.Component {
               <div className={style.logoText}>
                 <p>
                   {order.paymentOption === CASH_PAYMENT ? (
-                    auth.assign_to_outlet === null ? (
-                      <>
-                        Kindly take your order slip for reference then proceed
-                        and pay at any Ordering Booth available on any food
-                        outlet to process your order.
-                      </>
-                    ) : (
-                      <>
-                        Kindly take your order slip for reference then proceed
-                        and pay at the Ordering Booth beside
-                        <span> Pancake House </span> to process your order.
-                      </>
-                    )
+                    // auth.assign_to_outlet === null ? (
+                    //   <>
+                    //     Kindly take your order slip for reference then proceed
+                    //     and pay at any Ordering Booth available on any food
+                    //     outlet to process your order.
+                    //   </>
+                    // ) : (
+                    //   <>
+                    //     Kindly take your order slip for reference then proceed
+                    //     and pay at the Ordering Booth beside
+                    //     <span> Pancake House </span> to process your order.
+                    //   </>
+                    // )
+                    <>
+                      Kindly take your order slip for reference then proceed and
+                      pay at the Ordering Booth beside
+                      <span> Pancake House </span> to process your order.
+                    </>
                   ) : (
                     <>
                       We are now preparing your order. If there are any
