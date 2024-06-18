@@ -5,7 +5,7 @@ import {
   setClassAnimate,
 } from "../../store/order/orderSlice";
 import styles from "./OutletList.module.css";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function OutletCard({ outlet }) {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function OutletCard({ outlet }) {
   return (
     <div
       onClick={handleSelect}
-      className={`${outlet.status ? "" : "disabled"} ${styles.outletCard}`}
+      className={`${outlet.status ? "" : "hidden"} ${styles.outletCard}`}
     >
       <LazyLoadImage
         src={`${import.meta.env.VITE_API}${outlet.image}`}
