@@ -41,6 +41,12 @@ function GCashScanPage() {
     }
   }, [gcashDetails]);
 
+  const handleConfirmPaymentClick = () => {
+    if (gcashImage) {
+      setOpenModal({ privacyNote: true });
+    }
+  };
+
   return (
     <div className={`${style[classAnimate]}`}>
       <div className={style.topContainer}>
@@ -91,8 +97,8 @@ function GCashScanPage() {
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
         backOnClick={handleBackClick}
         startOverBtnOnClick={() => setOpenModal({ startOver: true })}
-        showConfirmPaymentBtn={true}
-        confirmPaymentOnClick={() => setOpenModal({ privacyNote: true })}
+        showConfirmPaymentBtn={!!gcashImage} // Only show button if GCash image is available
+        confirmPaymentOnClick={handleConfirmPaymentClick}
       />
 
       <StartOverConfirmation
