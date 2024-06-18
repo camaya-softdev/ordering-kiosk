@@ -121,8 +121,8 @@ class OrderPending extends React.Component {
                     // )
                     <>
                       Kindly take your order slip for reference then proceed and
-                      pay at the Ordering Booth beside
-                      <span> Pancake House </span> to process your order.
+                      Pay at the counter or the Ordering Booth beside Pancake
+                      House to process your order.
                     </>
                   ) : (
                     <>
