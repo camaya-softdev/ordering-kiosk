@@ -166,6 +166,13 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="description">Description:</label> <br>
+                    <textarea  class="form-control" id="description" name="description">
+
+                    </textarea>
+            </div>
+
 
 
             <div class="form-group">
