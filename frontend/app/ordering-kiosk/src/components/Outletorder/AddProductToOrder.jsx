@@ -11,7 +11,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 function AddProductToOrder({ product, open, onClose }) {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
-  const outlet = useSelector(state => state.order.selectedOutlet);
+  const outlet = useSelector((state) => state.order.selectedOutlet);
 
   const handleQuantityChange = (value) => {
     setQuantity(value);
@@ -40,6 +40,10 @@ function AddProductToOrder({ product, open, onClose }) {
         </div>
 
         <div className={styles.addModalFields}>
+          <span className={styles.addModalProductDesc}>
+            {product.description ??
+              "TESTING DESCRIPTIONTESTING DESCRIPTIONTESTING"}
+          </span>
           <div className={styles.addModalProductDetails}>
             <span className={styles.addModalProductName}>{product.name}</span>
             <span className={styles.addModalProductPrice}>
