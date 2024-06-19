@@ -21,6 +21,8 @@ class ProductService
                 'stock' => $data['stock'],
                 'category_id' => $data['category_id'],
                 'status' => $data['status'],
+                'description' => $data['description'],
+
             ]);
 
             Log::create([

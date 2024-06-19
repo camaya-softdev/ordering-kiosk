@@ -65,6 +65,7 @@
     <thead>
         <tr>
             <th>Image and name</th>
+            <th>Description</th>
             <th>Stock</th>
             <th>Price</th>
             <th>Status</th>
@@ -76,6 +77,9 @@
         <tr class="{{ $product->status == 1 ? 'active' : 'inactive' }}">
             <td>
                 <img src="{{ asset($product->image) }}" alt="Outlet Image" height="50px"> {{ $product->name }}
+            </td>
+            <td style="width: 20%; font-size:auto">
+                {{ $product->description }}
             </td>
             <td>
                 x{{ $product->stock }}

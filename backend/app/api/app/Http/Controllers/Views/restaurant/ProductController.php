@@ -47,6 +47,7 @@ class ProductController extends Controller
             'status' => $request->input('create_status'),
             'outlet_classification' => $request->input('outlet_classification'),
             'image' => $imageUrl,
+            'description' => $request->input('description'),
         ]);
 
         return redirect()->route('menu')->with('success', 'Product created successfully');
@@ -85,6 +86,8 @@ class ProductController extends Controller
             'status' => $request->input('create_status'),
             'updated_at' => now()->setTimezone('Asia/Manila'),
             'image' => $imageUrl,
+            'description' => $request->input('description'),
+
         ]);
 
         return redirect()->route('menu')->with('success', 'Product updated successfully');
