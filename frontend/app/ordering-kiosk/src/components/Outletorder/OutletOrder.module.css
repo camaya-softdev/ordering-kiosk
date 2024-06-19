@@ -309,9 +309,9 @@
 
 .addProductModalBody {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 60px;
     align-self: stretch;
     padding: 40px;
 }
@@ -320,6 +320,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 300px;
 }
 
 .addModalImageWrapper>img {
@@ -332,16 +333,16 @@
     padding-top: 20px;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 40px;
-    width: 60%;
+    width: 100%;
 }
 
 .addModalProductDetails {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
 }
 
@@ -351,26 +352,35 @@
     font-family: Poppins;
     font-size: 32px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 800;
     line-height: 42px;
     /* 131.25% */
     text-transform: capitalize;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 600px;
-    text-align: start;
+    width: 100%;
 }
 
-.addModalProductPrice {
+.addModalProductDesc {
     color: #1E1E1E;
     text-align: center;
     font-family: Poppins;
     font-size: 32px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
+    line-height: 30px;
+    width: 100%;
+}
+
+.addModalProductPrice {
+    color: #05b00a;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
     line-height: 32px;
-    /* 100% */
 }
 
 .addModalButtons {

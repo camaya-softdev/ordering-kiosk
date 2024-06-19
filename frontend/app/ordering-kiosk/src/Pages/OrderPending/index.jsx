@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import style from "./OrderResult.module.css";
 import FooterLayout from "../../layout/FooterLayout";
-import CamayaLogo from "../../assets/camaya-logo.svg";
 import ClockIcon from "../../assets/ClockIcon.svg";
 import CheckIcon from "../../assets/CheckIcon.svg";
 import ScrollGIF from "../../assets/scrolldown.gif";
@@ -74,11 +73,6 @@ class OrderPending extends React.Component {
           trigger={() => <></>}
           content={() => this.componentRef}
           ref={this.printRef}
-          // onAfterPrint={() => {
-          //   setTimeout(() => {
-          //     dispatch(resetOrder());
-          //   }, 10000);
-          // }}
         />
         <div
           className={style.resultWrapper}
@@ -106,30 +100,56 @@ class OrderPending extends React.Component {
               <div className={style.logoText}>
                 <p>
                   {order.paymentOption === CASH_PAYMENT ? (
-                    // auth.assign_to_outlet === null ? (
-                    //   <>
-                    //     Kindly take your order slip for reference then proceed
-                    //     and pay at any Ordering Booth available on any food
-                    //     outlet to process your order.
-                    //   </>
-                    // ) : (
-                    //   <>
-                    //     Kindly take your order slip for reference then proceed
-                    //     and pay at the Ordering Booth beside
-                    //     <span> Pancake House </span> to process your order.
-                    //   </>
-                    // )
                     <>
-                      Kindly take your order slip for reference then proceed and
-                      Pay at the counter or the Ordering Booth to process your order.
+                      {order.diningOption.toUpperCase() === "PICK-UP" ? (
+                        <>
+                          Kindly take your order slip for reference then proceed
+                          and pay at the Ordering Booth beside Pancake House to
+                          process your order.
+                        </>
+                      ) : (
+                        <>
+                          Kindly take your order slip for reference then proceed
+                          and pay at the Ordering Booth to process your order.
+                        </>
+                      )}
                     </>
                   ) : (
                     <>
-                      We are now preparing your order. If there are any
-                      concerns, we will contact you.
-                      <br />
-                      <br />
-                      Kindly take your order slip for reference.
+                      {auth.assign_to_outlet === null ? (
+                        <>
+                          {order.diningOption.toUpperCase() === "PICK-UP" ? (
+                            <>
+                              We are now preparing your order. Kindly proceed at{" "}
+                              <span>{order.selectedOutlet.name}</span> to
+                              pick-up your order.
+                            </>
+                          ) : (
+                            <>
+                              We are now preparing your order. If there are any
+                              concerns, we will contact you. <br />
+                              <br /> Kindly take your order slip for reference.
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {order.diningOption.toUpperCase() === "PICK-UP" ? (
+                            <>
+                              We are now preparing your order. Please proceed at
+                              the Ordering Booth beside Pancake House to pick-up
+                              your order. <br />
+                              <br /> Kindly take your order slip for reference.
+                            </>
+                          ) : (
+                            <>
+                              We are now preparing your order. If there are any
+                              concerns, we will contact you. <br />
+                              <br /> Kindly take your order slip for reference.
+                            </>
+                          )}
+                        </>
+                      )}
                     </>
                   )}
                 </p>
