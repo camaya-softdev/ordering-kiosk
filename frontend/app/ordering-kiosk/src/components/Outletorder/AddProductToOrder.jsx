@@ -41,8 +41,7 @@ function AddProductToOrder({ product, open, onClose }) {
 
         <div className={styles.addModalFields}>
           <span className={styles.addModalProductDesc}>
-            {product.description ??
-              "TESTING DESCRIPTIONTESTING DESCRIPTIONTESTING"}
+            {product.description}
           </span>
           <div className={styles.addModalProductDetails}>
             <span className={styles.addModalProductName}>{product.name}</span>
