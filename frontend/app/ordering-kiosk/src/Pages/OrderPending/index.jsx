@@ -66,6 +66,7 @@ class OrderPending extends React.Component {
       acc[outletId].push(product);
       return acc;
     }, {});
+    console.log(auth);
 
     return (
       <div>
@@ -120,9 +121,10 @@ class OrderPending extends React.Component {
                         <>
                           {order.diningOption.toUpperCase() === "PICK-UP" ? (
                             <>
-                              We are now preparing your order. Kindly proceed at{" "}
-                              <span>{order.selectedOutlet.name}</span> to
-                              pick-up your order.
+                              We are now preparing your order. Please proceed at
+                              the Ordering Booth beside Pancake House to pick-up
+                              your order. <br />
+                              <br /> Kindly take your order slip for reference.
                             </>
                           ) : (
                             <>
@@ -136,10 +138,9 @@ class OrderPending extends React.Component {
                         <>
                           {order.diningOption.toUpperCase() === "PICK-UP" ? (
                             <>
-                              We are now preparing your order. Please proceed at
-                              the Ordering Booth beside Pancake House to pick-up
-                              your order. <br />
-                              <br /> Kindly take your order slip for reference.
+                              We are now preparing your order. Kindly proceed at
+                              <span> {order.selectedOutlet.name} </span> to
+                              pick-up your order.
                             </>
                           ) : (
                             <>
