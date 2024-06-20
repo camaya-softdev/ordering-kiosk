@@ -143,17 +143,17 @@
 
             <div class="form-group">
               <label for="name">Product Name:</label>
-              <input type="text" class="form-control" id="name" name="name" required>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Type here" required>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="price">Price:</label>
-                    <input type="input" class="form-control" id="price" name="price" required>
+                    <input type="input" class="form-control" id="price" name="price" placeholder="₱0.00" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="stock">Stock:</label>
-                    <input type="number" class="form-control" id="stock" name="stock" required>
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="0" required>
                 </div>
             </div>
 
@@ -168,7 +168,7 @@
 
             <div class="form-group">
                 <label for="description">Description:</label> <br>
-                    <textarea  class="form-control" id="description" name="description">
+                    <textarea  class="form-control" id="description" name="description" maxlength="255" placeholder="Type here (max of 255 characters)">
 
                     </textarea>
             </div>
