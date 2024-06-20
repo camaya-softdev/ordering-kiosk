@@ -55,9 +55,88 @@ class OrderPending extends React.Component {
     }
   }
 
+  getOrderMessage(order, auth) {
+    const isPickup = order.diningOption.toUpperCase() === "PICK-UP";
+
+    if (order.paymentOption === CASH_PAYMENT) {
+      if (auth.auth.assign_to_outlet === null) {
+        if (isPickup) {
+          return (
+            <>
+              Kindly take your order slip for reference then proceed and pay at
+              <span> {order.selectedOutlet.name} </span> to process your order
+            </>
+          );
+        } else {
+          return (
+            <>
+              Kindly take your order slip for reference then proceed and pay at
+              the Ordering Booth beside Pancake House to process your order.
+            </>
+          );
+        }
+      } else {
+        return (
+          <>
+            Kindly take your order slip for reference then proceed and pay at
+            the Ordering Booth beside Pancake House to process your order.
+          </>
+        );
+      }
+    } else {
+      if (auth.auth.assign_to_outlet === null) {
+        if (isPickup) {
+          return (
+            <>
+              We are now preparing your order. Please proceed at the Ordering
+              Booth beside Pancake House to pick-up your order. <br />
+              <br /> Kindly take your order slip for reference.
+            </>
+          );
+        } else {
+          return (
+            <>
+              We are now preparing your order. If there are any concerns, we
+              will contact you. <br />
+              <br /> Kindly take your order slip for reference.
+            </>
+          );
+        }
+      } else {
+        if (isPickup) {
+          return (
+            <>
+              We are now preparing your order. Kindly proceed at
+              <span> {order.selectedOutlet.name} </span> to pick-up your order.
+            </>
+          );
+        } else {
+          return (
+            <>
+              We are now preparing your order. If there are any concerns, we
+              will contact you. <br />
+              <br /> Kindly take your order slip for reference.
+            </>
+          );
+        }
+      }
+    }
+  }
+
+  getOrderStatus(order) {
+    return order.paymentOption === CASH_PAYMENT
+      ? "Order Pending..."
+      : "Order Confirmed!";
+  }
+
+  getOrderIcon(order) {
+    return order.paymentOption === CASH_PAYMENT ? ClockIcon : CheckIcon;
+  }
+
   render() {
     const { order, auth, dispatch } = this.props;
     const { countdown, showScrollDivs } = this.state;
+
     const groupedProducts = order.selectedProducts.reduce((acc, product) => {
       const outletId = product.outlet.id;
       if (!acc[outletId]) {
@@ -67,6 +146,10 @@ class OrderPending extends React.Component {
       return acc;
     }, {});
     console.log(auth);
+
+    const orderMessage = this.getOrderMessage(order, auth);
+    const orderStatus = this.getOrderStatus(order);
+    const orderIcon = this.getOrderIcon(order);
 
     return (
       <div>
@@ -83,89 +166,14 @@ class OrderPending extends React.Component {
           <div className={style.innerWrapper}>
             <div className={style.iconWrapper}>
               <div className={style.iconDetails}>
-                <LazyLoadImage
-                  src={
-                    order.paymentOption === CASH_PAYMENT ? ClockIcon : CheckIcon
-                  }
-                  alt="icon"
-                />
-                <span className={style.orderStatus}>
-                  {order.paymentOption === CASH_PAYMENT
-                    ? "Order Pending..."
-                    : "Order Confirmed!"}
-                </span>
+                <LazyLoadImage src={orderIcon} alt="icon" />
+                <span className={style.orderStatus}>{orderStatus}</span>
               </div>
             </div>
 
             <div className={style.resultNotes}>
               <div className={style.logoText}>
-                <p>
-                  {order.paymentOption === CASH_PAYMENT ? (
-                    <>
-                      {auth.assign_to_outlet === null ? (
-                        <>
-                          {order.diningOption.toUpperCase() === "PICK-UP" ? (
-                            <>
-                              Kindly take your order slip for reference then
-                              proceed and pay at
-                              <span> {order.selectedOutlet.name} </span> to
-                              process your order
-                            </>
-                          ) : (
-                            <>
-                              Kindly take your order slip for reference then
-                              proceed and pay at the Ordering Booth beside
-                              Pancake House to process your order.
-                            </>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          Kindly take your order slip for reference then proceed
-                          and pay at the Ordering Booth beside Pancake House to
-                          process your order.
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {auth.assign_to_outlet === null ? (
-                        <>
-                          {order.diningOption.toUpperCase() === "PICK-UP" ? (
-                            <>
-                              We are now preparing your order. Please proceed at
-                              the Ordering Booth beside Pancake House to pick-up
-                              your order. <br />
-                              <br /> Kindly take your order slip for reference.
-                            </>
-                          ) : (
-                            <>
-                              We are now preparing your order. If there are any
-                              concerns, we will contact you. <br />
-                              <br /> Kindly take your order slip for reference.
-                            </>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          {order.diningOption.toUpperCase() === "PICK-UP" ? (
-                            <>
-                              We are now preparing your order. Kindly proceed at
-                              <span> {order.selectedOutlet.name} </span> to
-                              pick-up your order.
-                            </>
-                          ) : (
-                            <>
-                              We are now preparing your order. If there are any
-                              concerns, we will contact you. <br />
-                              <br /> Kindly take your order slip for reference.
-                            </>
-                          )}
-                        </>
-                      )}
-                    </>
-                  )}
-                </p>
+                <p>{orderMessage}</p>
               </div>
             </div>
             <div className={style.orderDetails}>
@@ -303,9 +311,8 @@ class OrderPending extends React.Component {
                                     year: "numeric",
                                     month: "long",
                                     day: "numeric",
-                                    hour: "numeric",
-                                    minute: "numeric",
-                                    hour12: true,
+                                    hour: "2-digit",
+                                    minute: "2-digit",
                                   })}
                                 </span>
                               </p>
@@ -313,43 +320,31 @@ class OrderPending extends React.Component {
                           </div>
                         </div>
                       </div>
-                    </div>
-                    {order.gcashPaymentDetails !== null ? (
                       <div className={style.footerRow}>
                         <div>
                           <div>
                             <div className={style.footerRowDetails}>
                               <p>
-                                <span className={style.bold}>
-                                  REFERENCE NUMBER
-                                </span>
-                                <span className={style.bold}>
-                                  {order.gcashPaymentDetails.referenceNumber}
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                          <div>
-                            <div className={style.footerRowDetails}>
-                              <p>
-                                <span>NAME</span>
-                                <span>{order.gcashPaymentDetails.name}</span>
-                              </p>
-                            </div>
-                          </div>
-                          <div>
-                            <div className={style.footerRowDetails}>
-                              <p>
-                                <span>CONTACT NUMBER</span>
-                                <span>
-                                  {order.gcashPaymentDetails.phoneNumber}
-                                </span>
+                                <span>CUSTOMER NAME</span>
+                                <span>{order.customerName}</span>
                               </p>
                             </div>
                           </div>
                         </div>
                       </div>
-                    ) : null}
+                      <div className={style.footerRow}>
+                        <div>
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>CONTACT NUMBER</span>
+                                <span>{order.contactNumber}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
