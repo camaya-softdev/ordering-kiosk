@@ -60,6 +60,13 @@ class OrderPending extends React.Component {
 
     if (order.paymentOption === CASH_PAYMENT) {
       if (auth.auth.assign_to_outlet === null) {
+        return (
+          <>
+            Kindly take your order slip for reference then proceed and pay at
+            the Ordering Booth beside the Pancake House to process your order.
+          </>
+        );
+      } else {
         if (isPickup) {
           return (
             <>
@@ -75,13 +82,6 @@ class OrderPending extends React.Component {
             </>
           );
         }
-      } else {
-        return (
-          <>
-            Kindly take your order slip for reference then proceed and pay at
-            the Ordering Booth beside Pancake House to process your order.
-          </>
-        );
       }
     } else {
       if (auth.auth.assign_to_outlet === null) {
