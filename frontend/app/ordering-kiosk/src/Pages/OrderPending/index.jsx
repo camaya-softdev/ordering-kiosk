@@ -55,11 +55,12 @@ class OrderPending extends React.Component {
     }
   }
 
-  getOrderMessage(order, auth) {
+  getOrderMessage(order, groupedProducts) {
     const isPickup = order.diningOption.toUpperCase() === "PICK-UP";
+    const hasMultipleGroups = Object.keys(groupedProducts).length > 1;
 
     if (order.paymentOption === CASH_PAYMENT) {
-      if (auth.auth.assign_to_outlet === null) {
+      if (hasMultipleGroups) {
         return (
           <>
             Kindly take your order slip for reference then proceed and pay at
@@ -84,7 +85,7 @@ class OrderPending extends React.Component {
         }
       }
     } else {
-      if (auth.auth.assign_to_outlet === null) {
+      if (hasMultipleGroups) {
         if (isPickup) {
           return (
             <>
@@ -145,9 +146,8 @@ class OrderPending extends React.Component {
       acc[outletId].push(product);
       return acc;
     }, {});
-    console.log(auth);
 
-    const orderMessage = this.getOrderMessage(order, auth);
+    const orderMessage = this.getOrderMessage(order, groupedProducts);
     const orderStatus = this.getOrderStatus(order);
     const orderIcon = this.getOrderIcon(order);
 
