@@ -104,12 +104,6 @@ class OrderPending extends React.Component {
                     <>
                       {auth.assign_to_outlet === null ? (
                         <>
-                          Kindly take your order slip for reference then proceed
-                          and pay at the Ordering Booth beside Pancake House to
-                          process your order.
-                        </>
-                      ) : (
-                        <>
                           {order.diningOption.toUpperCase() === "PICK-UP" ? (
                             <>
                               Kindly take your order slip for reference then
@@ -124,6 +118,12 @@ class OrderPending extends React.Component {
                               Pancake House to process your order.
                             </>
                           )}
+                        </>
+                      ) : (
+                        <>
+                          Kindly take your order slip for reference then proceed
+                          and pay at the Ordering Booth beside Pancake House to
+                          process your order.
                         </>
                       )}
                     </>
