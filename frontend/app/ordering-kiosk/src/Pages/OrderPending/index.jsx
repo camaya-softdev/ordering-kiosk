@@ -320,30 +320,42 @@ class OrderPending extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <div className={style.footerRow}>
-                        <div>
+                      {order.gcashPaymentDetails !== null ? (
+                        <div className={style.footerRow}>
                           <div>
-                            <div className={style.footerRowDetails}>
-                              <p>
-                                <span>CUSTOMER NAME</span>
-                                <span>{order.customerName}</span>
-                              </p>
+                            <div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span className={style.bold}>
+                                    REFERENCE NUMBER
+                                  </span>
+                                  <span className={style.bold}>
+                                    {order.gcashPaymentDetails.referenceNumber}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span>NAME</span>
+                                  <span>{order.gcashPaymentDetails.name}</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span>CONTACT NUMBER</span>
+                                  <span>
+                                    {order.gcashPaymentDetails.phoneNumber}
+                                  </span>
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className={style.footerRow}>
-                        <div>
-                          <div>
-                            <div className={style.footerRowDetails}>
-                              <p>
-                                <span>CONTACT NUMBER</span>
-                                <span>{order.contactNumber}</span>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
