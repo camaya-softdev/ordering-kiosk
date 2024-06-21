@@ -387,6 +387,7 @@
         width: 100% !important;
         margin: 0 !important;
         gap: 0 !important;
+        overflow: visible !important;
     }
 
     .orderProducts {
