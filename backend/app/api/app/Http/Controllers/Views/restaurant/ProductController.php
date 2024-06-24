@@ -30,15 +30,18 @@ class ProductController extends Controller
             'create_status' => 'required',
             // 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        // Handle image upload
-        $imagePath = $request->file('image')->store('public/images');
-        $imageUrl = Storage::url($imagePath);
-
+    
+        // Handle image upload if provided
+        $imageUrl = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images');
+            $imageUrl = Storage::url($imagePath);
+        }
+    
         $outlet = $this->productService->createProduct([
             'name' => $request->input('name'),
             'price' => $request->input('price'),
@@ -49,12 +52,10 @@ class ProductController extends Controller
             'image' => $imageUrl,
             'description' => $request->input('description'),
         ]);
-
+    
         return redirect()->route('menu')->with('success', 'Product created successfully');
-
-
-
     }
+    
 
     public function update(Request $request, Product $product)
     {
