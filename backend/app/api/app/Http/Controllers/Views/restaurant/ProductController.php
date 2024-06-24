@@ -28,7 +28,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'stock' => 'required|integer',
             'create_status' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
 
         if ($validator->fails()) {

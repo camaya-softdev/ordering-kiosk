@@ -38,7 +38,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -98,7 +97,9 @@
 <script>
     $(document).ready(function() {
         $('#editCategoryModal .create-btn').click(function() {
-            var categoryName = $('#category option:selected').text();
+            var selectedOption = $('#category option:selected');
+            var categoryName = selectedOption.text();
+            var categoryId = selectedOption.val();
 
             if (categoryName.trim() === "") {
                 // If no category is selected, prevent opening the next modal
@@ -106,6 +107,7 @@
             }
 
             $('#update_category_name').val(categoryName);
+            $('#update_category_id').val(categoryId);
         });
     });
 </script>
