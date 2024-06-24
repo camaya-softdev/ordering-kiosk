@@ -3,6 +3,7 @@ import styles from "./OutletOrder.module.css";
 import AddProductToOrder from "./AddProductToOrder";
 import { formatNumber } from "../../utils/Common/Price";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import noproduct from "../../assets/noprodimage.svg";
 
 function ProductCard({ product }) {
   const [addProduct, setAddProduct] = useState(false);
@@ -21,7 +22,11 @@ function ProductCard({ product }) {
       >
         <div className={styles.productImageWrapper}>
           <LazyLoadImage
-            src={`${import.meta.env.VITE_API}/${product.image}`}
+            src={
+              product.image
+                ? `${import.meta.env.VITE_API}/${product.image}`
+                : noproduct
+            }
             alt="product"
             className={styles.productImage}
           />
