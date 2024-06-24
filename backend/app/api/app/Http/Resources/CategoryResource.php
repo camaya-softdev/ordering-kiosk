@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'outlet_id' => $this->outlet_id,
             'status' => $this->status,
-
+            'created_at' => $this->created_at,
         ];
     }
 }

@@ -24,9 +24,20 @@ function CategoryList() {
 
   useEffect(() => {
     if (categories?.data?.length > 0 && !selectedCategory) {
-      selectCategory(categories.data[0]);
+      // Find the "Newly Added" category
+      const newlyAddedCategory = categories.data.find(
+        (category) => category.name === "Newly Added"
+      );
+
+      // Select the "Newly Added" category if found
+      if (newlyAddedCategory) {
+        selectCategory(newlyAddedCategory);
+      } else {
+        // If "Newly Added" category is not found, select the first category
+        selectCategory(categories.data[0]);
+      }
     }
-  }, [categories]);
+  }, [categories, selectedCategory]); // Include selectedCategory to trigger re-selection
 
   const selectCategory = (category) => {
     if (category.status) {
@@ -34,25 +45,27 @@ function CategoryList() {
     }
   };
 
-  const renderCategoryCard = (category, isSelected) => (
-    <div
-      onClick={() => selectCategory(category)}
-      key={category.id}
-      className={`${styles.categoryCard} ${isSelected ? styles.selected : ""} ${
-        category.status ? "" : "disabled"
-      }`}
-    >
-      <LazyLoadImage
-        src={categoryIcon}
-        alt="categoryIcon"
-        className={styles.categoryIcon}
-      />
-      <span className={styles.categoryName}>
-        <p>{category.name}</p>
-      </span>
-      {isSelected && <div className={styles.circle}></div>}
-    </div>
-  );
+  const renderCategoryCard = (category, isSelected) => {
+    return (
+      <div
+        onClick={() => selectCategory(category)}
+        key={category.id}
+        className={`${styles.categoryCard} ${
+          isSelected ? styles.selected : ""
+        } ${category.status ? "" : "disabled"}`}
+      >
+        <LazyLoadImage
+          src={categoryIcon}
+          alt="categoryIcon"
+          className={styles.categoryIcon}
+        />
+        <span className={styles.categoryName}>
+          <p>{category.name}</p>
+        </span>
+        {isSelected && <div className={styles.circle}></div>}
+      </div>
+    );
+  };
 
   return (
     <div className={styles.categoryWrapper}>
@@ -65,15 +78,21 @@ function CategoryList() {
           {categories?.data?.length > 0 ? (
             <div className={styles.categoryButtons}>
               {categories.data
+                .slice() // Create a shallow copy to avoid mutating original array
                 .sort((a, b) => {
                   if (a.name === "Newly Added") return -1;
                   if (b.name === "Newly Added") return 1;
-                  return a.name.localeCompare(b.name);
+                  // Handle null ids by placing them first
+                  if (a.id === null && b.id !== null) return -1;
+                  if (a.id !== null && b.id === null) return 1;
+
+                  // Sort by id if both ids are not null
+                  return (a.id || 0) - (b.id || 0);
                 })
                 .map((category) =>
                   renderCategoryCard(
                     category,
-                    selectedCategory && selectedCategory.name === category.name
+                    selectedCategory && selectedCategory.id === category.id
                   )
                 )}
             </div>
