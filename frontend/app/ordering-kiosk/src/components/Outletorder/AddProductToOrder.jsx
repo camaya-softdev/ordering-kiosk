@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSelectedProduct } from "../../store/order/orderSlice";
 import { formatNumber } from "../../utils/Common/Price";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import noproduct from "../../assets/noprodimage.svg";
 
 function AddProductToOrder({ product, open, onClose }) {
   const [quantity, setQuantity] = useState(0);
@@ -34,17 +35,21 @@ function AddProductToOrder({ product, open, onClose }) {
       <div className={styles.addProductModalBody}>
         <div className={styles.addModalImageWrapper}>
           <LazyLoadImage
-            src={`${import.meta.env.VITE_API}/${product.image}`}
+            src={
+              product.image
+                ? `${import.meta.env.VITE_API}/${product.image}`
+                : noproduct
+            }
             alt="product"
           />
         </div>
 
         <div className={styles.addModalFields}>
-          <span className={styles.addModalProductDesc}>
-            {product.description ?? ""}
-          </span>
           <div className={styles.addModalProductDetails}>
             <span className={styles.addModalProductName}>{product.name}</span>
+            <span className={styles.addModalProductDesc}>
+              {product.description ?? ""}
+            </span>
             <span className={styles.addModalProductPrice}>
               &#8369;{formatNumber(product.price)}
             </span>
