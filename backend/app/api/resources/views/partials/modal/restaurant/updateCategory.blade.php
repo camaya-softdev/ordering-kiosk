@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     <label for="category">Category:</label>
-                    <select class="form-control" id="category" name="category">
+                    <select class="form-control" id="update_category" name="category">
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
@@ -50,12 +50,12 @@
         <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-body">
                 <!-- Form inside the modal -->
-                <form method="POST" action="{{ route('category.update', ['id' => $category->id ?? '0']) }}" enctype="multipart/form-data">
+                <form method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
                     <!-- Hidden input for category ID -->
-                    <input type="hidden" id="update_category_id" name="update_category_id" value="{{ $category->id ?? '0' }}">
+                    <input type="hidden" id="update_category_id" name="update_category_id" value="">
 
                     <div class="add-category-layout">
                         <div class="add-category-style">
@@ -93,19 +93,33 @@
     </div>
 </div>
 
+
 <!-- JavaScript/jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         $('#editCategoryModal .create-btn').click(function() {
-            var categoryName = $('#category option:selected').text();
+            var selectedOption = $('#update_category option:selected');
+            var categoryId = selectedOption.val();
+            var categoryName = selectedOption.text();
+
+            // console.log(selectedOption);
+            // console.log(categoryId,categoryName);
 
             if (categoryName.trim() === "") {
                 // If no category is selected, prevent opening the next modal
                 return false;
             }
 
+            $('#update_category_id').val(categoryId);
             $('#update_category_name').val(categoryName);
+
+            // Set the form action dynamically
+            var formAction = "{{ route('category.update', ':id') }}";
+            formAction = formAction.replace(':id', categoryId);
+            $('#updateCategoryModal form').attr('action', formAction);
         });
     });
 </script>
+
+
