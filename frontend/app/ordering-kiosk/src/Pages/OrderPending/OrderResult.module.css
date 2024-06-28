@@ -436,3 +436,20 @@
     top: 60px;
     right: -40px;
 }
+
+@media print {
+    .receiptComponents {
+        overflow: visible !important;
+        /* Ensure overflow is visible */
+        height: auto !important;
+        /* Adjust height to auto */
+    }
+
+    .hidden {
+        display: flex !important;
+    }
+}
+
+.hidden {
+    display: none;
+}
