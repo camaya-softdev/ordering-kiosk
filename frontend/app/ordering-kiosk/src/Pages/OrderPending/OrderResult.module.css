@@ -444,12 +444,4 @@
         height: auto !important;
         /* Adjust height to auto */
     }
-
-    .hidden {
-        display: flex !important;
-    }
-}
-
-.hidden {
-    display: none;
 }
