@@ -250,7 +250,7 @@
                if(orderDetails.payment_method === 'GCash')
                {
                  showNotification("Hello!", {
-                body: "TThere's a new Order",
+                body: "There's a new Order",
                 icon: "icon.png",
                 });
                 // Play the notification sound
