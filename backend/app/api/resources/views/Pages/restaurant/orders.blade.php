@@ -248,7 +248,7 @@
             if (!existingOrderIds.has(orderDetails.id)) {
 
                 showNotification("Hello!", {
-                body: "This is a browser notification example.",
+                body: "TThere's a new Order",
                 icon: "icon.png",
                 });
                 // Play the notification sound
