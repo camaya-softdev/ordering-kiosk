@@ -247,16 +247,18 @@
             // Check if the order already exists
             if (!existingOrderIds.has(orderDetails.id)) {
 
-               if(orderDetails.payment_method === 'GCash')
-               {
-                 showNotification("Hello!", {
-                body: "There's a new Order",
-                icon: "icon.png",
-                });
-                // Play the notification sound
-                playSound();
+                if (orderDetails.payment_method === 'GCash') {
+                    const createdAt = new Date(orderDetails.created_at);
+                    const formattedDate = formatDate(createdAt);
 
-               }
+                    showNotification(`New Order: ${orderDetails.id}`, {
+                        body: `${formattedDate}`,
+                        icon: "icon.png",
+                    });
+                    // Play the notification sound
+                    playSound();
+                }
+
 
                 const total = calculateTotal(orderDetails.orders);
                 const newRow = `
