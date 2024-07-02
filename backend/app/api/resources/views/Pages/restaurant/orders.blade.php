@@ -242,10 +242,18 @@
             return total.toFixed(2);
         }
 
-        function updateTable(latestOrders) {
+    function updateTable(latestOrders) {
         latestOrders.forEach(orderDetails => {
             // Check if the order already exists
             if (!existingOrderIds.has(orderDetails.id)) {
+
+                showNotification("Hello!", {
+                body: "TThere's a new Order",
+                icon: "icon.png",
+                });
+                // Play the notification sound
+                playSound();
+
                 const total = calculateTotal(orderDetails.orders);
                 const newRow = `
                     <tr data-order-id="${orderDetails.id}" style="${orderDetails.payment_method === 'GCash' && orderDetails.status === 'pending' ? 'background-color: #FEF2DE;' : ''}">
@@ -429,6 +437,43 @@ function createOrderDetailsModal(orderDetails) {
             fetchLatestOrderData(outletId);
         }, 5000);
     });
+
+
+
+
+    function showNotification(title, options) {
+    if (!("Notification" in window)) {
+        console.error("This browser does not support notifications.");
+        return;
+    }
+
+    if (Notification.permission === "granted") {
+        new Notification(title, options);
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+            new Notification(title, options);
+        }
+        });
+    }
+    }
+
+    function playSound() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4 note
+
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 1); // Play for 1 second
+    }
 
 </script>
 
