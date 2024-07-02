@@ -247,12 +247,16 @@
             // Check if the order already exists
             if (!existingOrderIds.has(orderDetails.id)) {
 
-                showNotification("Hello!", {
+               if(orderDetails.payment_method === 'GCash')
+               {
+                 showNotification("Hello!", {
                 body: "TThere's a new Order",
                 icon: "icon.png",
                 });
                 // Play the notification sound
                 playSound();
+
+               }
 
                 const total = calculateTotal(orderDetails.orders);
                 const newRow = `
@@ -446,6 +450,8 @@ function createOrderDetailsModal(orderDetails) {
         console.error("This browser does not support notifications.");
         return;
     }
+
+    options.requireInteraction = true;
 
     if (Notification.permission === "granted") {
         new Notification(title, options);
