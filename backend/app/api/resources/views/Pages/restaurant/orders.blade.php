@@ -247,17 +247,44 @@
             // Check if the order already exists
             if (!existingOrderIds.has(orderDetails.id)) {
 
-                if (orderDetails.payment_method === 'GCash') {
-                    const createdAt = new Date(orderDetails.created_at);
-                    const formattedDate = formatDate(createdAt);
+                function formatDate(date) {
+                        const months = [
+                            'January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'
+                        ];
 
-                    showNotification(`New Order: ${orderDetails.id}`, {
-                        body: `${formattedDate}`,
-                        icon: "icon.png",
-                    });
-                    // Play the notification sound
-                    playSound();
-                }
+                        const day = date.getDate();
+                        const daySuffix = (day) => {
+                            if (day > 3 && day < 21) return 'th';
+                            switch (day % 10) {
+                                case 1: return 'st';
+                                case 2: return 'nd';
+                                case 3: return 'rd';
+                                default: return 'th';
+                            }
+                        };
+
+                        const hours = date.getHours();
+                        const minutes = date.getMinutes();
+                        const ampm = hours >= 12 ? 'PM' : 'AM';
+                        const formattedHours = hours % 12 || 12;
+                        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+                        return `${months[date.getMonth()]} ${day}${daySuffix(day)}, at ${formattedHours}:${formattedMinutes} ${ampm}`;
+                    }
+
+                    if (orderDetails.payment_method === 'GCash') {
+                        const createdAt = new Date(orderDetails.created_at);
+                        const formattedDate = formatDate(createdAt);
+
+                        showNotification(`New Order: ${orderDetails.id}`, {
+                            body: `${formattedDate}`,
+                            icon: "icon.png",
+                        });
+                        // Play the notification sound
+                        playSound();
+                    }
+
 
 
                 const total = calculateTotal(orderDetails.orders);
