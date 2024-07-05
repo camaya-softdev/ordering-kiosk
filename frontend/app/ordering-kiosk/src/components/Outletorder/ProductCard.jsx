@@ -8,8 +8,9 @@ import noproduct from "../../assets/noprodimage.svg";
 function ProductCard({ product }) {
   const [addProduct, setAddProduct] = useState(false);
 
+  console.log(product);
   const selectProduct = () => {
-    if (product.status) {
+    if (product.status && product.stock > 0) {
       setAddProduct(true);
     }
   };
@@ -17,7 +18,9 @@ function ProductCard({ product }) {
   return (
     <>
       <div
-        className={`${styles.productCard} ${product.status ? "" : "disabled"}`}
+        className={`${styles.productCard} ${product.status ? "" : "disabled"} ${
+          product.stock <= 0 ? "hidden" : ""
+        }`}
         onClick={selectProduct}
       >
         <div className={styles.productImageWrapper}>
