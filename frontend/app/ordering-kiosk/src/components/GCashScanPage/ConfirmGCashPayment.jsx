@@ -8,11 +8,16 @@ import {
   nextStep,
   setCreatedTransaction,
   setGCashPaymentDetails,
+  setCashPaymentDetails,
+  setOrderStep,
 } from "../../store/order/orderSlice";
 import { useCreateTransaction } from "../../services/TransactionService";
-import { GCASH_PAYMENT } from "../../utils/Constants/PaymentOptions";
+import {
+  GCASH_PAYMENT,
+  CASH_PAYMENT,
+} from "../../utils/Constants/PaymentOptions";
 
-function ConfirmGCashPayment({ open, onClose }) {
+function ConfirmPayment({ open, onClose }) {
   const order = useSelector((state) => state.order);
   const dispatch = useDispatch();
   const placeOrderQuery = useCreateTransaction();
@@ -21,21 +26,29 @@ function ConfirmGCashPayment({ open, onClose }) {
     referenceNumber: null,
     name: null,
   });
-  const [gcashPaymentDetails, setGcashPaymentDetails] = useState({
+  const [paymentDetails, setPaymentDetails] = useState({
     name: "",
     phoneNumber: "",
     referenceNumber: "",
   });
 
   const handleConfirm = () => {
-    dispatch(setGCashPaymentDetails(gcashPaymentDetails));
+    if (order.paymentOption === GCASH_PAYMENT) {
+      dispatch(setGCashPaymentDetails(paymentDetails));
+    } else if (order.paymentOption === CASH_PAYMENT) {
+      dispatch(setCashPaymentDetails(paymentDetails));
+    }
   };
 
   const handleSave = async () => {
     try {
       const response = await (await placeOrderQuery).mutateAsync(order);
+      console.log(order);
       dispatch(setCreatedTransaction(response.data.transaction));
-      dispatch(nextStep());
+      order.paymentOption === GCASH_PAYMENT &&
+      order.gcashPaymentDetails !== null
+        ? dispatch(nextStep())
+        : dispatch(setOrderStep(8));
     } catch (error) {
       alert("Cannot create transaction. Please try again.");
     }
@@ -43,12 +56,18 @@ function ConfirmGCashPayment({ open, onClose }) {
 
   useEffect(() => {
     if (
-      order.paymentOption === GCASH_PAYMENT &&
-      order.gcashPaymentDetails !== null
+      (order.paymentOption === GCASH_PAYMENT &&
+        order.gcashPaymentDetails !== null) ||
+      (order.paymentOption === CASH_PAYMENT &&
+        order.cashPaymentDetails !== null)
     ) {
       handleSave();
     }
-  }, [order.paymentOption, order.gcashPaymentDetails]);
+  }, [
+    order.paymentOption,
+    order.gcashPaymentDetails,
+    order.cashPaymentDetails,
+  ]);
 
   const validatePhoneNumber = (phoneNumber) => {
     const phoneNumberPattern = /^(\+63|0)\d{10}$/;
@@ -80,27 +99,29 @@ function ConfirmGCashPayment({ open, onClose }) {
   return (
     <BottomModal open={open} onClose={onClose}>
       <div className={styles.modalFields}>
-        <CustomInputField
-          label="Enter reference number"
-          placeholder="e.g 0123456789"
-          value={gcashPaymentDetails.referenceNumber}
-          onChange={(e) => {
-            setGcashPaymentDetails({
-              ...gcashPaymentDetails,
-              referenceNumber: e.target.value,
-            });
-            validateReferenceNumber(e.target.value);
-          }}
-          error={fieldErrors.referenceNumber}
-        />
+        {order.paymentOption === GCASH_PAYMENT && (
+          <CustomInputField
+            label="Enter reference number"
+            placeholder="e.g 0123456789"
+            value={paymentDetails.referenceNumber}
+            onChange={(e) => {
+              setPaymentDetails({
+                ...paymentDetails,
+                referenceNumber: e.target.value,
+              });
+              validateReferenceNumber(e.target.value);
+            }}
+            error={fieldErrors.referenceNumber}
+          />
+        )}
 
         <CustomInputField
           label="Enter your name"
           placeholder="John Doe"
-          value={gcashPaymentDetails.name}
+          value={paymentDetails.name}
           onChange={(e) => {
-            setGcashPaymentDetails({
-              ...gcashPaymentDetails,
+            setPaymentDetails({
+              ...paymentDetails,
               name: e.target.value,
             });
             validateName(e.target.value);
@@ -111,10 +132,10 @@ function ConfirmGCashPayment({ open, onClose }) {
         <CustomInputField
           label="Enter your phone number"
           placeholder="0912 345 6789"
-          value={gcashPaymentDetails.phoneNumber}
+          value={paymentDetails.phoneNumber}
           onChange={(e) => {
-            setGcashPaymentDetails({
-              ...gcashPaymentDetails,
+            setPaymentDetails({
+              ...paymentDetails,
               phoneNumber: e.target.value,
             });
             validatePhoneNumber(e.target.value);
@@ -135,10 +156,12 @@ function ConfirmGCashPayment({ open, onClose }) {
           disabled={
             fieldErrors.phoneNumber !== null ||
             fieldErrors.name !== null ||
-            fieldErrors.referenceNumber !== null ||
-            !gcashPaymentDetails.name ||
-            !gcashPaymentDetails.phoneNumber ||
-            !gcashPaymentDetails.referenceNumber ||
+            (order.paymentOption === GCASH_PAYMENT &&
+              fieldErrors.referenceNumber !== null) ||
+            !paymentDetails.name ||
+            !paymentDetails.phoneNumber ||
+            (order.paymentOption === GCASH_PAYMENT &&
+              !paymentDetails.referenceNumber) ||
             placeOrderQuery.isLoading
           }
         >
@@ -149,4 +172,4 @@ function ConfirmGCashPayment({ open, onClose }) {
   );
 }
 
-export default ConfirmGCashPayment;
+export default ConfirmPayment;

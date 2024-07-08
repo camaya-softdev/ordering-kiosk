@@ -16,6 +16,7 @@ const orderSlice = createSlice({
     area: null,
     paymentOption: null,
     gcashPaymentDetails: null,
+    cashPaymentDetails: null,
     createdTransaction: null
   },
   reducers: {
@@ -47,6 +48,7 @@ const orderSlice = createSlice({
       state.area = null;
       state.paymentOption = null;
       state.gcashPaymentDetails = null;
+      state.cashPaymentDetails = null;
       state.createdTransaction = null;
     },
     setOrderStep: (state, action) => {
@@ -128,6 +130,9 @@ const orderSlice = createSlice({
     setGCashPaymentDetails: (state, action) => {
       state.gcashPaymentDetails = action.payload
     },
+    setCashPaymentDetails: (state, action) => {
+      state.cashPaymentDetails = action.payload
+    },
     setCreatedTransaction: (state, action) => {
       state.createdTransaction = action.payload;
     }
@@ -152,6 +157,7 @@ export const {
   setArea,
   setPaymentOption,
   setGCashPaymentDetails,
+  setCashPaymentDetails,
   setCreatedTransaction
 } = orderSlice.actions;
 
