@@ -304,7 +304,7 @@
                         <td style="font-weight: bold">${orderDetails.reference_number ?? 'N/A'}</td>
                         <td>
                             ${orderDetails.customer ? orderDetails.customer.name : 'N/A'} <br>
-                            ${orderDetails.mobile_number ? orderDetails.customer.mobile_number : ''} <br>
+                            ${orderDetails.customer.mobile_number} <br>
 
                         </td>
 
