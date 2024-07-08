@@ -28,6 +28,11 @@ class CreateTransactionController extends Controller
                     'name' => $request->gcashPaymentDetails['name'],
                     'mobile_number' => $request->gcashPaymentDetails['phoneNumber'],
                 ]);
+            }else if($request->cashPaymentDetails){
+                $newCustomer = Customer::create([
+                    'name' => $request->cashPaymentDetails['name'],
+                    'mobile_number' => $request->cashPaymentDetails['phoneNumber'],
+                ]);
             }
 
             $newTransaction = Transaction::create([
