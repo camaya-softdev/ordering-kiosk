@@ -342,7 +342,11 @@ class OrderPending extends React.Component {
                             <div className={style.footerRowDetails}>
                               <p>
                                 <span>NAME</span>
-                                <span>{order.gcashPaymentDetails.name}</span>
+                                <span>
+                                  {order.paymentOption !== CASH_PAYMENT
+                                    ? order.gcashPaymentDetails.name
+                                    : order.cashPaymentDetails.name}
+                                </span>
                               </p>
                             </div>
                           </div>
@@ -351,7 +355,9 @@ class OrderPending extends React.Component {
                               <p>
                                 <span>CONTACT NUMBER</span>
                                 <span>
-                                  {order.gcashPaymentDetails.phoneNumber}
+                                  {order.paymentOption !== CASH_PAYMENT
+                                    ? order.gcashPaymentDetails.phoneNumber
+                                    : order.cashPaymentDetails.phoneNumber}
                                 </span>
                               </p>
                             </div>
