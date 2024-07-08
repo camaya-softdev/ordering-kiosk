@@ -13,7 +13,9 @@ import {
 } from "../../store/order/orderSlice";
 import StartOverConfirmation from "../../components/Outletorder/StartOverConfirmation";
 import LoginModal from "../../components/Login/LoginModal";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+import noproduct from "../../assets/noprodimage.svg";
 
 const OrderSummary = () => {
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
@@ -45,7 +47,7 @@ const OrderSummary = () => {
     dispatch(nextStep());
     dispatch(setClassAnimate("backwardAnimation"));
   };
-  
+
   return (
     <>
       <div className={`${style[classAnimate]}`}>
@@ -59,7 +61,9 @@ const OrderSummary = () => {
               <div key={outletId}>
                 <div className={style.outletNameLogo}>
                   <LazyLoadImage
-                    src={`${import.meta.env.VITE_API}/${products[0].outlet.image}`}
+                    src={`${import.meta.env.VITE_API}/${
+                      products[0].outlet.image
+                    }`}
                     alt="outlet image"
                   />
                   <span>{products[0].outlet.name}</span>
@@ -71,7 +75,13 @@ const OrderSummary = () => {
                         <p className={style.countList}>{index + 1}.</p>
                         <div className={style.priceImg}>
                           <LazyLoadImage
-                            src={`${import.meta.env.VITE_API}/${product.details.image}`}
+                            src={
+                              product.details.image
+                                ? `${import.meta.env.VITE_API}/${
+                                    product.details.image
+                                  }`
+                                : noproduct
+                            }
                             alt={product.details.name}
                           />
                           <div>
@@ -99,23 +109,23 @@ const OrderSummary = () => {
           </div>
         </div>
 
-      <SummaryFooter
-        className={style.summaryFooter}
-        showBackBtn={true}
-        showStartOver={true}
-        showDiningDetails={true}
-        showChoosePaymentBtn={true}
-        showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
-        backOnClick={onBackClick}
-        startOverBtnOnClick={() => setOpenModal({ startOver: true })}
-        choosePaymentOnClick={onProceedClick}
-      />
+        <SummaryFooter
+          className={style.summaryFooter}
+          showBackBtn={true}
+          showStartOver={true}
+          showDiningDetails={true}
+          showChoosePaymentBtn={true}
+          showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
+          backOnClick={onBackClick}
+          startOverBtnOnClick={() => setOpenModal({ startOver: true })}
+          choosePaymentOnClick={onProceedClick}
+        />
 
         <StartOverConfirmation
           open={openModal.startOver}
           onClose={() => setOpenModal({ startOver: false })}
         />
-        <LoginModal/>
+        <LoginModal />
       </div>
     </>
   );

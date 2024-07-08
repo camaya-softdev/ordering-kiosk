@@ -357,10 +357,6 @@ class OrderPending extends React.Component {
                         </div>
                       ) : null}
                     </div>
-                    <div className={style.hidden}>
-                      <br />
-                      <br />
-                    </div>
                   </div>
                 </div>
               </div>
