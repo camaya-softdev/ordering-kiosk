@@ -14,6 +14,7 @@ import RemoveProductConfirmation from "./RemoveProductConfirmation";
 import SummaryFooter from "./SummaryFooter";
 import { formatNumber } from "../../utils/Common/Price";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import noproduct from "../../assets/noprodimage.svg";
 
 function ViewOrder({ open, onClose }) {
   const selectedProducts = useSelector((state) => state.order.selectedProducts);
@@ -42,7 +43,11 @@ function ViewOrder({ open, onClose }) {
               <div className={styles.viewOrderItemDetails}>
                 <div className={styles.viewOrderImage}>
                   <LazyLoadImage
-                    src={`${import.meta.env.VITE_API}${product.details.image}`}
+                    src={
+                      product.details.image
+                        ? `${import.meta.env.VITE_API}/${product.details.image}`
+                        : noproduct
+                    }
                     alt={product.details.name}
                   />
                 </div>
