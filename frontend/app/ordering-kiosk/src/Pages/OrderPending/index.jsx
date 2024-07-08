@@ -279,6 +279,7 @@ class OrderPending extends React.Component {
                           </div>
                         </div>
                       </div>
+
                       {order.gcashPaymentDetails !== null ? (
                         <div className={style.footerRow}>
                           <div>
@@ -320,9 +321,10 @@ class OrderPending extends React.Component {
                           </div>
                         </div>
                       </div>
-                      {order.gcashPaymentDetails !== null ? (
-                        <div className={style.footerRow}>
-                          <div>
+
+                      <div className={style.footerRow}>
+                        <div>
+                          {order.paymentOption !== CASH_PAYMENT ? (
                             <div>
                               <div className={style.footerRowDetails}>
                                 <p>
@@ -335,27 +337,27 @@ class OrderPending extends React.Component {
                                 </p>
                               </div>
                             </div>
-                            <div>
-                              <div className={style.footerRowDetails}>
-                                <p>
-                                  <span>NAME</span>
-                                  <span>{order.gcashPaymentDetails.name}</span>
-                                </p>
-                              </div>
+                          ) : null}
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>NAME</span>
+                                <span>{order.gcashPaymentDetails.name}</span>
+                              </p>
                             </div>
-                            <div>
-                              <div className={style.footerRowDetails}>
-                                <p>
-                                  <span>CONTACT NUMBER</span>
-                                  <span>
-                                    {order.gcashPaymentDetails.phoneNumber}
-                                  </span>
-                                </p>
-                              </div>
+                          </div>
+                          <div>
+                            <div className={style.footerRowDetails}>
+                              <p>
+                                <span>CONTACT NUMBER</span>
+                                <span>
+                                  {order.gcashPaymentDetails.phoneNumber}
+                                </span>
+                              </p>
                             </div>
                           </div>
                         </div>
-                      ) : null}
+                      </div>
                     </div>
                   </div>
                 </div>

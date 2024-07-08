@@ -23,13 +23,17 @@ import useFetchPaymentMethods from "../../hooks/useFetchPaymentMethods";
 import BeatLoader from "react-spinners/BeatLoader";
 import LoginModal from "../../components/Login/LoginModal";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import PrivacyNote from "../../components/PrivacyNotice/PrivacyNote";
 
 const PaymentOptions = () => {
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
   const classAnimate = useSelector((state) => state.order.classAnimate);
-  const [openModal, setOpenModal] = useState({ startOver: false });
+  const [openModal, setOpenModal] = useState({
+    startOver: false,
+    privacyNote: false,
+  });
   const placeOrderQuery = useCreateTransaction();
   const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
 
@@ -38,7 +42,7 @@ const PaymentOptions = () => {
       order.paymentOption === CASH_PAYMENT &&
       order.gcashPaymentDetails === null
     ) {
-      handleSaveCash();
+      openPrivacy();
     }
   }, [order.paymentOption, order.gcashPaymentDetails]);
 
@@ -53,14 +57,18 @@ const PaymentOptions = () => {
     }
   };
 
-  const handleSaveCash = async () => {
-    try {
-      const response = await (await placeOrderQuery).mutateAsync(order);
-      dispatch(setCreatedTransaction(response.data.transaction));
-      dispatch(setOrderStep(8));
-    } catch (error) {
-      alert("Cannot create transaction. Please try again.");
-    }
+  // const handleSaveCash = async () => {
+  //   try {
+  //     const response = await (await placeOrderQuery).mutateAsync(order);
+  //     dispatch(setCreatedTransaction(response.data.transaction));
+  //     dispatch(setOrderStep(8));
+  //   } catch (error) {
+  //     alert("Cannot create transaction. Please try again.");
+  //   }
+  // };
+
+  const openPrivacy = () => {
+    setOpenModal({ privacyNote: true });
   };
 
   const handleBackClick = () => {
@@ -128,6 +136,10 @@ const PaymentOptions = () => {
         onClose={() => setOpenModal({ startOver: false })}
       />
 
+      <PrivacyNote
+        open={openModal.privacyNote}
+        onClose={() => setOpenModal({ privacyNote: false })}
+      />
       <LoginModal />
     </div>
   );

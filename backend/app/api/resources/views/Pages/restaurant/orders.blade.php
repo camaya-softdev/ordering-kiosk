@@ -273,7 +273,7 @@
                         return `${months[date.getMonth()]} ${day}${daySuffix(day)}, at ${formattedHours}:${formattedMinutes} ${ampm}`;
                     }
 
-                    if (orderDetails.payment_method === 'GCash') {
+
                         const createdAt = new Date(orderDetails.created_at);
                         const formattedDate = formatDate(createdAt);
 
@@ -283,7 +283,7 @@
                         });
                         // Play the notification sound
                         playSound();
-                    }
+
 
 
 
