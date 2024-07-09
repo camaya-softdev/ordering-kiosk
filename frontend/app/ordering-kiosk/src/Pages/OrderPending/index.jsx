@@ -175,6 +175,7 @@ class OrderPending extends React.Component {
               <div className={style.logoText}>
                 <p>{orderMessage}</p>
               </div>
+              <br />
             </div>
             <div className={style.orderDetails}>
               <div
@@ -336,20 +337,14 @@ class OrderPending extends React.Component {
                                   </span>
                                 </p>
                               </div>
+                              <div className={style.footerRowDetails}>
+                                <p>
+                                  <span>NAME</span>
+                                  <span>{order.gcashPaymentDetails.name}</span>
+                                </p>
+                              </div>
                             </div>
                           ) : null}
-                          <div>
-                            <div className={style.footerRowDetails}>
-                              <p>
-                                <span>NAME</span>
-                                <span>
-                                  {order.paymentOption !== CASH_PAYMENT
-                                    ? order.gcashPaymentDetails.name
-                                    : order.cashPaymentDetails.name}
-                                </span>
-                              </p>
-                            </div>
-                          </div>
                           <div>
                             <div className={style.footerRowDetails}>
                               <p>

@@ -30,7 +30,7 @@ class CreateTransactionController extends Controller
                 ]);
             }else if($request->cashPaymentDetails){
                 $newCustomer = Customer::create([
-                    'name' => $request->cashPaymentDetails['name'],
+                    'name' => "Unknown",
                     'mobile_number' => $request->cashPaymentDetails['phoneNumber'],
                 ]);
             }
