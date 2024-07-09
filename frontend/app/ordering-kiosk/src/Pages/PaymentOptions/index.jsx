@@ -30,11 +30,8 @@ const PaymentOptions = () => {
   const order = useSelector((state) => state.order);
   const selectedDiningOption = useSelector((state) => state.order.diningOption);
   const classAnimate = useSelector((state) => state.order.classAnimate);
-  const [openModal, setOpenModal] = useState({
-    startOver: false,
-    privacyNote: false,
-  });
-  const placeOrderQuery = useCreateTransaction();
+  const [openStartOverModal, setOpenStartOverModal] = useState(false);
+  const [openPrivacyNote, setOpenPrivacyNote] = useState(false);
   const { paymentMethods, isPaymentMethodsLoading } = useFetchPaymentMethods();
 
   useEffect(() => {
@@ -42,7 +39,7 @@ const PaymentOptions = () => {
       order.paymentOption === CASH_PAYMENT &&
       order.gcashPaymentDetails === null
     ) {
-      openPrivacy();
+      setOpenPrivacyNote(true);
     }
   }, [order.paymentOption, order.gcashPaymentDetails]);
 
@@ -54,21 +51,8 @@ const PaymentOptions = () => {
     } else if (paymentMethod === CASH_PAYMENT) {
       dispatch(setPaymentOption(CASH_PAYMENT));
       dispatch(setGCashPaymentDetails(null));
+      setOpenPrivacyNote(true); // Ensure the privacy note opens when CASH_PAYMENT is selected
     }
-  };
-
-  // const handleSaveCash = async () => {
-  //   try {
-  //     const response = await (await placeOrderQuery).mutateAsync(order);
-  //     dispatch(setCreatedTransaction(response.data.transaction));
-  //     dispatch(setOrderStep(8));
-  //   } catch (error) {
-  //     alert("Cannot create transaction. Please try again.");
-  //   }
-  // };
-
-  const openPrivacy = () => {
-    setOpenModal({ privacyNote: true });
   };
 
   const handleBackClick = () => {
@@ -128,17 +112,17 @@ const PaymentOptions = () => {
         showDiningDetails={true}
         showLocationDetails={selectedDiningOption === PICK_UP ? false : true}
         backOnClick={handleBackClick}
-        startOverBtnOnClick={() => setOpenModal({ startOver: true })}
+        startOverBtnOnClick={() => setOpenStartOverModal(true)}
       />
 
       <StartOverConfirmation
-        open={openModal.startOver}
-        onClose={() => setOpenModal({ startOver: false })}
+        open={openStartOverModal}
+        onClose={() => setOpenStartOverModal(false)}
       />
 
       <PrivacyNote
-        open={openModal.privacyNote}
-        onClose={() => setOpenModal({ privacyNote: false })}
+        open={openPrivacyNote}
+        onClose={() => setOpenPrivacyNote(false)}
       />
       <LoginModal />
     </div>
