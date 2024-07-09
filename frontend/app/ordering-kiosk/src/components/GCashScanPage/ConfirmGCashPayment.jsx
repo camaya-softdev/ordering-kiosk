@@ -42,7 +42,7 @@ function ConfirmPayment({ open, onClose }) {
 
   const handleSave = async () => {
     try {
-      const response = await placeOrderQuery.mutateAsync(order);
+      const response = await (await placeOrderQuery).mutateAsync(order);
       console.log(order);
       dispatch(setCreatedTransaction(response.data.transaction));
       order.paymentOption === GCASH_PAYMENT &&
