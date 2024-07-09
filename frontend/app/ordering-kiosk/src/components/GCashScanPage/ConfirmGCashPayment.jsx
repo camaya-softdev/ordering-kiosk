@@ -42,7 +42,7 @@ function ConfirmPayment({ open, onClose }) {
 
   const handleSave = async () => {
     try {
-      const response = await (await placeOrderQuery).mutateAsync(order);
+      const response = await placeOrderQuery.mutateAsync(order);
       console.log(order);
       dispatch(setCreatedTransaction(response.data.transaction));
       order.paymentOption === GCASH_PAYMENT &&
@@ -100,34 +100,36 @@ function ConfirmPayment({ open, onClose }) {
     <BottomModal open={open} onClose={onClose}>
       <div className={styles.modalFields}>
         {order.paymentOption === GCASH_PAYMENT && (
-          <CustomInputField
-            label="Enter reference number"
-            placeholder="e.g 0123456789"
-            value={paymentDetails.referenceNumber}
-            onChange={(e) => {
-              setPaymentDetails({
-                ...paymentDetails,
-                referenceNumber: e.target.value,
-              });
-              validateReferenceNumber(e.target.value);
-            }}
-            error={fieldErrors.referenceNumber}
-          />
-        )}
+          <>
+            <CustomInputField
+              label="Enter reference number"
+              placeholder="e.g 0123456789"
+              value={paymentDetails.referenceNumber}
+              onChange={(e) => {
+                setPaymentDetails({
+                  ...paymentDetails,
+                  referenceNumber: e.target.value,
+                });
+                validateReferenceNumber(e.target.value);
+              }}
+              error={fieldErrors.referenceNumber}
+            />
 
-        <CustomInputField
-          label="Enter your name"
-          placeholder="John Doe"
-          value={paymentDetails.name}
-          onChange={(e) => {
-            setPaymentDetails({
-              ...paymentDetails,
-              name: e.target.value,
-            });
-            validateName(e.target.value);
-          }}
-          error={fieldErrors.name}
-        />
+            <CustomInputField
+              label="Enter your name"
+              placeholder="John Doe"
+              value={paymentDetails.name}
+              onChange={(e) => {
+                setPaymentDetails({
+                  ...paymentDetails,
+                  name: e.target.value,
+                });
+                validateName(e.target.value);
+              }}
+              error={fieldErrors.name}
+            />
+          </>
+        )}
 
         <CustomInputField
           label="Enter your phone number"
@@ -155,13 +157,12 @@ function ConfirmPayment({ open, onClose }) {
           loading={placeOrderQuery.isLoading}
           disabled={
             fieldErrors.phoneNumber !== null ||
-            fieldErrors.name !== null ||
             (order.paymentOption === GCASH_PAYMENT &&
-              fieldErrors.referenceNumber !== null) ||
-            !paymentDetails.name ||
+              (fieldErrors.name !== null ||
+                fieldErrors.referenceNumber !== null)) ||
             !paymentDetails.phoneNumber ||
             (order.paymentOption === GCASH_PAYMENT &&
-              !paymentDetails.referenceNumber) ||
+              (!paymentDetails.name || !paymentDetails.referenceNumber)) ||
             placeOrderQuery.isLoading
           }
         >
