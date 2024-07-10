@@ -125,7 +125,7 @@
 
 {{-- Order Details Modal Template --}}
 <div class="modal fade order-details-modal-template" id="orderDetailsModalTemplate" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
@@ -296,7 +296,7 @@
                                 ? `
                                 <span class="csm-ribbon"></span>
                                 <span class="order-timer" id="timer-${orderDetails.id}" data-created-at="${orderDetails.created_at}"></span>`
-                                : orderDetails.created_at}
+                                : formattedDate}
                         </td>
                         <td style="font-weight: bold;">
                             #${orderDetails.id}
@@ -363,7 +363,8 @@ function createOrderDetailsModal(orderDetails) {
 
         // Generate the table for order details
         modalContent += '<table class="table">';
-        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
+        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Outlet</th><th>Product</th><th>Price</th><th>Total</th></tr></thead>';
+        // modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
         modalContent += '<tbody>';
 
         // Loop through each order and display its details
@@ -371,6 +372,7 @@ function createOrderDetailsModal(orderDetails) {
             modalContent += '<tr>';
             modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
             modalContent += '<td>' + order.quantity + '</td>';
+            modalContent += '<td>' + order.outlet.name + '</td>';
             modalContent += '<td>' + order.product.name + '</td>';
             modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
             modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';
@@ -392,7 +394,8 @@ function createOrderDetailsModal(orderDetails) {
 
         // Generate the table for order details
         modalContent += '<table class="table">';
-        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
+        modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Outlet</th><th>Product</th><th>Price</th><th>Total</th></tr></thead>';
+        //  modalContent += '<thead><tr><th>Image</th><th>Quantity</th><th>Product</th><th>Price</th><th>Total</th></thead>';
         modalContent += '<tbody>';
 
         // Loop through each order and display its details
@@ -400,6 +403,7 @@ function createOrderDetailsModal(orderDetails) {
             modalContent += '<tr>';
             modalContent += '<td><img src="' + order.product.image + '" alt="' + order.product.name + '" style="max-width: 100px;"></td>';
             modalContent += '<td>' + order.quantity + '</td>';
+            modalContent += '<td>' + order.outlet.name + '</td>';
             modalContent += '<td>' + order.product.name + '</td>';
             modalContent += '<td>₱' + parseFloat(order.product.price).toFixed(2) + '</td>';
             modalContent += '<td>₱' + parseFloat(order.product.price * order.quantity).toFixed(2) + '</td>';

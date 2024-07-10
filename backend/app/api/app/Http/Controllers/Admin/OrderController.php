@@ -28,7 +28,7 @@ class OrderController extends Controller
                 return $query->where('orders.outlet_id', '=', $outlet_id);
             })
             ->where('transactions.id','=',$latestOrderId)
-            ->with('customer')
+            ->with('customer','orders.outlet')
             ->with(['orders.product' => function ($query) {
                 $query->withTrashed(); // Include soft-deleted products
             }])
