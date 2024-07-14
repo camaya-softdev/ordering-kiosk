@@ -8,7 +8,7 @@ import {
 import style from "./StartPage.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import LoginModal from "../../components/Login/LoginModal";
-import vid1 from "../../assets/Slideshow/kioskv2.webp";
+import vid1 from "../../assets/Slideshow/kioskv2.mp4";
 import vid2 from "../../assets/Slideshow/rainyseasonv1.mp4";
 import Slideshow from "../../components/Common/Slideshow";
 import useFetchOutlets from "../../hooks/useFetchOutlets";
