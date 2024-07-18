@@ -4,7 +4,7 @@ import "./index.css";
 import MainLayout from "./layout/MainLayout";
 import { checkCookieValidity } from "./utils/Common/CheckCookieValidity";
 import { useDispatch } from "react-redux";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function App() {
     };
 
     const handleUnload = () => {
-      Cookies.remove('user');
+      // Cookies.remove('user');
     };
 
     document.addEventListener("contextmenu", disableContextMenu);
