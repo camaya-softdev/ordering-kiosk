@@ -35,7 +35,7 @@ function ProductList(){
                     .sort(([a], [b]) => {
                         if (a === "Newly Added") return -1;
                         if (b === "Newly Added") return 1;
-                        return a.localeCompare(b);
+                        return 0;
                     })
                     .map(([category, products], index) => (
                         <div  
