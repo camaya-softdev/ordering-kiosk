@@ -1,10 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep, setClassAnimate, setOrderStep, setSelectedOutlet } from "../../store/order/orderSlice";
+import {
+  nextStep,
+  setClassAnimate,
+  setOrderStep,
+  setSelectedOutlet,
+} from "../../store/order/orderSlice";
 import style from "./StartPage.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import LoginModal from "../../components/Login/LoginModal";
-import pic1 from "../../assets/Slideshow/pic1.webp";
-import vid1 from "../../assets/Slideshow/vid1.mp4";
+import pic1 from "../../assets/Slideshow/videobanner.webp";
+import vid1 from "../../assets/Slideshow/videobanner1.mp4";
 import Slideshow from "../../components/Common/Slideshow";
 import useFetchOutlets from "../../hooks/useFetchOutlets";
 import { useEffect } from "react";
@@ -12,14 +17,13 @@ import { useEffect } from "react";
 function StartPage() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.auth);
-  const {outlets, setOuletFilter} = useFetchOutlets();
-  
+  const { outlets, setOuletFilter } = useFetchOutlets();
+
   useEffect(() => {
-    if(outlets?.data.length === 1){
-      try{
+    if (outlets?.data.length === 1) {
+      try {
         dispatch(setSelectedOutlet(outlets.data[0]));
-      }
-      finally{
+      } finally {
         dispatch(setOrderStep(2));
         dispatch(setClassAnimate("backwardAnimation"));
       }
@@ -29,8 +33,7 @@ function StartPage() {
   const goToNextStep = () => {
     if (user.outlet_id !== null) {
       setOuletFilter((prev) => ({ ...prev, id: user.outlet_id }));
-    }
-    else{
+    } else {
       dispatch(nextStep());
       dispatch(setClassAnimate("backwardAnimation"));
     }
