@@ -8,7 +8,7 @@ import {
 import style from "./StartPage.module.css";
 import FooterLayout from "../../layout/FooterLayout";
 import LoginModal from "../../components/Login/LoginModal";
-import pic1 from "../../assets/Slideshow/videobanner.webp";
+import vid2 from "../../assets/Slideshow/videobanner.mp4";
 import vid1 from "../../assets/Slideshow/videobanner1.mp4";
 import Slideshow from "../../components/Common/Slideshow";
 import useFetchOutlets from "../../hooks/useFetchOutlets";
@@ -44,7 +44,7 @@ function StartPage() {
   return (
     <div className={`${style[classAnimate]}`}>
       <div className={style.imageWrapper}>
-        <Slideshow items={[pic1, vid1]} />
+        <Slideshow items={[vid2, vid1]} />
       </div>
       <FooterLayout className={style.footer}>
         <div className={style.startButton} onClick={goToNextStep}>
