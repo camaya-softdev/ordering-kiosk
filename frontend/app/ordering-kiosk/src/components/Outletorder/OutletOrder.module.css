@@ -396,6 +396,7 @@
 }
 
 .viewOrderDetails {
+    width: 100%;
     display: flex;
     padding: 0px 40px 0 40px;
     padding-top: 60px;
@@ -406,8 +407,15 @@
     align-self: stretch;
     border-radius: 16px;
     background: #FFF;
-    max-height: 1470px;
-    overflow: auto;
+}
+
+.orderWrapperDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 72%;
 }
 
 .viewOrderItem {

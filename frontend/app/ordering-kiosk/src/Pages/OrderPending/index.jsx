@@ -16,7 +16,7 @@ class OrderPending extends React.Component {
   printRef = React.createRef();
   receiptComponentsRef = React.createRef();
   state = {
-    countdown: 30,
+    countdown: 10000,
     showScrollDivs: false,
   };
 
@@ -260,7 +260,18 @@ class OrderPending extends React.Component {
                         </div>
                       )
                     )}
-
+                    <div className={style.summaryRow}>
+                      <div className="flex items-start justify-between">
+                        <span className="uppercase w-[50%]">
+                          Special instructions
+                        </span>
+                        <span className="w-[50%]">
+                          {order.specialInstructions != null
+                            ? order.specialInstructions.toUpperCase()
+                            : "-"}
+                        </span>
+                      </div>
+                    </div>
                     <hr className={style.line} />
                     <div className={style.ordersFooter}>
                       <div className={style.footerRow}>
