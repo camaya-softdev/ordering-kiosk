@@ -44,6 +44,7 @@ function ConfirmPayment({ open, onClose }) {
     try {
       const response = await (await placeOrderQuery).mutateAsync(order);
       console.log(order);
+      console.log("this is the order");
       dispatch(setCreatedTransaction(response.data.transaction));
       order.paymentOption === GCASH_PAYMENT &&
       order.gcashPaymentDetails !== null

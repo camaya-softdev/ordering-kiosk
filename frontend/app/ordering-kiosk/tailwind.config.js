@@ -8,6 +8,9 @@ export default {
     extend: {
       height: {
         '90vh': '90vh',
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
       }
     },
   },
